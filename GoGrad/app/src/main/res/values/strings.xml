@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GoGrad</string>
+    <string name="title_activity_program_selection">Programs</string>
+    <string name="title_activity_option_selection">Options</string>
+</resources>

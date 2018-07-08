@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="searchChecklist" type="id">1</item>
+    <item name="mainPage" type="id">11</item>
+    <item name="logo" type="id">2</item>
+    <item name="claim" type="id">3</item>
+</resources>

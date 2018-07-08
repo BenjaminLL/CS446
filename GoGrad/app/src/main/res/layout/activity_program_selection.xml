@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ProgramSelectionActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolBar"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <TextView
+        android:id="@+id/BCS"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffdd03"
+        android:gravity="center_vertical"
+        android:lineSpacingMultiplier="0.5"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="BACHELOR OF COMPUTER SCIENCE (BCS)"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16.12sp"
+        android:onClick="selectOptions" />
+
+    <TextView
+        android:id="@+id/DS"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="1dp"
+        android:background="#ffdd03"
+        android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="BCS (DATA SCIENCE)"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16.12sp"
+        android:onClick="selectOptions" />
+
+    <TextView
+        android:id="@+id/BMCS"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="1dp"
+        android:background="#ffdd03"
+        android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="BMATH COMPUTER SCIENCE (BMATH CS)"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16.12sp"
+        android:onClick="selectOptions" />
+
+    <TextView
+        android:id="@+id/DD"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="1dp"
+        android:background="#ffdd03"
+        android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="DOUBLE DEGREE (BCS/BBA)"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16.12sp"
+        android:onClick="selectOptions" />
+
+
+</LinearLayout>
