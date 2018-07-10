@@ -9,13 +9,18 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class DatabaseAssetHelper extends SQLiteAssetHelper {
     public static final String TABLE_NAME = "CourseDescription";
-    public static final String COL_1 = "_ID";
-    public static final String COL_2 = "Description";
-    public static final String COL_3 = "Prequist";
-    public static final String COL_4 = "Postquist";
-    public static final String COL_5 = "Corequist";
-    public static final String COL_6 = "TermOffered";
-    public static final String COL_7 = "NonCS";
+    public static final String COL_1 = "_ID";           //TEXT
+    public static final String COL_2 = "CourseName";    //TEXT NOT NULL
+    public static final String COL_3 = "Title";         //TEXT
+    public static final String COL_4 = "Description";   //TEXT NOT NULL
+    public static final String COL_5 = "Prereqs";       //TEXT
+    public static final String COL_6 = "Successor";     //TEXT
+    public static final String COL_7 = "Coreqs";        //TEXT
+    public static final String COL_8 = "OpenNonCS";     //Integer(0/1)
+    public static final String COL_9 = "FALL";          //Integer(0/1/null)
+    public static final String COL_10 = "WINTER";       //Integer(0/1/null)
+    public static final String COL_11 = "SPRING";       //Integer(0/1/null)
+
     private static final String DATABASE_NAME = "GoGrad.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -38,7 +43,7 @@ public class DatabaseAssetHelper extends SQLiteAssetHelper {
         long result = db.insert(TABLE_NAME, null, contentValues);
         return result != -1;
     }
-
+    //TODO:: do not use this function
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);

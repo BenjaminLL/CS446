@@ -94,7 +94,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         cursor.close();
         return itemIds;
     }
-
+    //TODO::
     public boolean updateData(String id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -110,11 +110,11 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         return count != -1;
     }
 
-    public int deleteData(String id) {
+    //Delete by _id
+    public int deleteChecklist(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String selection = COL_3 + " LIKE ?";
-        String[] selectionArgs = {"MyTitle"};
-        int deletedRows = db.delete(COL_3, selection, selectionArgs);
+        String selection = COL_3 + "=?";
+        int deletedRows = db.delete(COL_3, selection, new String[]{Integer.toString(id)});
         return deletedRows;
     }
 
@@ -135,8 +135,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(DELETE_TABLE);
     }
-
-
     /*
     public boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
