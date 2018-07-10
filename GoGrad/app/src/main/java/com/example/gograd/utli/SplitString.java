@@ -1,25 +1,26 @@
 package com.example.gograd.utli;
 
+import android.util.Pair;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class SplitString {
 
-    private ArrayList<String> course;
-    private Map<String, ArrayList<String>> addition;
+    private List<String> course;
+    private List<Pair<String, ArrayList<String>>> addition;
 
     public SplitString() {
         course = new ArrayList<>();
-        addition = new HashMap<>();
+        addition = new ArrayList<>();
     }
 
-    public ArrayList<String> getCourse() {
+    public List<String> getCourse() {
         return course;
     }
 
-    public Map<String, ArrayList<String>> getAddition() {
+    public List<Pair<String, ArrayList<String>>> getAddition() {
         return addition;
     }
 
@@ -38,7 +39,7 @@ public class SplitString {
 
         String temp = "";
 
-        ArrayList<String> temparrlist = new ArrayList<>();
+        ArrayList<String> tempList = new ArrayList<>();
 
         for (String line : lines) {
 
@@ -49,32 +50,28 @@ public class SplitString {
             if (layer == 1) {
 
                 if (line.substring(0, 1).equals("!") && !line.substring(1, 2).equals("!")) {
-                    temparrlist.add(line.substring(1));
-                    addition.put("bottom", temparrlist);
-                    continue;
-                }
-                else {
+                    tempList.add(line.substring(1));
+                    Pair<String, ArrayList<String>> tempPair = new Pair<>("bottom", tempList);
+                    addition.add(tempPair);
+                } else {
                     layer = 2;
                     temp = line.substring(2);
-                    continue;
                 }
 
-            }
-            else {
+            } else {
                 if (line.substring(0, 1).equals("!") && !line.substring(1, 2).equals("!")) {
-                    temparrlist.add(line.substring(1));
+                    tempList.add(line.substring(1));
                     layer = 1;
                     ArrayList<String> newArray = new ArrayList<>();
-                    for(int i = 0; i < temparrlist.size(); i++) {
-                        newArray.add(i, temparrlist.get(i));
+                    for (int i = 0; i < tempList.size(); i++) {
+                        newArray.add(i, tempList.get(i));
                     }
-                    addition.put(temp, newArray);
-                    temparrlist.clear();
+                    Pair<String, ArrayList<String>> tempPair = new Pair<>(temp, newArray);
+                    addition.add(tempPair);
+                    tempList.clear();
                     temp = "";
-                }
-                else {
-                    temparrlist.add(line.substring(2));
-                    continue;
+                } else {
+                    tempList.add(line.substring(2));
                 }
             }
         }

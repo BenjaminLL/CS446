@@ -38,7 +38,8 @@
         </activity>
 
         <!-- Option Selection Page -->
-        <activity android:name=".OptionSelectionActivity"
+        <activity
+            android:name=".OptionSelectionActivity"
             android:label="@string/title_activity_option_selection"
             android:parentActivityName=".ProgramSelectionActivity">
 
@@ -48,6 +49,15 @@
                 android:value=".ProgramSelectionActivity" />
         </activity>
 
+        <!-- Search Result Page -->
+        <activity android:name=".SearchResultActivity"
+            android:parentActivityName=".OptionSelectionActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OptionSelectionActivity" />
+        </activity>
 
         <!-- unused pages -->
         <activity android:name=".MainActivity" />

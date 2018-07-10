@@ -50,6 +50,7 @@ public class ProgramDialog extends AppCompatDialogFragment {
 
         picker.setMinValue(0);
         picker.setMaxValue(values.length - 2);
+        picker.setWrapSelectorWheel(false);
         picker.setDisplayedValues(values);
 
         return builder.create();
