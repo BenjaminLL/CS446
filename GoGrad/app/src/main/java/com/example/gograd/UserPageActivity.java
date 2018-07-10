@@ -43,7 +43,7 @@ public class UserPageActivity extends AppCompatActivity {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
 //        databaseHelper.deleteDatabase();
-        databaseHelper.TestDefaultChecklist();
+//        databaseHelper.TestDefaultChecklist();
 
         names = databaseHelper.getList();
         ids = databaseHelper.getID();
