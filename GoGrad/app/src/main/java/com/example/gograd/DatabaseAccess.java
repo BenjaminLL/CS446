@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseAccess {
     //Tables
     public static final String Course_TABLE = "CourseDescription";
-    public static final String Checlist_TABLE = "CheckList";
+    public static final String Checklist_TABLE = "CheckList";
     //CourseDescription Columns
     public static final String COL_1 = "_ID";           //TEXT
     public static final String COL_2 = "CourseName";    //TEXT NOT NULL
@@ -118,7 +118,7 @@ public class DatabaseAccess {
     public String getCoreqs(String name){
         String description = "";
         String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Checlist_TABLE+" where "+COL_2+" = ?",
+        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
                 params);
         while(c.moveToNext()){
             description = c.getString(c.getColumnIndexOrThrow(COL_7));
@@ -143,7 +143,7 @@ public class DatabaseAccess {
     public String getCSUnits(String name){
         String temp = "";
         String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
+        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
                 params);
         while(c.moveToNext()){
             temp = c.getString(c.getColumnIndexOrThrow(COL_C4));
@@ -155,7 +155,7 @@ public class DatabaseAccess {
     public String getConstraints(String name){
         String temp = "";
         String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
+        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
                 params);
         while(c.moveToNext()){
             temp = c.getString(c.getColumnIndexOrThrow(COL_C3));
@@ -167,7 +167,7 @@ public class DatabaseAccess {
     public String getElective(String name){
         String temp = "";
         String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
+        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
                 params);
         while(c.moveToNext()){
             temp = c.getString(c.getColumnIndexOrThrow(COL_C5));
@@ -179,7 +179,7 @@ public class DatabaseAccess {
     public String getNonMath(String name){
         String temp = "";
         String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
+        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
                 params);
         while(c.moveToNext()){
             temp = c.getString(c.getColumnIndexOrThrow(COL_C6));
@@ -191,7 +191,7 @@ public class DatabaseAccess {
     public String getMath(String name){
         String temp = "";
         String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
+        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
                 params);
         while(c.moveToNext()){
             temp = c.getString(c.getColumnIndexOrThrow(COL_C7));
@@ -200,13 +200,49 @@ public class DatabaseAccess {
         return temp;
     }
 
-    public String getTotalCS(String name){
-        String temp = "";
+    public double getTotalCS(String name){
+        double temp = 0.0;
         String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
+        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
                 params);
         while(c.moveToNext()){
-            temp = c.getString(c.getColumnIndexOrThrow(COL_C8));
+            temp = c.getDouble(c.getColumnIndexOrThrow(COL_C8));
+        }
+        c.close();
+        return temp;
+    }
+
+    public double getTotalElective(String name){
+        double temp = 0.0;
+        String[] params = new String[]{name};
+        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
+                params);
+        while(c.moveToNext()){
+            temp = c.getDouble(c.getColumnIndexOrThrow(COL_C9));
+        }
+        c.close();
+        return temp;
+    }
+
+    public double getTotalMath(String name){
+        double temp = 0.0;
+        String[] params = new String[]{name};
+        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
+                params);
+        while(c.moveToNext()){
+            temp = c.getDouble(c.getColumnIndexOrThrow(COL_C10));
+        }
+        c.close();
+        return temp;
+    }
+
+    public double getTotalNonMath(String name){
+        double temp = 0.0;
+        String[] params = new String[]{name};
+        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
+                params);
+        while(c.moveToNext()){
+            temp = c.getDouble(c.getColumnIndexOrThrow(COL_C11));
         }
         c.close();
         return temp;
