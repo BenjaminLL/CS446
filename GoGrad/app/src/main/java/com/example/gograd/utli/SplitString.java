@@ -63,8 +63,13 @@ public class SplitString {
 
     private void splitCourses(String key, String value) {
 
-        String[] lines = value.split("\\r?\\n");
         ArrayList<String> tempArr = new ArrayList<>();
+        if (value == null) {
+            Pair<String, ArrayList<String>> tempPair = new Pair<>(key, tempArr);
+            course.add(tempPair);
+            return;
+        }
+        String[] lines = value.split("\\r?\\n");
         Collections.addAll(tempArr, lines);
         Pair<String, ArrayList<String>> tempPair = new Pair<>(key, tempArr);
         course.add(tempPair);
