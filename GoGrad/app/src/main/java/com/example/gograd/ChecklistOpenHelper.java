@@ -70,29 +70,32 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
                 COL_C2 + TEXT_TYPE + COMMA_SEP +
                 COL_C3 + INT_TYPE + ")";
         db.execSQL(CREATE_TABLE_NEW_LIST);
-        //TODO::
         for(int i=0; i<course.size(); i++){
             ContentValues contentValues = new ContentValues();
             contentValues.put(COL_2, course.get(i));
             contentValues.put(COL_3, 0);
             db.insert(id, null, contentValues);
         }
-        //TODO::
         for(int j=0; j<add.size(); j++){
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(COL_2, course.get(j));
-            contentValues.put(COL_3, 0);
-            db.insert(id, null, contentValues);
+            Pair<String, ArrayList<String>> tempPair = add.get(j);
+            ArrayList<String> temp = tempPair.second;
+            for(int k=0; k<temp.size();k++){
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(COL_2, temp.get(k));
+                contentValues.put(COL_3, 0);
+                db.insert(id, null, contentValues);
+            }
         }
         db.close();
     }
 
-    public void updateUserTable_Status(String id, String requires, int status){
+    public boolean updateUserTable_Status(String id, String requires, int status){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_C3, status);
         String[] args = new String[]{requires};
-        db.update(id, contentValues, COL_C2+" =?", args);
+        int i = db.update(id, contentValues, COL_C2+" =?", args);
+        return i!= -1;
     }
 
     //eg: insertChecklist("07/08BCS","CustomizedName")
