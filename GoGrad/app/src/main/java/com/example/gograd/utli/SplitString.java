@@ -28,27 +28,25 @@ public class SplitString {
 
     //call get units four times
     public List<Pair<String, ArrayList<String>>> getCourse() {
-        String key;
-        String value;
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
 
-        key = "CS Units";
-        value = databaseAccess.getCSUnits(whichPlan);
-        splitCourses(key, value);
+        String key1 = "CS Units";
+        String value1 = databaseAccess.getCSUnits(whichPlan);
+        splitCourses(key1, value1);
 
-        key = "Math Units";
-        value = databaseAccess.getMath(whichPlan);
-        splitCourses(key, value);
+        String key2 = "Math Units";
+        String value2 = databaseAccess.getMath(whichPlan);
+        splitCourses(key2, value2);
 
-        key = "Elective Units";
-        value = databaseAccess.getElective(whichPlan);
-        splitCourses(key, value);
+        String key3 = "Elective Units";
+        String value3 = databaseAccess.getElective(whichPlan);
+        splitCourses(key3, value3);
 
-        key = "Non-Math Units";
-        value = databaseAccess.getNonMath(whichPlan);
-        splitCourses(key, value);
+        String key4 = "Non-Math Units";
+        String value4 = databaseAccess.getNonMath(whichPlan);
+        splitCourses(key4, value4);
 
         databaseAccess.close();
         return course;
