@@ -55,7 +55,7 @@ public class DatabaseAccess {
 
     //To open database
     public void open(){
-        this.db = openHelper.getWritableDatabase();
+        this.db = openHelper.getReadableDatabase();
     }
 
     //Close the database connection
