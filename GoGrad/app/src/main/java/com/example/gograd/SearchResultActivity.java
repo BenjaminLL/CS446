@@ -54,8 +54,8 @@ public class SearchResultActivity extends AppCompatActivity {
         fullProgramName = intent.getStringExtra(OptionSelectionActivity.PROGRAM);
         System.out.println("Program: " + fullProgramName);
 
-//        translator = new SplitString(fullProgramName, this);
-//        List<Pair<String, ArrayList<String>>> hope = translator.getCourse();
+        translator = new SplitString(fullProgramName, this);
+        requiredCourses = translator.getCourse();
 //        for (int i = 0; i < hope.size(); ++i) {
 //            String key = hope.get(i).first;
 //            ArrayList<String> value = hope.get(i).second;
@@ -93,62 +93,6 @@ public class SearchResultActivity extends AppCompatActivity {
         ConstraintLayout rootView = findViewById(R.id.userPage);
         LinearLayout linearLayout = findViewById(R.id.results);
 
-        /**
-         * fake data
-         */
-        requiredCourses = new ArrayList<>();
-        ArrayList<String> tmp = new ArrayList<>();
-        tmp.add("CS 1[134]5");
-        tmp.add("CS 1[34]6");
-        tmp.add("CS 240");
-        tmp.add("CS 241");
-        tmp.add("CS 245");
-        tmp.add("CS 246");
-        tmp.add("CS 251");
-        tmp.add("CS 341");
-        tmp.add("CS 350");
-        tmp.add("CS 340-398; 440-489");
-        tmp.add("CS 340-398; 440-489");
-        tmp.add("CS 482");
-        tmp.add("CS 440-489");
-        tmp.add("CS 440-498 or CS 499T or CS 6XX or CS 7XX or CO 487 or STAT 440");
-
-        ArrayList<String> tmpMath = new ArrayList<>();
-        tmpMath.add("Math 1[34]5");
-        tmpMath.add("Math 1[34]6");
-        tmpMath.add("Math 1[234]7");
-        tmpMath.add("Math 1[234]8");
-        tmpMath.add("Math 2[34]9");
-        tmpMath.add("Stat 2[34]0");
-        tmpMath.add("Stat 2[34]1");
-
-        ArrayList<String> tmpNonMath = new ArrayList<>();
-        tmpNonMath.add("GENE 123 or MTE 120");
-        tmpNonMath.add("ECE 124");
-        tmpNonMath.add("ECE 224 or MTE 325");
-        tmpNonMath.add("ECE 327");
-        tmpNonMath.add("ECE 423");
-        tmpNonMath.add("(Rec: ECE 455)");
-        tmpNonMath.add("(Rec: PHYS 121)");
-        tmpNonMath.add("Communication list I");
-        tmpNonMath.add("Communication list II");
-//        tmpNonMath.add("BIOL 130");
-//        tmpNonMath.add("BIOL 130L");
-//        tmpNonMath.add("BIOL 239");
-//        tmpNonMath.add("BIOL 240");
-//        tmpNonMath.add("BIOL 240L");
-//        tmpNonMath.add("BIOL 309");
-//        tmpNonMath.add("BIOL 365");
-//        tmpNonMath.add("BIOL 465");
-//        tmpNonMath.add("CHEM 120");
-//        tmpNonMath.add("CHEM 120");
-//        tmpNonMath.add("CHEM 120");
-//        tmpNonMath.add("CHEM 120");
-
-        requiredCourses.add(new Pair<>("CS Units", tmp));
-        requiredCourses.add(new Pair<>("Math Units", tmpMath));
-        requiredCourses.add(new Pair<>("Elective Units", new ArrayList<String>()));
-        requiredCourses.add(new Pair<>("Non-Math Units", tmpNonMath));
 
 
         /**

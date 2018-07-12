@@ -51,15 +51,6 @@ public class UserPageActivity extends AppCompatActivity {
         numChecklist = names.size();
 
 
-        /**
-         * TEST
-         */
-//        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-//        databaseAccess.open();
-//        String value = databaseAccess.getCSUnits("17/18BCS");
-//        System.out.println("value: " + value);
-//        databaseAccess.close();
-
         ConstraintLayout rootView = findViewById(R.id.userPage);
 
         // if the user has no checklist in local

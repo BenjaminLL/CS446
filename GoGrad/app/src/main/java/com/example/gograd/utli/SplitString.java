@@ -13,6 +13,7 @@ public class SplitString {
 
     private List<Pair<String, ArrayList<String>>> course;
     private List<Pair<String, ArrayList<String>>> addition;
+    private List<Double> courseUnits;
     //database
     private String whichPlan;
     private DatabaseAccess databaseAccess;
@@ -22,17 +23,33 @@ public class SplitString {
 
         course = new ArrayList<>();
         addition = new ArrayList<>();
+        courseUnits = new ArrayList<>();
         this.whichPlan = whichPlan;
         this.context = context;
     }
 
     //call get units four times
     public List<Pair<String, ArrayList<String>>> getCourse() {
+
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
-        String key = "7.5 CS Units";
-        String value = databaseAccess.getCSUnits(whichPlan);
-        splitCourses(key, value);
+
+        String key1 = "CS Units";
+        String value1 = databaseAccess.getCSUnits(whichPlan);
+        splitCourses(key1, value1);
+
+        String key2 = "Math Units";
+        String value2 = databaseAccess.getMath(whichPlan);
+        splitCourses(key2, value2);
+
+        String key3 = "Elective Units";
+        String value3 = databaseAccess.getElective(whichPlan);
+        splitCourses(key3, value3);
+
+        String key4 = "Non-Math Units";
+        String value4 = databaseAccess.getNonMath(whichPlan);
+        splitCourses(key4, value4);
+
         databaseAccess.close();
         return course;
     }
@@ -46,10 +63,36 @@ public class SplitString {
         return addition;
     }
 
+    // call units
+    public List<Double> getCourseUnits() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+
+        Double unit1 = databaseAccess.getTotalCS(whichPlan);
+        courseUnits.add(unit1);
+
+        Double unit2 = databaseAccess.getTotalMath(whichPlan);
+        courseUnits.add(unit2);
+
+        Double unit3 = databaseAccess.getTotalElective(whichPlan);
+        courseUnits.add(unit3);
+
+        Double unit4 = databaseAccess.getTotalNonMath(whichPlan);
+        courseUnits.add(unit4);
+
+        databaseAccess.close();
+        return courseUnits;
+    }
+
     private void splitCourses(String key, String value) {
 
-        String[] lines = value.split("\\r?\\n");
         ArrayList<String> tempArr = new ArrayList<>();
+        if (value == null) {
+            Pair<String, ArrayList<String>> tempPair = new Pair<>(key, tempArr);
+            course.add(tempPair);
+            return;
+        }
+        String[] lines = value.split("\\r?\\n");
         Collections.addAll(tempArr, lines);
         Pair<String, ArrayList<String>> tempPair = new Pair<>(key, tempArr);
         course.add(tempPair);
