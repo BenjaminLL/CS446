@@ -42,6 +42,7 @@ public class SplitString {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
         splitConstraints(databaseAccess.getConstraints(whichPlan));
+        databaseAccess.close();
         return addition;
     }
 
