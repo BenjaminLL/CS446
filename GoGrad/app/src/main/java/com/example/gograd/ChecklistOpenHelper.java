@@ -59,10 +59,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
-    /*
-    private List<String> course;
-    private List<Pair<String, ArrayList<String>>> addition;
-    */
+
     public void createUserTable(String id,List<String> course, List<Pair<String, ArrayList<String>>> add) {
         final SQLiteDatabase db = getWritableDatabase();
         String CREATE_TABLE_NEW_LIST = "CREATE TABLE " + id + " (" +
@@ -98,12 +95,21 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         return i!= -1;
     }
 
+    public boolean insertUserTable_Course(String id, String requires){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_C2,requires);
+        contentValues.put(COL_C3, 0);
+        long result = db.insert(id, null, contentValues);
+        return result!= -1;
+    }
+
     //eg: insertChecklist("07/08BCS","CustomizedName")
-    public boolean insertChecklist(String id, String name) {
+    public boolean insertChecklist(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, id);
-        contentValues.put(COL_3, name);
+        contentValues.put(COL_3, id);
         long result = db.insert(TABLE_NAME, null, contentValues);
         return result != -1;
     }
@@ -134,36 +140,30 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         cursor.close();
         return itemIds;
     }
-    //TODO::
-    public boolean updateData(String id, String name) {
+
+    //Delete by _id
+    public void deleteCheckRecord(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2, id);
-        contentValues.put(COL_3, name);
-        String selection = COL_3 + " LIKE ?";
-        String[] selectionArgs = {"MyOldTitle"};
-        int count = db.update(
-                COL_3,
-                contentValues,
-                selection,
-                selectionArgs);
-        return count != -1;
+        String DELETE = "DELETE FROM " + id;
+        db.execSQL(DELETE);
     }
 
     //Delete by _id
-    public int deleteChecklist(int id) {
+    public int deleteChecklist(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = COL_3 + "=?";
-        int deletedRows = db.delete(COL_3, selection, new String[]{Integer.toString(id)});
+        int deletedRows = db.delete(TABLE_NAME, selection, new String[]{id});
         return deletedRows;
     }
+
+
 
     //TEST usage: add default usr check list
     public void TestDefaultChecklist(){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, "17/18BCS");
-        contentValues.put(COL_3, "My 17/18BCS");
+        contentValues.put(COL_3, "17/18BCS");
         db.insert(TABLE_NAME, null, contentValues);
         /*
         ContentValues contentValues2 = new ContentValues();
