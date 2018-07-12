@@ -27,7 +27,7 @@ import com.example.gograd.utli.*;
 public class SearchResultActivity extends AppCompatActivity {
 
     private List<Pair<String, ArrayList<String>>> requiredCourses;
-    private List<Pair<String, ArrayList<String>>> addtionalConstraints;
+    private List<Pair<String, ArrayList<String>>> additionalConstraints;
     private Map<String, TextView> courseViews;
     private List<Integer> box;
     private List<Integer> nonMBox;
@@ -330,10 +330,15 @@ public class SearchResultActivity extends AppCompatActivity {
         /**
          * fake data
          */
-        addtionalConstraints = new ArrayList<>();
+        additionalConstraints = new ArrayList<>();
 
         ArrayList<String> data1 = new ArrayList<>();
         data1.add("CS 452, CS 454, CS 456, CS 457");
+        data1.add("One of CS 343, 349, 442, 444, 445, 446, 447, 450, 452, 454, 456, 457, 458");
+        ArrayList<String> data2 = new ArrayList<>();
+        data2.add("One of CS 343, 349, 442, 444, 445, 446, 447, 450, 452, 454, 456, 457, 458");
+        data2.add("One of CS 348, 448, 449, 473, 476, 482, 483, 484, 485, 486, 488");
+        data2.add("One of CS 360, 365, 370, 371, 462, 466, 467, 475, 487");
 
         ArrayList<String> bottomS = new ArrayList<>();
         bottomS.add("Seven (regular) or eight (co-op) terms enrolled in at least three courses totaling 1.5 units");
@@ -342,8 +347,9 @@ public class SearchResultActivity extends AppCompatActivity {
         bottomS.add("CS major average of 60% or higher");
         bottomS.add("Cumulative average of 60% or higher");
         bottomS.add("Co-op requirements met, if applicable, including PD 1, PD 11, PD 10, and a minimum of two other PD courses.");
-        addtionalConstraints.add(new Pair<>("Two of:", data1));
-        addtionalConstraints.add(new Pair<>("Bottom", bottomS));
+        additionalConstraints.add(new Pair<>("Two of:", data1));
+        additionalConstraints.add(new Pair<>("Two of:", data2));
+        additionalConstraints.add(new Pair<>("Bottom", bottomS));
 
 
 
@@ -368,8 +374,11 @@ public class SearchResultActivity extends AppCompatActivity {
         container.setId(View.generateViewId());
             //set the image background
         container.setImageResource(R.drawable.adcons1);
+        container.setVisibility(View.INVISIBLE);
         addConstraintBox.addView(container, new ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+
 
         // initial the title and underline
         TextView title = new TextView(this);
@@ -425,9 +434,9 @@ public class SearchResultActivity extends AppCompatActivity {
         int level = 0;
         TextView preText = new TextView(this);
 
-        for (int i = 0; i < addtionalConstraints.size(); ++i) {
+        for (int i = 0; i < additionalConstraints.size(); ++i) {
 
-            String cat = addtionalConstraints.get(i).first;
+            String cat = additionalConstraints.get(i).first;
 
             List<Pair<ImageView, TextView>> levelOneText = new ArrayList<>();
             List<Pair<ImageView, TextView>> levelTwoText = new ArrayList<>();
@@ -456,9 +465,10 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 contents.get(level).add(new Pair<>(bulletPoint, info));
                 ++level;
+
             }
 
-            ArrayList<String> tmpContents = addtionalConstraints.get(i).second;
+            ArrayList<String> tmpContents = additionalConstraints.get(i).second;
 
             for (int j = 0; j < tmpContents.size(); ++j) {
 
@@ -484,12 +494,11 @@ public class SearchResultActivity extends AppCompatActivity {
                 contents.get(level).add(new Pair<>(bulletPoint, info));
             }
 
-            level = 0;
-
             ConstraintSet ContentConstraintSet = new ConstraintSet();
             ContentConstraintSet.clone(addConstraintBox);
 
-            for (int k = 0; k < 2; ++k) {
+            System.out.println("level: " + level);
+            for (int k = 0; k <= level; ++k) {
 
                 List<Pair<ImageView, TextView>> levelText = contents.get(k);
                 List<Integer> startMargin = new ArrayList<>();
@@ -517,15 +526,22 @@ public class SearchResultActivity extends AppCompatActivity {
                             ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.TOP, preText.getId(), ConstraintSet.BOTTOM, margin);
                         }
                     } else {
-                        TextView preCon = levelOneText.get(j - 1).second;
+                        TextView preCon = levelText.get(j - 1).second;
                         ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.TOP, preCon.getId(), ConstraintSet.BOTTOM, margin);
                     }
 
-                    if (j == levelOneText.size() - 1) {
+                    if (i == additionalConstraints.size() - 1 && k == level && j == levelText.size() - 1) {
+                        System.out.println("here");
+                        ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.BOTTOM, addConstraintBox.getId(), ConstraintSet.BOTTOM, 100);
+                    }
+
+                    if (j == levelText.size() - 1) {
                         preText = tmpCon;
                     }
                 }
             }
+
+            level = 0;
 
             ContentConstraintSet.applyTo(addConstraintBox);
 
