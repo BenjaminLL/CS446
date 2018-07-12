@@ -1,5 +1,6 @@
 package com.example.gograd.utli;
 
+import android.content.Context;
 import android.util.Pair;
 
 import com.example.gograd.DatabaseAccess;
@@ -15,25 +16,36 @@ public class SplitString {
     //database
     private String whichPlan;
     private DatabaseAccess databaseAccess;
+    private Context context;
 
-    public SplitString(String whichPlan) {
+    public SplitString(String whichPlan, Context context) {
 
         course = new ArrayList<>();
         addition = new ArrayList<>();
         this.whichPlan = whichPlan;
+        this.context = context;
     }
 
     //call get units four times
     public List<Pair<String, ArrayList<String>>> getCourse() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+        String key = "7.5 CS Units";
+        String value = databaseAccess.getCSUnits(whichPlan);
+        splitCourses(key, value);
+        databaseAccess.close();
         return course;
     }
 
     //call additional constrains
     public List<Pair<String, ArrayList<String>>> getAddition() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+        splitConstraints(databaseAccess.getConstraints(whichPlan));
         return addition;
     }
 
-    public void spliteCourses(String key, String value) {
+    private void splitCourses(String key, String value) {
 
         String[] lines = value.split("\\r?\\n");
         ArrayList<String> tempArr = new ArrayList<>();
@@ -42,7 +54,7 @@ public class SplitString {
         course.add(tempPair);
     }
 
-    public void spliteConstraints(String s) {
+    private void splitConstraints(String s) {
 
         String[] lines = s.split("\\r?\\n");
         int layer = 1;
