@@ -12,7 +12,7 @@ import java.util.List;
 public class SplitString {
 
     private List<Pair<String, ArrayList<String>>> course;
-    private List<Pair<String, ArrayList<String>>> addition;
+    private List<Pair<String, ArrayList<String>>> constraints;
     private List<Double> courseUnits;
     //database
     private String whichPlan;
@@ -22,7 +22,7 @@ public class SplitString {
     public SplitString(String whichPlan, Context context) {
 
         course = new ArrayList<>();
-        addition = new ArrayList<>();
+        constraints = new ArrayList<>();
         courseUnits = new ArrayList<>();
         this.whichPlan = whichPlan;
         this.context = context;
@@ -55,12 +55,12 @@ public class SplitString {
     }
 
     //call additional constrains
-    public List<Pair<String, ArrayList<String>>> getAddition() {
+    public List<Pair<String, ArrayList<String>>> getConstraints() {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
         splitConstraints(databaseAccess.getConstraints(whichPlan));
         databaseAccess.close();
-        return addition;
+        return constraints;
     }
 
     // call units
@@ -115,8 +115,6 @@ public class SplitString {
 
                 if (line.substring(0, 1).equals("!") && !line.substring(1, 2).equals("!")) {
                     tempList.add(line.substring(1));
-                    Pair<String, ArrayList<String>> tempPair = new Pair<>("bottom", tempList);
-                    addition.add(tempPair);
                 } else {
                     layer = 2;
                     temp = line.substring(2);
@@ -131,7 +129,7 @@ public class SplitString {
                         newArray.add(i, tempList.get(i));
                     }
                     Pair<String, ArrayList<String>> tempPair = new Pair<>(temp, newArray);
-                    addition.add(tempPair);
+                    constraints.add(tempPair);
                     tempList.clear();
                     temp = "";
                 } else {
@@ -139,6 +137,8 @@ public class SplitString {
                 }
             }
         }
+        Pair<String, ArrayList<String>> tempPair = new Pair<>("bottom", tempList);
+        constraints.add(tempPair);
     }
 
 }
