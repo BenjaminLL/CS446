@@ -105,8 +105,14 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
 
         Intent searchResult = new Intent(this, SearchResultActivity.class);
 
+        String optionName = option.getText().toString();
+        if (optionName.equals("BCS(No Option)")) {
+            optionName = "";
+        } else {
+            optionName = "/" + optionName;
+        }
         // send the program name to the next activity
-        String fullProgramName = option.getText().toString() + year.getText().toString();
+        String fullProgramName = year.getText().toString() + programName + optionName;
         searchResult.putExtra(PROGRAM, fullProgramName);
 
         startActivity(searchResult);

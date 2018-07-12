@@ -33,6 +33,8 @@ public class SearchResultActivity extends AppCompatActivity {
     private List<Integer> nonMBox;
     private Map<String, Integer> numLimit;
 
+    private String fullProgramName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,12 @@ public class SearchResultActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
+
+        // get the program name from ProgramSelectionActivity
+        Intent intent = getIntent();
+        fullProgramName = intent.getStringExtra(OptionSelectionActivity.PROGRAM);
+        System.out.println("Program: " + fullProgramName);
+
 
 
         // initial the courseViews that store all courses
