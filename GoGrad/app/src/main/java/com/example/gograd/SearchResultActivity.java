@@ -54,17 +54,17 @@ public class SearchResultActivity extends AppCompatActivity {
         fullProgramName = intent.getStringExtra(OptionSelectionActivity.PROGRAM);
         System.out.println("Program: " + fullProgramName);
 
-//        translator = new SplitString(fullProgramName, this);
-//        List<Pair<String, ArrayList<String>>> hope = translator.getCourse();
-//        for (int i = 0; i < hope.size(); ++i) {
-//            String key = hope.get(i).first;
-//            ArrayList<String> value = hope.get(i).second;
-//            System.out.println("Key: " + key);
-//            System.out.println(value.size());
-//            for (int j = 0; j < value.size(); ++j) {
-//                System.out.println(value.get(j));
-//            }
-//        }
+        translator = new SplitString(fullProgramName, this);
+        List<Pair<String, ArrayList<String>>> hope = translator.getCourse();
+        for (int i = 0; i < hope.size(); ++i) {
+            String key = hope.get(i).first;
+            ArrayList<String> value = hope.get(i).second;
+            System.out.println("Key: " + key);
+            System.out.println(value.size());
+            for (int j = 0; j < value.size(); ++j) {
+                System.out.println(value.get(j));
+            }
+        }
 
 
         // initial the courseViews that store all courses
@@ -132,18 +132,7 @@ public class SearchResultActivity extends AppCompatActivity {
         tmpNonMath.add("(Rec: PHYS 121)");
         tmpNonMath.add("Communication list I");
         tmpNonMath.add("Communication list II");
-//        tmpNonMath.add("BIOL 130");
-//        tmpNonMath.add("BIOL 130L");
-//        tmpNonMath.add("BIOL 239");
-//        tmpNonMath.add("BIOL 240");
-//        tmpNonMath.add("BIOL 240L");
-//        tmpNonMath.add("BIOL 309");
-//        tmpNonMath.add("BIOL 365");
-//        tmpNonMath.add("BIOL 465");
-//        tmpNonMath.add("CHEM 120");
-//        tmpNonMath.add("CHEM 120");
-//        tmpNonMath.add("CHEM 120");
-//        tmpNonMath.add("CHEM 120");
+
 
         requiredCourses.add(new Pair<>("CS Units", tmp));
         requiredCourses.add(new Pair<>("Math Units", tmpMath));
