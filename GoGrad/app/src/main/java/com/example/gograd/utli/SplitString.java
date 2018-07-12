@@ -115,8 +115,6 @@ public class SplitString {
 
                 if (line.substring(0, 1).equals("!") && !line.substring(1, 2).equals("!")) {
                     tempList.add(line.substring(1));
-                    Pair<String, ArrayList<String>> tempPair = new Pair<>("bottom", tempList);
-                    constraints.add(tempPair);
                 } else {
                     layer = 2;
                     temp = line.substring(2);
@@ -139,6 +137,8 @@ public class SplitString {
                 }
             }
         }
+        Pair<String, ArrayList<String>> tempPair = new Pair<>("bottom", tempList);
+        constraints.add(tempPair);
     }
 
 }
