@@ -199,4 +199,16 @@ public class DatabaseAccess {
         c.close();
         return temp;
     }
+
+    public String getTotalCS(String name){
+        String temp = "";
+        String[] params = new String[]{name};
+        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
+                params);
+        while(c.moveToNext()){
+            temp = c.getString(c.getColumnIndexOrThrow(COL_C8));
+        }
+        c.close();
+        return temp;
+    }
 }

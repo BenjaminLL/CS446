@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Pair;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,8 +23,14 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     private static final String COL_1 = "_id";
     private static final String COL_2 = "entryid";
     private static final String COL_3 = "title";
+    //checklist column name
+    private static final String COL_C1 = "_id";
+    private static final String COL_C2 = "requires";
+    private static final String COL_C3 = "status";
+
     //SQL
     private static final String TEXT_TYPE = " TEXT";
+    private static final String INT_TYPE = " INTEGER";
     private static final String COMMA_SEP = ",";
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
                                                     COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -52,7 +59,39 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
-
+    /*
+    private List<String> course;
+    private List<Pair<String, ArrayList<String>>> addition;
+    */
+    public void createUserTable(String id,List<String> course, List<Pair<String, ArrayList<String>>> add) {
+        final SQLiteDatabase db = getWritableDatabase();
+        String CREATE_TABLE_NEW_LIST = "CREATE TABLE " + id + " (" +
+                COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COL_C2 + TEXT_TYPE + COMMA_SEP +
+                COL_C3 + INT_TYPE + ")";
+        db.execSQL(CREATE_TABLE_NEW_LIST);
+        //TODO::
+        for(int i=0; i<course.size(); i++){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COL_2, course.get(i));
+            contentValues.put(COL_3, 0);
+            db.insert(id, null, contentValues);
+        }
+        for(int j=0; j<add.size(); j++){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COL_2, course.get(j));
+            contentValues.put(COL_3, 0);
+            db.insert(id, null, contentValues);
+        }
+        db.close();
+    }
+    /*
+    public void updateUserTables(String id, String requires, int status){
+        SQLiteDatabase db = getWritableDatabase();
+        String UPDATE_STATUS =
+        db.execSQL();
+    }
+    */
     //eg: insertChecklist("07/08BCS","CustomizedName")
     public boolean insertChecklist(String id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -65,11 +104,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     //GET list of customized checklist name
     public ArrayList<String> getList() {
         SQLiteDatabase db = this.getReadableDatabase();
-        /*
-        String[] projection = {COL_1, COL_2, COL_3};
-        String selection = COL_1 + " = ?";
-        String[] selectionArgs = {"My Title"};
-        */
         Cursor cursor = db.rawQuery("SELECT * FROM "+ TABLE_NAME, null);
         ArrayList<String> itemIds = new ArrayList<>();
         while (cursor.moveToNext()) {
