@@ -59,6 +59,17 @@
                 android:value=".OptionSelectionActivity" />
         </activity>
 
+        <!--Description of the course-->
+        <activity
+            android:name=".DescriptionActivity"
+            android:parentActivityName=".SearchResultActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchResultActivity" />
+        </activity>
+
         <!-- unused pages -->
         <activity android:name=".MainActivity" />
 
@@ -75,15 +86,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".DescriptionActivity"
-            android:parentActivityName=".ChecklistActivity">
 
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ChecklistActivity" />
-        </activity>
         <activity
             android:name=".SuggestedCourses"
             android:parentActivityName=".ChecklistActivity">
