@@ -527,4 +527,10 @@ public class SearchResultActivity extends AppCompatActivity {
         Intent description = new Intent(this, DescriptionActivity.class);
         startActivity(description);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(1, intent);
+    }
 }
