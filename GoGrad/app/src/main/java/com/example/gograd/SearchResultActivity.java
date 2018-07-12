@@ -34,6 +34,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private Map<String, Integer> numLimit;
 
     private String fullProgramName;
+    private SplitString translator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,17 @@ public class SearchResultActivity extends AppCompatActivity {
         fullProgramName = intent.getStringExtra(OptionSelectionActivity.PROGRAM);
         System.out.println("Program: " + fullProgramName);
 
+//        translator = new SplitString(fullProgramName, this);
+//        List<Pair<String, ArrayList<String>>> hope = translator.getCourse();
+//        for (int i = 0; i < hope.size(); ++i) {
+//            String key = hope.get(i).first;
+//            ArrayList<String> value = hope.get(i).second;
+//            System.out.println("Key: " + key);
+//            System.out.println(value.size());
+//            for (int j = 0; j < value.size(); ++j) {
+//                System.out.println(value.get(j));
+//            }
+//        }
 
 
         // initial the courseViews that store all courses
@@ -505,7 +517,7 @@ public class SearchResultActivity extends AppCompatActivity {
             ConstraintSet ContentConstraintSet = new ConstraintSet();
             ContentConstraintSet.clone(addConstraintBox);
 
-            System.out.println("level: " + level);
+
             for (int k = 0; k <= level; ++k) {
 
                 List<Pair<ImageView, TextView>> levelText = contents.get(k);
@@ -539,7 +551,7 @@ public class SearchResultActivity extends AppCompatActivity {
                     }
 
                     if (i == additionalConstraints.size() - 1 && k == level && j == levelText.size() - 1) {
-                        System.out.println("here");
+
                         ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.BOTTOM, addConstraintBox.getId(), ConstraintSet.BOTTOM, 100);
                     }
 
