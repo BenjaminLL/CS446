@@ -40,13 +40,13 @@ public class SplitString {
         String value2 = databaseAccess.getMath(whichPlan);
         splitCourses(key2, value2);
 
-//        String key3 = "Elective Units";
-//        String value3 = databaseAccess.getElective(whichPlan);
-//        splitCourses(key3, value3);
-//
-//        String key4 = "Non-Math Units";
-//        String value4 = databaseAccess.getNonMath(whichPlan);
-//        splitCourses(key4, value4);
+        String key3 = "Elective Units";
+        String value3 = databaseAccess.getElective(whichPlan);
+        splitCourses(key3, value3);
+
+        String key4 = "Non-Math Units";
+        String value4 = databaseAccess.getNonMath(whichPlan);
+        splitCourses(key4, value4);
 
         databaseAccess.close();
         return course;
