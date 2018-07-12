@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class SuggestCoursesModel {
 
     private ArrayList<String> suggestCourses;
+    //database
+    private String whichPlan;
 
-    //private database
+    public SuggestCoursesModel(String whichPlan) {
 
-    public SuggestCoursesModel() {
         suggestCourses = new ArrayList<>();
+        this.whichPlan = whichPlan;
     }
 
     public ArrayList<String> getSuggestCourses() {

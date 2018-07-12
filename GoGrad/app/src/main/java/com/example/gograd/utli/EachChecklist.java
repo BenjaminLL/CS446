@@ -6,9 +6,12 @@ public class EachChecklist {
 
     private ArrayList<EachCourse> eachCourse;
     //database
+    private String whichPlan;
 
-    public EachChecklist() {
+    public EachChecklist(String whichPlan) {
+
         eachCourse = new ArrayList<>();
+        this.whichPlan = whichPlan;
     }
 
     public ArrayList<EachCourse> getEachCourse() {

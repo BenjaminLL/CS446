@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 public class ProgramSelectionActivity extends AppCompatActivity {
 
@@ -28,13 +29,23 @@ public class ProgramSelectionActivity extends AppCompatActivity {
 
     public void selectOptions(View view) {
         Intent OptionSelection = new Intent(this, OptionSelectionActivity.class);
+        Intent EmptyResult = new Intent(this, EmptyActivity.class);
 
         // send the program name to the next activity
         final Resources res = view.getContext().getResources();
         String idName = res.getResourceEntryName(view.getId());
-        OptionSelection.putExtra(PROGRAM_NAME, idName);
 
-        startActivity(OptionSelection);
+        if (!idName.equals("BCS")) {
+            TextView option = (TextView)view;
+            String programName = option.getText().toString();
+            EmptyResult.putExtra(PROGRAM_NAME, programName);
+            startActivity(EmptyResult);
+            return;
+        } else {
+            OptionSelection.putExtra(PROGRAM_NAME, idName);
+            startActivity(OptionSelection);
+        }
+
     }
 
 }

@@ -1,44 +1,64 @@
 package com.example.gograd.utli;
 
+import android.content.Context;
 import android.util.Pair;
 
+import com.example.gograd.DatabaseAccess;
+
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SplitString {
 
-    private List<String> course;
+    private List<Pair<String, ArrayList<String>>> course;
     private List<Pair<String, ArrayList<String>>> addition;
+    //database
+    private String whichPlan;
+    private DatabaseAccess databaseAccess;
+    private Context context;
 
-    public SplitString() {
+    public SplitString(String whichPlan, Context context) {
+
         course = new ArrayList<>();
         addition = new ArrayList<>();
+        this.whichPlan = whichPlan;
+        this.context = context;
     }
 
-    public List<String> getCourse() {
+    //call get units four times
+    public List<Pair<String, ArrayList<String>>> getCourse() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+        String key = "7.5 CS Units";
+        String value = databaseAccess.getCSUnits(whichPlan);
+        splitCourses(key, value);
+        databaseAccess.close();
         return course;
     }
 
+    //call additional constrains
     public List<Pair<String, ArrayList<String>>> getAddition() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+        splitConstraints(databaseAccess.getConstraints(whichPlan));
         return addition;
     }
 
-    public void spliteCourses(String s) {
+    private void splitCourses(String key, String value) {
 
-        String[] lines = s.split("\\r?\\n");
-        course.addAll(Arrays.asList(lines));
-
+        String[] lines = value.split("\\r?\\n");
+        ArrayList<String> tempArr = new ArrayList<>();
+        Collections.addAll(tempArr, lines);
+        Pair<String, ArrayList<String>> tempPair = new Pair<>(key, tempArr);
+        course.add(tempPair);
     }
 
-    public void spliteConstraints(String s) {
+    private void splitConstraints(String s) {
 
         String[] lines = s.split("\\r?\\n");
-
         int layer = 1;
-
         String temp = "";
-
         ArrayList<String> tempList = new ArrayList<>();
 
         for (String line : lines) {
@@ -76,4 +96,5 @@ public class SplitString {
             }
         }
     }
+
 }
