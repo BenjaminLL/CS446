@@ -143,7 +143,7 @@ public class DatabaseAccess {
     public String getCSUnits(String name){
         String temp = "";
         String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Checklist_TABLE+" where "+COL_2+" = ?",
+        Cursor c = db.rawQuery("SELECT * FROM "+Checklist_TABLE+" WHERE "+COL_C2+" = ?",
                 params);
         while(c.moveToNext()){
             temp = c.getString(c.getColumnIndexOrThrow(COL_C4));

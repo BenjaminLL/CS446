@@ -91,7 +91,8 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_C3, status);
-
+        String[] args = new String[]{requires};
+        db.update(id, contentValues, COL_C2+" =?", args);
     }
 
     //eg: insertChecklist("07/08BCS","CustomizedName")
