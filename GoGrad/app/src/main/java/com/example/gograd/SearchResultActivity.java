@@ -28,6 +28,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private List<Pair<String, ArrayList<String>>> requiredCourses;
     private List<Pair<String, ArrayList<String>>> additionalConstraints;
+    private List<Double> unitsNumber;
     private Map<String, TextView> courseViews;
     private List<Integer> box;
     private List<Integer> nonMBox;
@@ -56,15 +57,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         translator = new SplitString(fullProgramName, this);
         requiredCourses = translator.getCourse();
-//        for (int i = 0; i < hope.size(); ++i) {
-//            String key = hope.get(i).first;
-//            ArrayList<String> value = hope.get(i).second;
-//            System.out.println("Key: " + key);
-//            System.out.println(value.size());
-//            for (int j = 0; j < value.size(); ++j) {
-//                System.out.println(value.get(j));
-//            }
-//        }
+        unitsNumber = translator.getCourseUnits();
 
 
         // initial the courseViews that store all courses
@@ -141,7 +134,7 @@ public class SearchResultActivity extends AppCompatActivity {
             // initial the title and underline
             TextView title = new TextView(this);
             title.setId(View.generateViewId());
-            title.setText(requiredCourses.get(i).first + " -- 7.5");
+            title.setText(requiredCourses.get(i).first + " -- " + unitsNumber.get(i));
             title.setTextColor(Color.BLACK);
             title.setTextSize(16.12f);
             courseUnits.addView(title, new ConstraintLayout.LayoutParams(
