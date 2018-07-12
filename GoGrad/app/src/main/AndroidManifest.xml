@@ -49,17 +49,6 @@
                 android:value=".ProgramSelectionActivity" />
         </activity>
 
-        <!-- Empty Page -->
-        <activity
-            android:name=".EmptyActivity"
-            android:parentActivityName=".OptionSelectionActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OptionSelectionActivity" />
-        </activity>
-
         <!-- Search Result Page -->
         <activity
             android:name=".SearchResultActivity"
