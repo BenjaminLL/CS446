@@ -56,15 +56,15 @@ public class SearchResultActivity extends AppCompatActivity {
 
         translator = new SplitString(fullProgramName, this);
         List<Pair<String, ArrayList<String>>> hope = translator.getCourse();
-        for (int i = 0; i < hope.size(); ++i) {
-            String key = hope.get(i).first;
-            ArrayList<String> value = hope.get(i).second;
-            System.out.println("Key: " + key);
-            System.out.println(value.size());
-            for (int j = 0; j < value.size(); ++j) {
-                System.out.println(value.get(j));
-            }
-        }
+//        for (int i = 0; i < hope.size(); ++i) {
+//            String key = hope.get(i).first;
+//            ArrayList<String> value = hope.get(i).second;
+//            System.out.println("Key: " + key);
+//            System.out.println(value.size());
+//            for (int j = 0; j < value.size(); ++j) {
+//                System.out.println(value.get(j));
+//            }
+//        }
 
 
         // initial the courseViews that store all courses
