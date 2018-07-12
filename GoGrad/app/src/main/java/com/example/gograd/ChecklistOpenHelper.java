@@ -77,6 +77,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
             contentValues.put(COL_3, 0);
             db.insert(id, null, contentValues);
         }
+        //TODO::
         for(int j=0; j<add.size(); j++){
             ContentValues contentValues = new ContentValues();
             contentValues.put(COL_2, course.get(j));
@@ -85,13 +86,14 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         }
         db.close();
     }
-    /*
-    public void updateUserTables(String id, String requires, int status){
+
+    public void updateUserTable_Status(String id, String requires, int status){
         SQLiteDatabase db = getWritableDatabase();
-        String UPDATE_STATUS =
-        db.execSQL();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_C3, status);
+
     }
-    */
+
     //eg: insertChecklist("07/08BCS","CustomizedName")
     public boolean insertChecklist(String id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -156,13 +158,15 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     public void TestDefaultChecklist(){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2, "07/08BCS");
-        contentValues.put(COL_3, "MY FIRST CHECKLIST");
+        contentValues.put(COL_2, "17/18BCS");
+        contentValues.put(COL_3, "My 17/18BCS");
         db.insert(TABLE_NAME, null, contentValues);
+        /*
         ContentValues contentValues2 = new ContentValues();
         contentValues2.put(COL_2, "09/10BCS");
         contentValues2.put(COL_3, "MY SECOND CHECKLIST");
         db.insert(TABLE_NAME, null, contentValues2);
+        */
     }
 
     public void deleteDatabase(){
