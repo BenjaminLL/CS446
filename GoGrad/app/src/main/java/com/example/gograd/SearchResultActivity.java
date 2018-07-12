@@ -59,15 +59,15 @@ public class SearchResultActivity extends AppCompatActivity {
         requiredCourses = translator.getCourse();
         unitsNumber = translator.getCourseUnits();
 
-        List<Pair<String, ArrayList<String>>> hope = translator.getAddition();
-        for (int i = 0; i < hope.size(); ++i) {
-            String name = hope.get(i).first;
-            ArrayList<String> values = hope.get(i).second;
-            System.out.println(name);
-            for (int j = 0; j < values.size(); ++j) {
-                System.out.println(values.get(j));
-            }
-        }
+        additionalConstraints = translator.getConstraints();
+//        for (int i = 0; i < additionalConstraints.size(); ++i) {
+//            String name = additionalConstraints.get(i).first;
+//            ArrayList<String> values = additionalConstraints.get(i).second;
+//            System.out.println(name);
+//            for (int j = 0; j < values.size(); ++j) {
+//                System.out.println(values.get(j));
+//            }
+//        }
 
 
         // initial the courseViews that store all courses
@@ -297,26 +297,26 @@ public class SearchResultActivity extends AppCompatActivity {
         /**
          * fake data
          */
-        additionalConstraints = new ArrayList<>();
-
-        ArrayList<String> data1 = new ArrayList<>();
-        data1.add("CS 452, CS 454, CS 456, CS 457");
-        data1.add("One of CS 343, 349, 442, 444, 445, 446, 447, 450, 452, 454, 456, 457, 458");
-        ArrayList<String> data2 = new ArrayList<>();
-        data2.add("One of CS 343, 349, 442, 444, 445, 446, 447, 450, 452, 454, 456, 457, 458");
-        data2.add("One of CS 348, 448, 449, 473, 476, 482, 483, 484, 485, 486, 488");
-        data2.add("One of CS 360, 365, 370, 371, 462, 466, 467, 475, 487");
-
-        ArrayList<String> bottomS = new ArrayList<>();
-        bottomS.add("Seven (regular) or eight (co-op) terms enrolled in at least three courses totaling 1.5 units");
-        bottomS.add("No more than 2.0 units of failed courses");
-        bottomS.add("No more than 5.0 units of unusable course attempts (failures and repeats of passed courses)");
-        bottomS.add("CS major average of 60% or higher");
-        bottomS.add("Cumulative average of 60% or higher");
-        bottomS.add("Co-op requirements met, if applicable, including PD 1, PD 11, PD 10, and a minimum of two other PD courses.");
-        additionalConstraints.add(new Pair<>("Two of:", data1));
-        additionalConstraints.add(new Pair<>("Two of:", data2));
-        additionalConstraints.add(new Pair<>("Bottom", bottomS));
+//        additionalConstraints = new ArrayList<>();
+//
+//        ArrayList<String> data1 = new ArrayList<>();
+//        data1.add("CS 452, CS 454, CS 456, CS 457");
+//        data1.add("One of CS 343, 349, 442, 444, 445, 446, 447, 450, 452, 454, 456, 457, 458");
+//        ArrayList<String> data2 = new ArrayList<>();
+//        data2.add("One of CS 343, 349, 442, 444, 445, 446, 447, 450, 452, 454, 456, 457, 458");
+//        data2.add("One of CS 348, 448, 449, 473, 476, 482, 483, 484, 485, 486, 488");
+//        data2.add("One of CS 360, 365, 370, 371, 462, 466, 467, 475, 487");
+//
+//        ArrayList<String> bottomS = new ArrayList<>();
+//        bottomS.add("Seven (regular) or eight (co-op) terms enrolled in at least three courses totaling 1.5 units");
+//        bottomS.add("No more than 2.0 units of failed courses");
+//        bottomS.add("No more than 5.0 units of unusable course attempts (failures and repeats of passed courses)");
+//        bottomS.add("CS major average of 60% or higher");
+//        bottomS.add("Cumulative average of 60% or higher");
+//        bottomS.add("Co-op requirements met, if applicable, including PD 1, PD 11, PD 10, and a minimum of two other PD courses.");
+//        additionalConstraints.add(new Pair<>("Two of:", data1));
+//        additionalConstraints.add(new Pair<>("Two of:", data2));
+//        additionalConstraints.add(new Pair<>("Bottom", bottomS));
 
 
 
