@@ -58,6 +58,7 @@ public class SplitString {
     public List<Pair<String, ArrayList<String>>> getConstraints() {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
+        System.out.println(databaseAccess.getConstraints(whichPlan));
         splitConstraints(databaseAccess.getConstraints(whichPlan));
         databaseAccess.close();
         return constraints;
