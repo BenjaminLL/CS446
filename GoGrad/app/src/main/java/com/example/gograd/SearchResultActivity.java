@@ -59,6 +59,16 @@ public class SearchResultActivity extends AppCompatActivity {
         requiredCourses = translator.getCourse();
         unitsNumber = translator.getCourseUnits();
 
+        List<Pair<String, ArrayList<String>>> hope = translator.getAddition();
+        for (int i = 0; i < hope.size(); ++i) {
+            String name = hope.get(i).first;
+            ArrayList<String> values = hope.get(i).second;
+            System.out.println(name);
+            for (int j = 0; j < values.size(); ++j) {
+                System.out.println(values.get(j));
+            }
+        }
+
 
         // initial the courseViews that store all courses
         courseViews = new HashMap<>();
@@ -401,7 +411,7 @@ public class SearchResultActivity extends AppCompatActivity {
             contents.add(levelOneText);
             contents.add(levelTwoText);
 
-            if (!cat.equals("Bottom")) {
+            if (!cat.equals("bottom")) {
                 // Bullet Point
                 ImageView bulletPoint = new ImageView(this);
                 bulletPoint.setId(View.generateViewId());
