@@ -13,6 +13,7 @@ public class SplitString {
 
     private List<Pair<String, ArrayList<String>>> course;
     private List<Pair<String, ArrayList<String>>> addition;
+    private List<Double> courseUnits;
     //database
     private String whichPlan;
     private DatabaseAccess databaseAccess;
@@ -22,6 +23,7 @@ public class SplitString {
 
         course = new ArrayList<>();
         addition = new ArrayList<>();
+        courseUnits = new ArrayList<>();
         this.whichPlan = whichPlan;
         this.context = context;
     }
@@ -59,6 +61,27 @@ public class SplitString {
         splitConstraints(databaseAccess.getConstraints(whichPlan));
         databaseAccess.close();
         return addition;
+    }
+
+    // call units
+    public List<Double> getCourseUnits() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+
+        Double unit1 = databaseAccess.getTotalCS(whichPlan);
+        courseUnits.add(unit1);
+
+        Double unit2 = databaseAccess.getTotalMath(whichPlan);
+        courseUnits.add(unit2);
+
+        Double unit3 = databaseAccess.getTotalElective(whichPlan);
+        courseUnits.add(unit3);
+
+        Double unit4 = databaseAccess.getTotalNonMath(whichPlan);
+        courseUnits.add(unit4);
+
+        databaseAccess.close();
+        return courseUnits;
     }
 
     private void splitCourses(String key, String value) {
