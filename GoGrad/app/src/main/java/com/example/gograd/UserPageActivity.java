@@ -54,11 +54,11 @@ public class UserPageActivity extends AppCompatActivity {
         /**
          * TEST
          */
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-        databaseAccess.open();
-        String value = databaseAccess.getCSUnits("17/18BCS");
-        System.out.println("value: " + value);
-        databaseAccess.close();
+//        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+//        databaseAccess.open();
+//        String value = databaseAccess.getCSUnits("17/18BCS");
+//        System.out.println("value: " + value);
+//        databaseAccess.close();
 
         ConstraintLayout rootView = findViewById(R.id.userPage);
 

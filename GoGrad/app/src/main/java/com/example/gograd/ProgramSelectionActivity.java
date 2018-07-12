@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProgramSelectionActivity extends AppCompatActivity {
 
@@ -29,18 +30,14 @@ public class ProgramSelectionActivity extends AppCompatActivity {
 
     public void selectOptions(View view) {
         Intent OptionSelection = new Intent(this, OptionSelectionActivity.class);
-        Intent EmptyResult = new Intent(this, EmptyActivity.class);
 
         // send the program name to the next activity
         final Resources res = view.getContext().getResources();
         String idName = res.getResourceEntryName(view.getId());
 
         if (!idName.equals("BCS")) {
-            TextView option = (TextView)view;
-            String programName = option.getText().toString();
-            EmptyResult.putExtra(PROGRAM_NAME, programName);
-            startActivity(EmptyResult);
-            return;
+            Toast info = Toast.makeText(this, "Coming Soon!", Toast.LENGTH_SHORT);
+            info.show();
         } else {
             OptionSelection.putExtra(PROGRAM_NAME, idName);
             startActivity(OptionSelection);
