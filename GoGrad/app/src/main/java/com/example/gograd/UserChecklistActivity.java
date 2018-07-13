@@ -42,7 +42,26 @@ public class UserChecklistActivity extends AppCompatActivity {
          * fake data
          */
         requiredCourses = new ArrayList<>();
-        EachCourse course1 =
+
+        ArrayList<EachCourse> csunit = new ArrayList<>();
+
+        csunit.add(new EachCourse("17/18BCS", "CS1[134]5", false));
+        csunit.add(new EachCourse("17/18BCS", "CS1[34]6", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 240", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 241", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 245", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 246", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 251", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 341", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 350", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 440-489", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 440-489", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 440-498 or CS 499T or CS 6xx or CS 7xx or CO 487 or STAT 440", false));
+
+
 
         /**
          * view contents
