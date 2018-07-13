@@ -16,7 +16,6 @@ public class SplitString {
     private List<Double> courseUnits;
     //database
     private String whichPlan;
-    private DatabaseAccess databaseAccess;
     private Context context;
 
     public SplitString(String whichPlan, Context context) {
