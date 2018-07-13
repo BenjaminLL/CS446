@@ -25,8 +25,7 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
             "Option"};
     private final String[] bcsAI = new String[] {"No Option yet", "Academic Year"};
     private final String[] bcsCFA_HCI = new String[] {"17/18", "16/17", "Academic Year"};
-    private final String[] bcsOthers = new String[] {"17/18", "16/17", "15/16", "14/15", "13/14",
-            "12/13", "11/12", "Academic Year"};
+    private final String[] bcsOthers = new String[] {"17/18", "16/17", "15/16", "14/15", "13/14", "Academic Year"};
 
     private Map<String, String[]> options;
     private TextView option;
