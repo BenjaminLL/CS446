@@ -31,6 +31,12 @@ public class UserChecklistActivity extends AppCompatActivity {
 
         ab.setTitle(title);
 
+
+        /**
+         * view contents
+         */
+
+
     }
 
 }
