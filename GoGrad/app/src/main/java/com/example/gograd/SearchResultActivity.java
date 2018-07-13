@@ -39,6 +39,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private String fullProgramName;
     private String title;
     private SplitString translator;
+    private ModifyPlan modifyPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,17 @@ public class SearchResultActivity extends AppCompatActivity {
         fullProgramName = programInfo.getString("PROGRAM");
         title = programInfo.getString("TITLE");
 
-        added = false;
+        /**
+         * change the add button status
+         */
+        modifyPlan = new ModifyPlan(fullProgramName, this);
+        added = modifyPlan.getIsExist();
+        ImageView addButton = findViewById(R.id.addcheckbutton);
+        if (added) {
+            addButton.setImageResource(R.drawable.like);
+        } else {
+            addButton.setImageResource(R.drawable.unlike);
+        }
 
         ab.setTitle(title);
 
@@ -522,11 +533,14 @@ public class SearchResultActivity extends AppCompatActivity {
         ImageView addButton = (ImageView) view;
 
         if (added) {
+
             addButton.setImageResource(R.drawable.unlike);
             added = false;
+            modifyPlan.deleteChecklist();
         } else {
             addButton.setImageResource(R.drawable.like);
             added = true;
+            modifyPlan.insertChecklist();
         }
     }
 
