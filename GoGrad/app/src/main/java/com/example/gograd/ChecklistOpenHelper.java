@@ -27,6 +27,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     private static final String COL_C1 = "_id";
     private static final String COL_C2 = "requires";
     private static final String COL_C3 = "status";
+    private static final String COL_C4 = "AddUnderCategory"; //TEXT
 
     //SQL
     private static final String TEXT_TYPE = " TEXT";
@@ -65,7 +66,8 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         String CREATE_TABLE_NEW_LIST = "CREATE TABLE " + id + " (" +
                 COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_C2 + TEXT_TYPE + COMMA_SEP +
-                COL_C3 + INT_TYPE + ")";
+                COL_C3 + INT_TYPE + COMMA_SEP+
+                COL_C4 + TEXT_TYPE + ")";
         db.execSQL(CREATE_TABLE_NEW_LIST);
         for(int i=0; i<course.size(); i++){
             ContentValues contentValues = new ContentValues();
@@ -95,11 +97,12 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         return i!= -1;
     }
 
-    public boolean insertUserTable_Course(String id, String requires){
+    public boolean insertUserTable_Course(String id, String requires, String Category){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_C2,requires);
         contentValues.put(COL_C3, 0);
+        contentValues.put(COL_C4, Category);
         long result = db.insert(id, null, contentValues);
         return result!= -1;
     }
