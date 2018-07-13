@@ -61,7 +61,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public void createUserTable(String id,List<String> course, List<Pair<String, ArrayList<String>>> add) {
+    public void createUserTable(String id,List<Pair<String, ArrayList<String>>> course, List<Pair<String, ArrayList<String>>> add) {
         final SQLiteDatabase db = getWritableDatabase();
         String CREATE_TABLE_NEW_LIST = "CREATE TABLE " + id + " (" +
                 COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -70,10 +70,14 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
                 COL_C4 + TEXT_TYPE + ")";
         db.execSQL(CREATE_TABLE_NEW_LIST);
         for(int i=0; i<course.size(); i++){
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(COL_2, course.get(i));
-            contentValues.put(COL_3, 0);
-            db.insert(id, null, contentValues);
+            Pair<String, ArrayList<String>> tempPair = course.get(i);
+            ArrayList<String> temp = tempPair.second;
+            for(int n=0; n<temp.size(); n++){
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(COL_2, temp.get(n));
+                contentValues.put(COL_3, 0);
+                db.insert(id, null, contentValues);
+            }
         }
         for(int j=0; j<add.size(); j++){
             Pair<String, ArrayList<String>> tempPair = add.get(j);
@@ -164,6 +168,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String selection = COL_3 + "=?";
         int deletedRows = db.delete(TABLE_NAME, selection, new String[]{id});
+        deleteCheckRecord(id);
         return deletedRows;
     }
 
