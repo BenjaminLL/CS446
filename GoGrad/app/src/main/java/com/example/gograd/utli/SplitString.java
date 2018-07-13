@@ -98,7 +98,7 @@ public class SplitString {
         course.add(tempPair);
     }
 
-    private void splitConstraints(String s) {
+    public void splitConstraints(String s) {
 
         String[] lines = s.split("\\r?\\n");
         int layer = 1;
@@ -114,7 +114,10 @@ public class SplitString {
             if (layer == 1) {
 
                 if (line.substring(0, 1).equals("!") && !line.substring(1, 2).equals("!")) {
-                    tempList.add(line.substring(1));
+                    ArrayList<String> blank = new ArrayList<>();
+                    Pair<String, ArrayList<String>> tempPair = new Pair<>(line.substring(1), blank);
+                    constraints.add(tempPair);
+                    tempList.clear();
                 } else {
                     layer = 2;
                     temp = line.substring(2);
@@ -137,8 +140,6 @@ public class SplitString {
                 }
             }
         }
-        Pair<String, ArrayList<String>> tempPair = new Pair<>("bottom", tempList);
-        constraints.add(tempPair);
     }
 
 }
