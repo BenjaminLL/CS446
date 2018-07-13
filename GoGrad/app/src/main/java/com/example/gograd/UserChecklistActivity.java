@@ -42,6 +42,7 @@ public class UserChecklistActivity extends AppCompatActivity {
          * fake data
          */
         requiredCourses = new ArrayList<>();
+        EachCourse course1 =
 
         /**
          * view contents
