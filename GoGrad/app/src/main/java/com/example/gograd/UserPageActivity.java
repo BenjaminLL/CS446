@@ -27,6 +27,7 @@ import static android.view.View.generateViewId;
 public class UserPageActivity extends AppCompatActivity {
 
     private ChecklistOpenHelper databaseHelper;
+    public static final String TITLE = "";
 
     int numChecklist = 0;
     ArrayList<String> names = new ArrayList<>();
@@ -113,10 +114,12 @@ public class UserPageActivity extends AppCompatActivity {
                 /**
                  * add click listener
                  */
+                final int finalI = i;
                 imageButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        showChecklist(view);
+                        int pos = finalI;
+                        showChecklist(view, names.get(pos));
                     }
                 });
 
@@ -172,8 +175,9 @@ public class UserPageActivity extends AppCompatActivity {
         startActivity(checkList);
     }
 
-    public void showChecklist(View view) {
+    public void showChecklist(View view, String title) {
         Intent showUserChecklist = new Intent(this, UserChecklistActivity.class);
+        showUserChecklist.putExtra(TITLE, title);
         startActivity(showUserChecklist);
     }
 
