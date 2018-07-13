@@ -62,16 +62,18 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     }
 
     public void createUserTable(String id,List<Pair<String, ArrayList<String>>> course, List<Pair<String, ArrayList<String>>> add) {
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         System.out.println("Enter CreateUserTable function!");
-        String CREATE_TABLE_NEW_LIST = /*"CREATE TABLE " + id + " (" +
+        String CREATE_TABLE_NEW_LIST = "CREATE TABLE " + id + " (" +
                 COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_C2 + TEXT_TYPE + COMMA_SEP +
                 COL_C3 + INT_TYPE + COMMA_SEP+
                 COL_C4 + TEXT_TYPE + ")";
-                */ "CREATE TABLE "+id+" (" +
-                COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT)" ;
         db.execSQL(CREATE_TABLE_NEW_LIST);
+        System.out.println("Finished create table!");
+        ContentValues cv = new ContentValues();
+        cv.put(COL_C2, id);
+        db.insert(id, null, cv);
         if(tableExists(db, id)){
             System.out.println("TABLE created for "+id);
         }else{
@@ -98,6 +100,19 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
             }
         }
         db.close();
+    }
+
+    public boolean getIsCheck(String id, String requires){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT "+COL_C3+" FROM "+id+" WHERE "+COL_C2
+                +"=?",new String[]{requires});
+        int status = 0;
+        while (cursor.moveToNext()) {
+            status = cursor.getInt(
+                    cursor.getColumnIndexOrThrow(COL_C3));
+        }
+        boolean ret = status==1 ? true:false;
+        return ret;
     }
 
     public boolean updateUserTable_Status(String id, String requires, boolean status){
@@ -181,8 +196,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         return deletedRows;
     }
 
-
-
     //TEST usage: add default usr check list
     public void TestDefaultChecklist(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -217,6 +230,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     */
     boolean tableExists(SQLiteDatabase db, String tableName)
     {
+        System.out.println("Enter checked process");
         if (tableName == null || db == null || !db.isOpen())
         {
             return false;
