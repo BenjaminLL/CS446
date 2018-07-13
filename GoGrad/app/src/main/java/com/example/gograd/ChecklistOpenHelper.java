@@ -62,13 +62,19 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     }
 
     public void createUserTable(String id,List<Pair<String, ArrayList<String>>> course, List<Pair<String, ArrayList<String>>> add) {
-        final SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
+        System.out.println("Enter CreateUserTable function!");
         String CREATE_TABLE_NEW_LIST = "CREATE TABLE " + id + " (" +
                 COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_C2 + TEXT_TYPE + COMMA_SEP +
                 COL_C3 + INT_TYPE + COMMA_SEP+
                 COL_C4 + TEXT_TYPE + ")";
         db.execSQL(CREATE_TABLE_NEW_LIST);
+        if(tableExists(db, id)){
+            System.out.println("TABLE created for "+id);
+        }else{
+            System.out.println("TABLE create failure for "+id);
+        }
         for(int i=0; i<course.size(); i++){
             Pair<String, ArrayList<String>> tempPair = course.get(i);
             ArrayList<String> temp = tempPair.second;
@@ -207,4 +213,20 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         return checkDB != null;
     }
     */
+    boolean tableExists(SQLiteDatabase db, String tableName)
+    {
+        if (tableName == null || db == null || !db.isOpen())
+        {
+            return false;
+        }
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = ? AND name = ?", new String[] {"table", tableName});
+        if (!cursor.moveToFirst())
+        {
+            cursor.close();
+            return false;
+        }
+        int count = cursor.getInt(0);
+        cursor.close();
+        return count > 0;
+    }
 }
