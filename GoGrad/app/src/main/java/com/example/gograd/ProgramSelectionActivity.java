@@ -47,12 +47,19 @@ public class ProgramSelectionActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return false;
+    public void onBackPressed() {
+        finish();
+        Intent goHome = new Intent(this, UserPageActivity.class);
+        startActivityFromChild(this, goHome, 1);
     }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == android.R.id.home) {
+//            onBackPressed();
+//            return true;
+//        }
+//        return false;
+//    }
 
 }

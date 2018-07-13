@@ -63,6 +63,7 @@ public class UserPageActivity extends AppCompatActivity {
             int bgHeight = dpToPx(204, this);
             rootView.addView(background, new ConstraintLayout.LayoutParams(bgWidth, bgHeight));
 
+
             TextView claim = new TextView(this);
             claim.setId(R.id.claim);
             claim.setText("Please add more checklists!");
@@ -108,6 +109,17 @@ public class UserPageActivity extends AppCompatActivity {
                 int tmpWidth = dpToPx(346,this);
                 int tmpHeight = dpToPx(239, this);
                 checklist.addView(imageButton, new ConstraintLayout.LayoutParams(tmpWidth, tmpHeight));
+
+                /**
+                 * add click listener
+                 */
+                imageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showChecklist(view);
+                    }
+                });
+
 
                 // Set the Name
                 TextView tagName = new TextView(this);
@@ -158,6 +170,11 @@ public class UserPageActivity extends AppCompatActivity {
     public void selectProgram(View view) {
         Intent checkList = new Intent(this, ProgramSelectionActivity.class);
         startActivity(checkList);
+    }
+
+    public void showChecklist(View view) {
+        Intent showUserChecklist = new Intent(this, UserChecklistActivity.class);
+        startActivity(showUserChecklist);
     }
 
 }
