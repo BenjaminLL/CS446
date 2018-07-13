@@ -102,7 +102,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean checkedSatus(String id, String requires){
+    public boolean getIsCheck(String id, String requires){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT "+COL_C3+" FROM "+id+" WHERE "+COL_C2
                 +"=?",new String[]{requires});
