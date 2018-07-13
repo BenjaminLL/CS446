@@ -71,6 +71,18 @@
                 android:value=".SearchResultActivity" />
         </activity>
 
+        <activity
+            android:name=".UserChecklistActivity"
+
+            android:parentActivityName=".UserPageActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UserPageActivity" />
+        </activity>
+
+
         <!-- unused pages -->
         <activity android:name=".MainActivity" />
 
@@ -96,10 +108,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ChecklistActivity" />
         </activity>
-        <activity
-            android:name=".UserChecklistActivity"
-            android:label="@string/title_activity_user_checklist"
-            android:theme="@style/AppTheme"></activity>
+
     </application>
 
 </manifest>
