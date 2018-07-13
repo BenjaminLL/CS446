@@ -540,7 +540,7 @@ public class SearchResultActivity extends AppCompatActivity {
         } else {
             addButton.setImageResource(R.drawable.like);
             added = true;
-            modifyPlan.insertChecklist();
+            modifyPlan.insertChecklist(requiredCourses, additionalConstraints);
         }
     }
 
