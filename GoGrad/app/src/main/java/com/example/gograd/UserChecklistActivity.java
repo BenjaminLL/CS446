@@ -2,15 +2,21 @@ package com.example.gograd;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.View;
+
+import com.example.gograd.utli.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserChecklistActivity extends AppCompatActivity {
 
+    private List<Pair<String, ArrayList<EachCourse>>> requiredCourses;
+//    private List<Pair<String, ArrayList<String>>> additionalConstraints;
     private String title;
 
     @Override
@@ -33,8 +39,14 @@ public class UserChecklistActivity extends AppCompatActivity {
 
 
         /**
+         * fake data
+         */
+        requiredCourses = new ArrayList<>();
+
+        /**
          * view contents
          */
+
 
 
     }
