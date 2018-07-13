@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class OptionSelectionActivity extends AppCompatActivity implements ProgramDialog.DialogListener {
 
     public static final String PROGRAM = "null";
-    private int REQUEST_FORM = 1;
+    public static final String TITLE = "null";
     private String programName;
 
     private final String[] bcsOptions = new String[] {"BCS(No Option)", "AI", "Bio", "Bus", "CFA", "DH", "HCI", "SE",
@@ -114,16 +115,46 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
             return;
         }
 
+        String fullOption = "";
+
         if (optionName.equals("BCS(No Option)")) {
             optionName = "";
+            fullOption = "";
         } else {
+
+            if (optionName.equals("SE")) {
+                fullOption = "Software Engineering";
+            } else if (optionName.equals("HCI")) {
+                fullOption = "Human-Computer Interaction";
+            } else if (optionName.equals("DH")) {
+                fullOption = "Digital Hardware";
+            } else if (optionName.equals("CFA")) {
+                fullOption = "Computational Fine Arts";
+            } else if (optionName.equals("Bus")) {
+                fullOption = "Business";
+            } else if (optionName.equals("Bio")) {
+                fullOption = "Bioinformatics";
+            } else if (optionName.equals("AI")) {
+                fullOption = "AI";
+            }
+
             optionName = "/" + optionName;
         }
         // send the program name to the next activity
         String fullProgramName = academicYear + programName + optionName;
-        searchResult.putExtra(PROGRAM, fullProgramName);
+        String titleNextActivity = academicYear + " " + programName;
 
-        startActivityForResult(searchResult, REQUEST_FORM);
+        if (!fullOption.equals("")) {
+            titleNextActivity += "/" + fullOption;
+        }
+
+        Bundle programInfo = new Bundle();
+        programInfo.putString("PROGRAM", fullProgramName);
+        programInfo.putString("TITLE", titleNextActivity);
+
+        searchResult.putExtras(programInfo);
+
+        startActivity(searchResult);
     }
 
 
@@ -153,14 +184,14 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
         }
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("Program Name: " + programName);
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK) {
-                System.out.println("Program Name: " + programName);
-            }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return false;
     }
 
 }

@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +36,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private Map<String, Integer> numLimit;
 
     private String fullProgramName;
+    private String title;
     private SplitString translator;
 
     @Override
@@ -52,8 +54,11 @@ public class SearchResultActivity extends AppCompatActivity {
 
         // get the program name from ProgramSelectionActivity
         Intent intent = getIntent();
-        fullProgramName = intent.getStringExtra(OptionSelectionActivity.PROGRAM);
-        System.out.println("Program: " + fullProgramName);
+        Bundle programInfo = intent.getExtras();
+        fullProgramName = programInfo.getString("PROGRAM");
+        title = programInfo.getString("TITLE");
+
+        ab.setTitle(title);
 
         translator = new SplitString(fullProgramName, this);
         requiredCourses = translator.getCourse();
@@ -528,9 +533,13 @@ public class SearchResultActivity extends AppCompatActivity {
         startActivity(description);
     }
 
+
     @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        setResult(1, intent);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 }
