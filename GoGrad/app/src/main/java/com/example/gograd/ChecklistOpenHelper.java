@@ -64,11 +64,13 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     public void createUserTable(String id,List<Pair<String, ArrayList<String>>> course, List<Pair<String, ArrayList<String>>> add) {
         SQLiteDatabase db = getWritableDatabase();
         System.out.println("Enter CreateUserTable function!");
-        String CREATE_TABLE_NEW_LIST = "CREATE TABLE " + id + " (" +
+        String CREATE_TABLE_NEW_LIST = /*"CREATE TABLE " + id + " (" +
                 COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_C2 + TEXT_TYPE + COMMA_SEP +
                 COL_C3 + INT_TYPE + COMMA_SEP+
                 COL_C4 + TEXT_TYPE + ")";
+                */ "CREATE TABLE "+id+" (" +
+                COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT)" ;
         db.execSQL(CREATE_TABLE_NEW_LIST);
         if(tableExists(db, id)){
             System.out.println("TABLE created for "+id);
