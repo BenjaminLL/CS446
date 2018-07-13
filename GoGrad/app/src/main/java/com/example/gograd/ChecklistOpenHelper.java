@@ -127,6 +127,14 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         return itemIds;
     }
 
+    public boolean checkExistPlan(String id){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT "+COL_3+" FROM "+TABLE_NAME+" WHERE "+COL_3
+                +"=?",new String[]{id});
+        boolean exist = (cursor.getCount()>0);
+        return exist;
+    }
+
     // number id in Checklist database
     public ArrayList<Integer> getID(){
         SQLiteDatabase db = this.getReadableDatabase();
