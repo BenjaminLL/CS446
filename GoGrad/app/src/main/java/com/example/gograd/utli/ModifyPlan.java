@@ -1,8 +1,12 @@
 package com.example.gograd.utli;
 
 import android.content.Context;
+import android.util.Pair;
 
 import com.example.gograd.ChecklistOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModifyPlan {
 
@@ -20,9 +24,10 @@ public class ModifyPlan {
         return checklistOpenHelper.checkExistPlan(whichPlan);
     }
 
-    public void insertChecklist() {
+    public void insertChecklist(List<Pair<String, ArrayList<String>>> course, List<Pair<String, ArrayList<String>>> add) {
         checklistOpenHelper.getWritableDatabase();
         checklistOpenHelper.insertChecklist(whichPlan);
+        checklistOpenHelper.createUserTable(whichPlan, course, add);
     }
 
     public void deleteChecklist() {
