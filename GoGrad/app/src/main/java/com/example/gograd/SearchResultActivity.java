@@ -34,6 +34,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private List<Integer> box;
     private List<Integer> nonMBox;
     private Map<String, Integer> numLimit;
+    private boolean added;
 
     private String fullProgramName;
     private String title;
@@ -58,6 +59,8 @@ public class SearchResultActivity extends AppCompatActivity {
         fullProgramName = programInfo.getString("PROGRAM");
         title = programInfo.getString("TITLE");
 
+        added = false;
+
         ab.setTitle(title);
 
         translator = new SplitString(fullProgramName, this);
@@ -65,14 +68,6 @@ public class SearchResultActivity extends AppCompatActivity {
         unitsNumber = translator.getCourseUnits();
 
         additionalConstraints = translator.getConstraints();
-//        for (int i = 0; i < additionalConstraints.size(); ++i) {
-//            String name = additionalConstraints.get(i).first;
-//            ArrayList<String> values = additionalConstraints.get(i).second;
-//            System.out.println(name);
-//            for (int j = 0; j < values.size(); ++j) {
-//                System.out.println(values.get(j));
-//            }
-//        }
 
 
         // initial the courseViews that store all courses
@@ -519,6 +514,20 @@ public class SearchResultActivity extends AppCompatActivity {
 
         }
 
+    }
+
+
+    public void addToUser(View view) {
+
+        ImageView addButton = (ImageView) view;
+
+        if (added) {
+            addButton.setImageResource(R.drawable.unlike);
+            added = false;
+        } else {
+            addButton.setImageResource(R.drawable.like);
+            added = true;
+        }
     }
 
 
