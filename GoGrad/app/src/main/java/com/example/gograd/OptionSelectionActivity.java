@@ -1,24 +1,24 @@
 package com.example.gograd;
 
 import android.content.Intent;
-import android.content.res.Resources;
+
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class OptionSelectionActivity extends AppCompatActivity implements ProgramDialog.DialogListener {
 
     public static final String PROGRAM = "null";
+    public static final String TITLE = "null";
     private String programName;
 
     private final String[] bcsOptions = new String[] {"BCS(No Option)", "AI", "Bio", "Bus", "CFA", "DH", "HCI", "SE",
@@ -105,15 +105,54 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
 
         Intent searchResult = new Intent(this, SearchResultActivity.class);
 
+        String academicYear = year.getText().toString();
         String optionName = option.getText().toString();
+
+        if (optionName.equals("") || academicYear.equals("")) {
+            Toast claim = Toast.makeText(this, "Please select an Option and an Academic year",
+                    Toast.LENGTH_SHORT);
+            claim.show();
+            return;
+        }
+
+        String fullOption = "";
+
         if (optionName.equals("BCS(No Option)")) {
             optionName = "";
+            fullOption = "";
         } else {
+
+            if (optionName.equals("SE")) {
+                fullOption = "Software Engineering";
+            } else if (optionName.equals("HCI")) {
+                fullOption = "Human-Computer Interaction";
+            } else if (optionName.equals("DH")) {
+                fullOption = "Digital Hardware";
+            } else if (optionName.equals("CFA")) {
+                fullOption = "Computational Fine Arts";
+            } else if (optionName.equals("Bus")) {
+                fullOption = "Business";
+            } else if (optionName.equals("Bio")) {
+                fullOption = "Bioinformatics";
+            } else if (optionName.equals("AI")) {
+                fullOption = "AI";
+            }
+
             optionName = "/" + optionName;
         }
         // send the program name to the next activity
-        String fullProgramName = year.getText().toString() + programName + optionName;
-        searchResult.putExtra(PROGRAM, fullProgramName);
+        String fullProgramName = academicYear + programName + optionName;
+        String titleNextActivity = academicYear + " " + programName;
+
+        if (!fullOption.equals("")) {
+            titleNextActivity += "/" + fullOption;
+        }
+
+        Bundle programInfo = new Bundle();
+        programInfo.putString("PROGRAM", fullProgramName);
+        programInfo.putString("TITLE", titleNextActivity);
+
+        searchResult.putExtras(programInfo);
 
         startActivity(searchResult);
     }
@@ -137,8 +176,22 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
             option.setText(value);
             year.setText("");
         } else {
-            year.setText(value);
+            if (value.equals("No Option yet")) {
+                year.setText("");
+            } else {
+                year.setText(value);
+            }
         }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 
 }
