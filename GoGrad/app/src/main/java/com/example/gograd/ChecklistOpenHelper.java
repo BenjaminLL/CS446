@@ -92,10 +92,11 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean updateUserTable_Status(String id, String requires, int status){
+    public boolean updateUserTable_Status(String id, String requires, boolean status){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_C3, status);
+        int myInt = status ? 1 : 0;
+        contentValues.put(COL_C3, myInt);
         String[] args = new String[]{requires};
         int i = db.update(id, contentValues, COL_C2+" =?", args);
         return i!= -1;
