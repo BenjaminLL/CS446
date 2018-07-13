@@ -1,7 +1,6 @@
 package com.example.gograd.utli;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.example.gograd.ChecklistOpenHelper;
 
@@ -16,17 +15,18 @@ public class ModifyPlan {
         checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
     }
 
-    public Boolean getIsInChecklist() {
-        SQLiteDatabase db = checklistOpenHelper.getWritableDatabase();
-        
-        checklistOpenHelper.insertChecklist(whichPlan);
+    public Boolean getIsExist() {
+        checklistOpenHelper.getReadableDatabase();
+        return checklistOpenHelper.checkExistPlan(whichPlan);
     }
 
     public void insertChecklist() {
+        checklistOpenHelper.getWritableDatabase();
         checklistOpenHelper.insertChecklist(whichPlan);
     }
 
     public void deleteChecklist() {
+        checklistOpenHelper.getWritableDatabase();
         checklistOpenHelper.deleteChecklist(whichPlan);
     }
 }
