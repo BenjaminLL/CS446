@@ -142,8 +142,8 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     }
     //Usage: getIsOrigin("17/18BCS", "Non-math")
     //Category: "Non-math" or "Elective"
-    public String getIsOrigin(String id, String Category){
-        System.out.println("getIsOrigin called!");
+    public String getOriginUnderCategory(String id, String Category){
+        System.out.println("getOriginUnderCategory called!");
         SQLiteDatabase db = getReadableDatabase();
         String courses = "";
         Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE "+COL_C4
@@ -154,8 +154,20 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
             courses += temp + "\n";
         }
         String ret = courses.trim();
-        System.out.println("getIsOriginal success: " + ret);
+        System.out.println("getOriginUnderCategory success: " + ret);
         return ret;
+    }
+    //return true if the course is added by user
+    //else false
+    public boolean getIsOrigin(String id, String requires){
+        System.out.println("getIsOrigin called!");
+        SQLiteDatabase db = getReadableDatabase();
+        String courses = "";
+        Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE "+COL_C4+" IS NULL OR "+COL_C4
+                +"=?", new String[]{""});
+        boolean exist = (cursor.getCount()>0);
+        System.out.println("getIsOriginal success!");
+        return exist;
     }
 
     //eg: insertChecklist("07/08BCS","CustomizedName")
