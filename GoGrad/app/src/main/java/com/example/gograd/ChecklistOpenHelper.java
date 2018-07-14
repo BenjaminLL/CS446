@@ -179,7 +179,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     //Delete by _id
     public void deleteCheckRecord(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String DELETE = "DELETE FROM " + "[" + id + "]";
+        String DELETE = "DROP TABLE " + "[" + id + "]";
         db.execSQL(DELETE);
     }
 
