@@ -22,12 +22,13 @@ public class EachConstraints {
         return ischeck;
     }
 
-    public Boolean setIscheck() {
+    public Boolean changeIscheck() {
         ischeck = !ischeck;
         checklistOpenHelper.updateUserTable_Status(whichPlan, name, ischeck);
         return ischeck;
     }
 
-
-
+    public void setIscheck(Boolean ischeck) {
+        this.ischeck = ischeck;
+    }
 }

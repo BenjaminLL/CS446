@@ -26,7 +26,14 @@ public class Constraints {
     }
 
     public void changeState() {
-        
+        if (parent.getIscheck()) {
+            for (EachConstraints child : children) {
+                child.setIscheck(true);
+            }
+        }
+        else if (parent.getName().contains("One of")) {
+            //if (children.)
+        }
     }
 
 }
