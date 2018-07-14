@@ -63,18 +63,18 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
 
     public void createUserTable(String id,List<Pair<String, ArrayList<String>>> course, List<Pair<String, ArrayList<String>>> add) {
         SQLiteDatabase db = this.getWritableDatabase();
-        System.out.println("Enter CreateUserTable function!");
+//        System.out.println("Enter CreateUserTable function!");
         String CREATE_TABLE_NEW_LIST = "CREATE TABLE [" + id + "] (" +
                 COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_C2 + TEXT_TYPE + COMMA_SEP +
                 COL_C3 + INT_TYPE + COMMA_SEP+
                 COL_C4 + TEXT_TYPE + ")";
         db.execSQL(CREATE_TABLE_NEW_LIST);
-        if(tableExists(db, id)){
-            System.out.println("TABLE created for "+id);
-        }else{
-            System.out.println("TABLE create failure for "+id);
-        }
+//        if(tableExists(db, id)){
+//            System.out.println("TABLE created for "+id);
+//        }else{
+//            System.out.println("TABLE create failure for "+id);
+//        }
         for(int i=0; i<course.size(); i++){
             Pair<String, ArrayList<String>> tempPair = course.get(i);
             ArrayList<String> temp = tempPair.second;
@@ -100,7 +100,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
 
     public boolean getIsCheck(String id, String requires){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT "+COL_C3+" FROM "+id+" WHERE "+COL_C2
+        Cursor cursor = db.rawQuery("SELECT "+COL_C3+" FROM ["+id+"] WHERE "+COL_C2
                 +"=?",new String[]{requires});
         int status = 0;
         while (cursor.moveToNext()) {
@@ -112,23 +112,50 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     }
 
     public boolean updateUserTable_Status(String id, String requires, boolean status){
+        System.out.println("updateUserTable_Course called update check status " + requires);
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         int myInt = status ? 1 : 0;
         contentValues.put(COL_C3, myInt);
         String[] args = new String[]{requires};
-        int i = db.update(id, contentValues, COL_C2+" =?", args);
+        int i = db.update("["+id+"]", contentValues, COL_C2+" =?", args);
+
+        System.out.println("updateUserTable_Course success!");
+
         return i!= -1;
     }
-
+    //Insert the courses added by user
+    //return true if success
+    //Set checked status to be unchecked by default
     public boolean insertUserTable_Course(String id, String requires, String Category){
+        System.out.println("insertUserTable_Course called user add their course " + requires);
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_C2,requires);
         contentValues.put(COL_C3, 0);
         contentValues.put(COL_C4, Category);
-        long result = db.insert(id, null, contentValues);
+        long result = db.insert("["+id+"]", null, contentValues);
+
+        System.out.println("insertUserTable_Course success");
+
         return result!= -1;
+    }
+    //Usage: getIsOrigin("17/18BCS", "Non-math")
+    //Category: "Non-math" or "Elective"
+    public String getIsOrigin(String id, String Category){
+        System.out.println("getIsOrigin called!");
+        SQLiteDatabase db = getReadableDatabase();
+        String courses = "";
+        Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE "+COL_C4
+                +"=?",new String[]{Category});
+        while (cursor.moveToNext()) {
+            String temp = cursor.getString(
+                    cursor.getColumnIndexOrThrow(COL_C2));
+            courses += temp + "\n";
+        }
+        String ret = courses.trim();
+        System.out.println("getIsOriginal success: " + ret);
+        return ret;
     }
 
     //eg: insertChecklist("07/08BCS","CustomizedName")
