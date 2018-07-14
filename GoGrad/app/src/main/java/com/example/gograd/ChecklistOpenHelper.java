@@ -64,16 +64,12 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     public void createUserTable(String id,List<Pair<String, ArrayList<String>>> course, List<Pair<String, ArrayList<String>>> add) {
         SQLiteDatabase db = this.getWritableDatabase();
         System.out.println("Enter CreateUserTable function!");
-        String CREATE_TABLE_NEW_LIST = "CREATE TABLE " + id + " (" +
+        String CREATE_TABLE_NEW_LIST = "CREATE TABLE [" + id + "] (" +
                 COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_C2 + TEXT_TYPE + COMMA_SEP +
                 COL_C3 + INT_TYPE + COMMA_SEP+
                 COL_C4 + TEXT_TYPE + ")";
         db.execSQL(CREATE_TABLE_NEW_LIST);
-        System.out.println("Finished create table!");
-        ContentValues cv = new ContentValues();
-        cv.put(COL_C2, id);
-        db.insert(id, null, cv);
         if(tableExists(db, id)){
             System.out.println("TABLE created for "+id);
         }else{
@@ -84,9 +80,9 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
             ArrayList<String> temp = tempPair.second;
             for(int n=0; n<temp.size(); n++){
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(COL_2, temp.get(n));
-                contentValues.put(COL_3, 0);
-                db.insert(id, null, contentValues);
+                contentValues.put(COL_C2, temp.get(n));
+                contentValues.put(COL_C3, 0);
+                db.insert("[" + id + "]", null, contentValues);
             }
         }
         for(int j=0; j<add.size(); j++){
@@ -94,9 +90,9 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
             ArrayList<String> temp = tempPair.second;
             for(int k=0; k<temp.size();k++){
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(COL_2, temp.get(k));
-                contentValues.put(COL_3, 0);
-                db.insert(id, null, contentValues);
+                contentValues.put(COL_C2, temp.get(k));
+                contentValues.put(COL_C3, 0);
+                db.insert("[" + id + "]", null, contentValues);
             }
         }
         db.close();
@@ -183,7 +179,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     //Delete by _id
     public void deleteCheckRecord(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String DELETE = "DELETE FROM " + id;
+        String DELETE = "DELETE FROM " + "[" + id + "]";
         db.execSQL(DELETE);
     }
 

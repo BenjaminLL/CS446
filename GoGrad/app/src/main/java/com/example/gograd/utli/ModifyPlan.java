@@ -26,8 +26,11 @@ public class ModifyPlan {
 
     public void insertChecklist(List<Pair<String, ArrayList<String>>> course, List<Pair<String, ArrayList<String>>> add) {
         checklistOpenHelper.getWritableDatabase();
-        checklistOpenHelper.insertChecklist(whichPlan);
-        checklistOpenHelper.createUserTable(whichPlan, course, add);
+
+        boolean insert = checklistOpenHelper.insertChecklist(whichPlan);
+        if (insert) {
+            checklistOpenHelper.createUserTable(whichPlan, course, add);
+        }
     }
 
     public void deleteChecklist() {
