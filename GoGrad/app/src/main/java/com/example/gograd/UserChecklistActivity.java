@@ -64,6 +64,7 @@ public class UserChecklistActivity extends AppCompatActivity {
          */
         checklist = new EachChecklist(title, this);
 <<<<<<< HEAD
+<<<<<<< HEAD
         List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourse();
         for (int i = 0; i < tmpChecklist.size(); ++i) {
             String name = tmpChecklist.get(i).first;
@@ -75,6 +76,9 @@ public class UserChecklistActivity extends AppCompatActivity {
                 System.out.println(tmpCourse.getName());
             }
         }
+=======
+        List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourses();
+>>>>>>> 89fb5c8bfd79846bed60e036da6eebb92c5d448b
 =======
         List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourses();
 >>>>>>> 89fb5c8bfd79846bed60e036da6eebb92c5d448b
