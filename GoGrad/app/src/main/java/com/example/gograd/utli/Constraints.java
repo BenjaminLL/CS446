@@ -33,10 +33,16 @@ public class Constraints {
         return children;
     }
 
-    public void changeState() {
+    public ArrayList<EachConstraints> changeState() {
+
+        ArrayList<EachConstraints> temp = new ArrayList<>();
+
         if (parent.getIscheck()) {
             for (EachConstraints child : children) {
-                child.setIscheck(true);
+                if (!child.getIscheck()) {
+                    child.setIscheck(true);
+                    temp.add(child);
+                }
             }
         } else {
             if (parent.getName().contains("One of")) {
@@ -151,6 +157,7 @@ public class Constraints {
                 }
             }
         }
+        return temp;
     }
 
 }

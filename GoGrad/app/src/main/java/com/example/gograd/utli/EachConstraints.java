@@ -32,5 +32,6 @@ public class EachConstraints {
 
     public void setIscheck(Boolean ischeck) {
         this.ischeck = ischeck;
+        checklistOpenHelper.updateUserTable_Status(whichPlan, name, this.ischeck);
     }
 }
