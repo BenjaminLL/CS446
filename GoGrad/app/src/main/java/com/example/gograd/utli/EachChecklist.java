@@ -43,13 +43,13 @@ public class EachChecklist {
         String key3 = "Elective Units";
         String value3 = databaseAccess.getElective(whichPlan);
         splitCourses(key3, value3);
+        splitCourses(key3, checklistOpenHelper.getOriginUnderCategory(whichPlan, key3));
 
         String key4 = "Non-Math Units";
         String value4 = databaseAccess.getNonMath(whichPlan);
         splitCourses(key4, value4);
+        splitCourses(key4, checklistOpenHelper.getOriginUnderCategory(whichPlan, key4));
 
-
-        
         return course;
     }
 
