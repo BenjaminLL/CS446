@@ -99,6 +99,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     }
 
     public boolean getIsCheck(String id, String requires){
+        System.out.println("getIsCheck called !");
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT "+COL_C3+" FROM ["+id+"] WHERE "+COL_C2
                 +"=?",new String[]{requires});
@@ -108,6 +109,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
                     cursor.getColumnIndexOrThrow(COL_C3));
         }
         boolean ret = status==1 ? true:false;
+        System.out.println("getIsCheck called success!");
         return ret;
     }
 
@@ -148,6 +150,9 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         String courses = "";
         Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE "+COL_C4
                 +"=?",new String[]{Category});
+        if(cursor.getCount() == 0){
+            return null;
+        }
         while (cursor.moveToNext()) {
             String temp = cursor.getString(
                     cursor.getColumnIndexOrThrow(COL_C2));
