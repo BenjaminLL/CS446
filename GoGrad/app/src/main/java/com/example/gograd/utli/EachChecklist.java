@@ -143,6 +143,22 @@ public class EachChecklist {
         }
     }
 
+    public void deleteCourses(String name, String whichUnit) {
+        for (Pair<String, ArrayList<EachCourse>> course : courses) {
+            if (course.first.equals(whichUnit)) {
+                for (int i = 0; i < course.second.size(); ++i) {
+                    EachCourse tmpCourse = course.second.get(i);
+                    String courseName = tmpCourse.getName();
+                    if (name.equals(courseName)) {
+                        course.second.remove(i);
+                        checklistOpenHelper.deleteUserTable_Course(whichPlan, name, whichUnit);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     public void changeCourseIsCheck(String name, String whichUnit) {
         for (Pair<String, ArrayList<EachCourse>> course : courses) {
             if (course.first.equals(whichUnit)) {
