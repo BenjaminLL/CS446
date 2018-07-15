@@ -11,8 +11,9 @@ import java.util.List;
 
 public class EachChecklist {
 
-    private List<Pair<String, ArrayList<EachCourse>>> course;
+    private List<Pair<String, ArrayList<EachCourse>>> courses;
     private List<Pair<EachConstraints, ArrayList<EachConstraints>>> constraint;
+    private List<Double> courseUnits;
     private String whichPlan;
     private Context context;
     private ChecklistOpenHelper checklistOpenHelper;
@@ -20,14 +21,14 @@ public class EachChecklist {
 
     public EachChecklist(String whichPlan, Context context) {
 
-        course = new ArrayList<>();
+        courses = new ArrayList<>();
         constraint = new ArrayList<>();
         this.whichPlan = whichPlan;
         this.context = context;
-        ChecklistOpenHelper checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
+        checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
     }
 
-    public List<Pair<String, ArrayList<EachCourse>>> getCourse() {
+    public List<Pair<String, ArrayList<EachCourse>>> getCourses() {
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
@@ -43,18 +44,60 @@ public class EachChecklist {
         String key3 = "Elective Units";
         String value3 = databaseAccess.getElective(whichPlan);
         splitCourses(key3, value3);
+        for (Pair<String, ArrayList<EachCourse>> course : courses) {
+            if (course.first.equals(key3)) {
+                String value = checklistOpenHelper.getOriginUnderCategory(whichPlan, key3);
+                if (value != null) {
+                    String[] lines = value.split("\\r?\\n");
+                    for (String line : lines) {
+                        EachCourse eachCourse = new EachCourse(whichPlan, line,
+                                checklistOpenHelper.getIsCheck(whichPlan, line), checklistOpenHelper.getIsOrigin(whichPlan, line));
+                        course.second.add(eachCourse);
+                    }
+                }
+
+            }
+        }
+
 
         String key4 = "Non-Math Units";
         String value4 = databaseAccess.getNonMath(whichPlan);
-        splitCourses(key4, value4);
+        splitCourses(key4, value4);for (Pair<String, ArrayList<EachCourse>> course : courses) {
+            if (course.first.equals(key3)) {
+                String value = checklistOpenHelper.getOriginUnderCategory(whichPlan, key4);
+                if (value != null) {
+                    String[] lines = value.split("\\r?\\n");
+                    for (String line : lines) {
+                        EachCourse eachCourse = new EachCourse(whichPlan, line,
+                                checklistOpenHelper.getIsCheck(whichPlan, line), checklistOpenHelper.getIsOrigin(whichPlan, line));
+                        course.second.add(eachCourse);
+                    }
+                }
 
+            }
+        }
 
-        
-        return course;
+        return courses;
     }
 
-    public List<Pair<EachConstraints, ArrayList<EachConstraints>>> getConstraint() {
-        return constraint;
+    public List<Double> getCourseUnits() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+
+        Double unit1 = databaseAccess.getTotalCS(whichPlan);
+        courseUnits.add(unit1);
+
+        Double unit2 = databaseAccess.getTotalMath(whichPlan);
+        courseUnits.add(unit2);
+
+        Double unit3 = databaseAccess.getTotalElective(whichPlan);
+        courseUnits.add(unit3);
+
+        Double unit4 = databaseAccess.getTotalNonMath(whichPlan);
+        courseUnits.add(unit4);
+
+        databaseAccess.close();
+        return courseUnits;
     }
 
     private void splitCourses(String key, String value) {
@@ -62,7 +105,7 @@ public class EachChecklist {
         ArrayList<EachCourse> tempArr = new ArrayList<>();
         if (value == null) {
             Pair<String, ArrayList<EachCourse>> tempPair = new Pair<>(key, tempArr);
-            course.add(tempPair);
+            courses.add(tempPair);
             return;
         }
         String[] lines = value.split("\\r?\\n");
@@ -72,9 +115,8 @@ public class EachChecklist {
             tempArr.add(eachCourse);
         }
         Pair<String, ArrayList<EachCourse>> tempPair = new Pair<>(key, tempArr);
-        course.add(tempPair);
+        courses.add(tempPair);
     }
-
 
 
 }

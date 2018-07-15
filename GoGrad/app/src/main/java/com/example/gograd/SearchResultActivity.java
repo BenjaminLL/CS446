@@ -262,7 +262,7 @@ public class SearchResultActivity extends AppCompatActivity {
             int list1StartMargin = dpToPx(17, this);
             int list2StartMargin = dpToPx(145, this);
             int bulletToTextH = dpToPx(8, this);
-            int bulletToTextV = dpToPx(7, this);
+            int bulletToTextV = dpToPx(5, this);
             int margin = dpToPx(5, this);
 
             for (int j = 0; j < courseList1.size(); ++j) {

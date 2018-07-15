@@ -6,12 +6,14 @@ public class EachConstraints {
     private String whichPlan;
     private String name;
     private Boolean ischeck;
+    private Boolean parOrChild;
     private ChecklistOpenHelper checklistOpenHelper;
 
-    public EachConstraints(String whichPlan, String name, Boolean ischeck) {
+    public EachConstraints(String whichPlan, String name, Boolean ischeck, Boolean parOrChild) {
         this.whichPlan = whichPlan;
         this.name = name;
         this.ischeck = ischeck;
+        this.parOrChild = parOrChild;
     }
 
     public String getName() {
