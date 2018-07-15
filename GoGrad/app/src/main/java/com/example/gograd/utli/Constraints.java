@@ -10,7 +10,7 @@ public class Constraints {
     private EachConstraints parent;
     private ArrayList<EachConstraints> children;
 
-    public Constraints(String whichPlan, String parentName, String childName) {
+    public Constraints(EachConstraints parent, ArrayList<EachConstraints> children) {
 
         this.parent = parent;
         this.children = children;
