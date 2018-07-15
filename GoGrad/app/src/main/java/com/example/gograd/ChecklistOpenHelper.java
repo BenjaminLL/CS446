@@ -169,16 +169,20 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         System.out.println("getOriginUnderCategory success: " + ret);
         return ret;
     }
-    //return true if the course is added by user
+    //return true if the course is origin
     //else false
     public boolean getIsOrigin(String id, String requires){
-        System.out.println("getIsOrigin called!");
+        System.out.println("getIsOrigin called! " + requires);
         SQLiteDatabase db = getReadableDatabase();
         String courses = "";
-        Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE "+COL_C4+" IS NULL OR "+COL_C4
-                +"=?", new String[]{""});
+        Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE ("+COL_C4+" IS NULL OR "+COL_C4
+                +"=?) AND ("+COL_C2+"=?)" , new String[]{"", requires});
         boolean exist = (cursor.getCount()>0);
-        System.out.println("getIsOriginal success!");
+        if(exist){
+            System.out.println(requires + " = true");
+        } else {
+            System.out.println(requires + " = false");
+        }
         return exist;
     }
 
