@@ -6,7 +6,7 @@ public class EachConstraints {
     private String whichPlan;
     private String name;
     private Boolean ischeck;
-    private Boolean parOrChild;
+    private Boolean parOrChild; //Parent is True, Child is False
     private ChecklistOpenHelper checklistOpenHelper;
 
     public EachConstraints(String whichPlan, String name, Boolean ischeck, Boolean parOrChild) {
