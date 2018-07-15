@@ -67,6 +67,40 @@ public class DatabaseAccess {
 
     //Method to query and return results
     //Data from table CourseDescription
+    public String getAllDescription(String name){
+        String description = name + "\t";
+        String[] params = new String[]{name};
+        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
+                params);
+        while(c.moveToNext()){
+            String temp = c.getString(c.getColumnIndexOrThrow(COL_3));
+            if(temp == null){
+                temp = "null";
+            }
+            description += temp;
+            description += "\t";
+            temp = c.getString(c.getColumnIndexOrThrow(COL_4));
+            if(temp == null){
+                temp = "null";
+            }
+            description += temp;
+            description += "\t";
+            temp = c.getString(c.getColumnIndexOrThrow(COL_5));
+            if(temp == null){
+                temp = "null";
+            }
+            description += temp;
+            description += "\t";
+            temp = c.getString(c.getColumnIndexOrThrow(COL_7));
+            if(temp == null){
+                temp = "null";
+            }
+            description += temp;
+        }
+        c.close();
+        return description;
+    }
+
     public String getDescription(String name){
         String description = "";
         String[] params = new String[]{name};
