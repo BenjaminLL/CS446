@@ -11,7 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Pair;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +34,7 @@ public class UserChecklistActivity extends AppCompatActivity {
 
     private List<Double> unitsNumber;
     private List<Integer> box;
+    private List<Integer> electiveBox;
     private List<Integer> nonMBox;
     private Map<String, Integer> numLimit;
 
@@ -54,8 +59,6 @@ public class UserChecklistActivity extends AppCompatActivity {
         ab.setTitle(title);
 
 
-        System.out.println("here");
-
 
         /**
          * fake data
@@ -67,8 +70,8 @@ public class UserChecklistActivity extends AppCompatActivity {
         ArrayList<EachCourse> electiveunit = new ArrayList<>();
         ArrayList<EachCourse> nonmathunit = new ArrayList<>();
 
-        csunit.add(new EachCourse("17/18BCS", "CS1[134]5", false));
-        csunit.add(new EachCourse("17/18BCS", "CS1[34]6", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 1[134]5", false));
+        csunit.add(new EachCourse("17/18BCS", "CS 1[34]6", false));
         csunit.add(new EachCourse("17/18BCS", "CS 240", false));
         csunit.add(new EachCourse("17/18BCS", "CS 241", false));
         csunit.add(new EachCourse("17/18BCS", "CS 245", false));
@@ -92,9 +95,8 @@ public class UserChecklistActivity extends AppCompatActivity {
         mathunit.add(new EachCourse("17/18BCS", "STAT 2[34]0", false));
         mathunit.add(new EachCourse("17/18BCS", "STAT 2[34]1", false));
 
-        nonmathunit.add(new EachCourse("17/18BCS", "MATH 2[34]9", false));
-        nonmathunit.add(new EachCourse("17/18BCS", "STAT 2[34]0", false));
-        nonmathunit.add(new EachCourse("17/18BCS", "STAT 2[34]1", false));
+        nonmathunit.add(new EachCourse("17/18BCS", "Communication list I", false));
+        nonmathunit.add(new EachCourse("17/18BCS", "Communication list II", false));
 
         requiredCourses.add(new Pair<>("CS Units", csunit));
         requiredCourses.add(new Pair<>("Math Units", mathunit));
@@ -105,131 +107,304 @@ public class UserChecklistActivity extends AppCompatActivity {
         unitsNumber.add(7.5);
         unitsNumber.add(3.5);
         unitsNumber.add(3.0);
-        unitsNumber.add(4.0);
-//
-//
-//        /**
-//         * Useful data for display checklist
-//         */
-//        // box stores the locations of all containers
-//        box = new ArrayList<>();
-//        box.add(R.drawable.csbox);
-//        box.add(R.drawable.mathbox);
-//        box.add(R.drawable.electivebox);
-//        // nonMBox only store the containers that are used for non-Math units
-//        nonMBox = new ArrayList<>();
-//        nonMBox.add(R.drawable.non1box);
-//        nonMBox.add(R.drawable.non2box);
-//        nonMBox.add(R.drawable.electivebox);
-//
-//        numLimit = new HashMap<>();
-//        numLimit.put("CS Units", 10);
-//        numLimit.put("Math Units", 4);
-//        numLimit.put("Elective Units", 0);
-//
-//
-//        /**
-//         * view contents
-//         */
-//        LinearLayout linearLayout = findViewById(R.id.results);
+        unitsNumber.add(5.0);
 
-//        for (int i = 0; i < requiredCourses.size(); ++i) {
-//
-//            ConstraintLayout courseUnits = new ConstraintLayout(this);
-//            courseUnits.setId(View.generateViewId());
-//            linearLayout.addView(courseUnits, i, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
-//                    ConstraintLayout.LayoutParams.WRAP_CONTENT));
-//
-//            // local variables
-//            String name = requiredCourses.get(i).first;
-//            int total = requiredCourses.get(i).second.size();
-//
-//            // initial the yellow flag(circle)
-//            ImageView flag = new ImageView(this);
-//            flag.setId(View.generateViewId());
-//            flag.setImageResource(R.drawable.oval);
-//            int flagWidth = dpToPx(26, this);
-//            int flagHeight = dpToPx(26, this);
-//            courseUnits.addView(flag, new ConstraintLayout.LayoutParams(flagWidth, flagHeight));
-//
-//
-//            // initial the box container
-//            ImageView container = new ImageView(this);
-//            container.setId(View.generateViewId());
-//            //set the image background
-//            if (name.equals("Non-Math Units")) {
-//                if (total == 2) {
-//                    container.setImageResource(nonMBox.get(0));
-//                } else if (total > 2){
-//                    container.setImageResource(nonMBox.get(1));
-//                } else {
-//                    container.setImageResource(nonMBox.get(2));
-//                }
-//            } else {
-//                container.setImageResource(box.get(i));
-//            }
-//
-//            courseUnits.addView(container, new ConstraintLayout.LayoutParams(
-//                    ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
-//
-//            // initial the title and underline
-//            TextView title = new TextView(this);
-//            title.setId(View.generateViewId());
-//            title.setText(requiredCourses.get(i).first + " -- " + unitsNumber.get(i));
-//            title.setTextColor(Color.BLACK);
-//            title.setTextSize(16.12f);
-//            courseUnits.addView(title, new ConstraintLayout.LayoutParams(
-//                    ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
-//
-//            ImageView underline = new ImageView(this);
-//            underline.setId(View.generateViewId());
-//            underline.setImageResource(R.drawable.horbar);
-////            int underlineWidth = dpToPx(245, this);
-//            courseUnits.addView(underline, new ConstraintLayout.LayoutParams(
-//                    ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
-//
-//            /**
-//             * set Constraints
-//             */
-//            ConstraintSet constraintSet = new ConstraintSet();
-//            constraintSet.clone(courseUnits);
-//
-//            // flag
-//            int tmpStartMargin = dpToPx(22, this);
-//            int tmpTopMargin = dpToPx(24, this);
-//            constraintSet.connect(flag.getId(), ConstraintSet.START, courseUnits.getId(), ConstraintSet.START, tmpStartMargin);
-//            constraintSet.connect(flag.getId(), ConstraintSet.TOP, courseUnits.getId(), ConstraintSet.TOP, tmpTopMargin);
-//
-//            // container
-//            int tmpEndMargin = dpToPx(16, this);
-////            int tmpBottomMargin = dpToPx(12, this);
-//            tmpStartMargin = dpToPx(32, this);
-//            constraintSet.connect(container.getId(), ConstraintSet.END, courseUnits.getId(), ConstraintSet.END, tmpEndMargin);
-//            constraintSet.connect(container.getId(), ConstraintSet.START, courseUnits.getId(), ConstraintSet.START, tmpStartMargin);
-//            constraintSet.connect(container.getId(), ConstraintSet.TOP, flag.getId(), ConstraintSet.BOTTOM, 0);
-////            if (i == requiredCourses.size() - 1) {
-////                constraintSet.connect(container.getId(), ConstraintSet.BOTTOM, courseUnits.getId(), ConstraintSet.BOTTOM, tmpBottomMargin);
-////            }
-//            constraintSet.setHorizontalBias(container.getId(), (float) 0.5);
-//
-//            // title
-//            tmpTopMargin = dpToPx(18, this);
-//            tmpStartMargin = dpToPx(18, this);
-//            constraintSet.connect(title.getId(), ConstraintSet.START, container.getId(), ConstraintSet.START, tmpStartMargin);
-//            constraintSet.connect(title.getId(), ConstraintSet.TOP, container.getId(), ConstraintSet.TOP, tmpTopMargin);
-//
-//            // underline
-//            tmpStartMargin = dpToPx(14, this);
-//            tmpEndMargin = dpToPx(14, this);
-//            constraintSet.connect(underline.getId(), ConstraintSet.START, container.getId(), ConstraintSet.START, tmpStartMargin);
-//            constraintSet.connect(underline.getId(), ConstraintSet.END, container.getId(), ConstraintSet.END, tmpEndMargin);
-//            constraintSet.connect(underline.getId(), ConstraintSet.TOP, title.getId(), ConstraintSet.BOTTOM, 0);
-//
-//            // COURSES
-//
-//            constraintSet.applyTo(courseUnits);
-//
-//        }
+
+        /**
+         * Useful data for display checklist
+         */
+        // box stores the locations of all containers
+        box = new ArrayList<>();
+        box.add(R.drawable.csbox);
+        box.add(R.drawable.mathbox);
+
+        electiveBox = new ArrayList<>();
+        electiveBox.add(R.drawable.electivebox3);
+        electiveBox.add(R.drawable.electivebox3);
+
+        // nonMBox only store the containers that are used for non-Math units
+        nonMBox = new ArrayList<>();
+        nonMBox.add(R.drawable.non1box);
+        nonMBox.add(R.drawable.non2box);
+        nonMBox.add(R.drawable.electivebox);
+
+        numLimit = new HashMap<>();
+        numLimit.put("CS Units", 10);
+        numLimit.put("Math Units", 4);
+
+
+        /**
+         * view contents
+         */
+        LinearLayout linearLayout = findViewById(R.id.results);
+
+        for (int i = 0; i < requiredCourses.size(); ++i) {
+
+            ConstraintLayout courseUnits = new ConstraintLayout(this);
+            courseUnits.setId(View.generateViewId());
+            linearLayout.addView(courseUnits, i, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+            // local variables
+            String name = requiredCourses.get(i).first;
+            double total = unitsNumber.get(i);
+
+            // initial the yellow flag(circle)
+            ImageView flag = new ImageView(this);
+            flag.setId(View.generateViewId());
+            flag.setImageResource(R.drawable.oval);
+            int flagWidth = dpToPx(26, this);
+            int flagHeight = dpToPx(26, this);
+            courseUnits.addView(flag, new ConstraintLayout.LayoutParams(flagWidth, flagHeight));
+
+
+            // initial the box container
+            ImageView container = new ImageView(this);
+            container.setId(View.generateViewId());
+            //set the image background
+            if (name.equals("Non-Math Units")) {
+
+                if (total == 2) {
+                    container.setImageResource(nonMBox.get(0));
+                } else if (total > 2) {
+                    container.setImageResource(nonMBox.get(1));
+                } else {
+                    container.setImageResource(nonMBox.get(2));
+                }
+            } else if (name.equals("Elective Units")){
+
+                if (total <= 3.0) {
+                    container.setImageResource(electiveBox.get(0));
+                } else {
+                    container.setImageResource(electiveBox.get(1));
+                }
+
+            } else {
+                container.setImageResource(box.get(i));
+            }
+
+            courseUnits.addView(container, new ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+            // initial the title and underline
+            TextView title = new TextView(this);
+            title.setId(View.generateViewId());
+            title.setText(requiredCourses.get(i).first + " -- " + unitsNumber.get(i));
+            title.setTextColor(Color.BLACK);
+            title.setTextSize(16.12f);
+            courseUnits.addView(title, new ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+            ImageView underline = new ImageView(this);
+            underline.setId(View.generateViewId());
+            underline.setImageResource(R.drawable.horbar);
+            courseUnits.addView(underline, new ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+
+            // initial the courses
+            List<Pair<CheckBox, View>> courseList1 = new ArrayList<>();
+            List<Pair<CheckBox, View>> courseList2 = new ArrayList<>();
+            int posList1ForEdit = 0; // indicate the position of editText that user enters on each column
+            int posList2ForEdit = 0;
+            boolean swichColumnForNonMath = true;
+
+
+            int count = 0;
+            ArrayList<EachCourse> courses = requiredCourses.get(i).second;
+            int filled = courses.size();
+            int totalCourses = (int) (total * 2);
+            System.out.println(totalCourses);
+
+            for (int j = 0; j < totalCourses; ++j) {
+
+                TextView course = new TextView(this);
+                EditText editText = new EditText(this);
+
+                boolean insertedByUser = false;
+
+                // there are two types of course: 1. required course(TextView) 2. elective course(EditView)
+                if (j < filled) {
+
+                    course.setId(View.generateViewId());
+                    final String text = courses.get(j).getName();
+                    course.setText(text);
+                    course.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                    course.setTextColor(Color.BLACK);
+                    course.setGravity(Gravity.CENTER_VERTICAL);
+                    int textWidth = dpToPx(100, this);
+                    courseUnits.addView(course, new ConstraintLayout.LayoutParams(
+                            textWidth, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+                } else {
+
+                    editText.setId(View.generateViewId());
+                    editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                    int textWidth = dpToPx(80, this);
+                    courseUnits.addView(editText, new ConstraintLayout.LayoutParams(
+                            textWidth, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+                    insertedByUser = true;
+                }
+
+                // checkbox
+                CheckBox checkBox = new CheckBox(this);
+                checkBox.setId(View.generateViewId());
+                if (j < filled) {
+                    final boolean isChecked = courses.get(j).getIscheck();
+                    checkBox.setChecked(isChecked);
+                }
+                courseUnits.addView(checkBox, new ConstraintLayout.LayoutParams(
+                        ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+
+                // get the number of courses should be placed on the first column
+                int firstColumnCount;
+
+                if (name.equals("CS Units") || name.equals("Math Units")) {
+                    firstColumnCount = numLimit.get(name);
+                } else {
+                    firstColumnCount = totalCourses % 2 == 0? totalCourses / 2: totalCourses / 2 + 1;
+                }
+
+                // add each view to assigned column
+                if (name.equals("Non-Math Units")) {
+
+                    if (swichColumnForNonMath) {
+                        if (insertedByUser) {
+                            courseList1.add(new Pair<>(checkBox, (View) editText));
+                        } else {
+                            courseList1.add(new Pair<>(checkBox, (View) course));
+                            ++posList1ForEdit;
+                        }
+                        swichColumnForNonMath = false;
+
+                    } else {
+
+                        if (insertedByUser) {
+                            courseList2.add(new Pair<>(checkBox, (View) editText));
+                        } else {
+                            courseList2.add(new Pair<>(checkBox, (View) course));
+                            ++posList2ForEdit;
+                        }
+                        swichColumnForNonMath = true;
+                    }
+
+                } else {
+                    if (count < firstColumnCount) {
+
+                        if (insertedByUser) {
+                            courseList1.add(new Pair<>(checkBox, (View) editText));
+                        } else {
+                            courseList1.add(new Pair<>(checkBox, (View) course));
+                            ++posList1ForEdit;
+                        }
+                        ++count;
+                    } else {
+                        if (insertedByUser) {
+                            courseList2.add(new Pair<>(checkBox, (View) editText));
+                        } else {
+                            courseList2.add(new Pair<>(checkBox, (View) course));
+                            ++posList2ForEdit;
+                        }
+                    }
+                }
+
+            }
+
+
+
+            /**
+             * set Constraints
+             */
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(courseUnits);
+
+            // flag
+            int tmpStartMargin = dpToPx(22, this);
+            int tmpTopMargin = dpToPx(24, this);
+            constraintSet.connect(flag.getId(), ConstraintSet.START, courseUnits.getId(), ConstraintSet.START, tmpStartMargin);
+            constraintSet.connect(flag.getId(), ConstraintSet.TOP, courseUnits.getId(), ConstraintSet.TOP, tmpTopMargin);
+
+            // container
+            int tmpEndMargin = dpToPx(16, this);
+            tmpStartMargin = dpToPx(32, this);
+            constraintSet.connect(container.getId(), ConstraintSet.END, courseUnits.getId(), ConstraintSet.END, tmpEndMargin);
+            constraintSet.connect(container.getId(), ConstraintSet.START, courseUnits.getId(), ConstraintSet.START, tmpStartMargin);
+            constraintSet.connect(container.getId(), ConstraintSet.TOP, flag.getId(), ConstraintSet.BOTTOM, 0);
+            constraintSet.setHorizontalBias(container.getId(), (float) 0.5);
+
+            // title
+            tmpTopMargin = dpToPx(18, this);
+            tmpStartMargin = dpToPx(18, this);
+            constraintSet.connect(title.getId(), ConstraintSet.START, container.getId(), ConstraintSet.START, tmpStartMargin);
+            constraintSet.connect(title.getId(), ConstraintSet.TOP, container.getId(), ConstraintSet.TOP, tmpTopMargin);
+
+            // underline
+            tmpStartMargin = dpToPx(14, this);
+            tmpEndMargin = dpToPx(14, this);
+            constraintSet.connect(underline.getId(), ConstraintSet.START, container.getId(), ConstraintSet.START, tmpStartMargin);
+            constraintSet.connect(underline.getId(), ConstraintSet.END, container.getId(), ConstraintSet.END, tmpEndMargin);
+            constraintSet.connect(underline.getId(), ConstraintSet.TOP, title.getId(), ConstraintSet.BOTTOM, 0);
+
+            // COURSES
+            int list1StartMargin = dpToPx(14, this);
+            int list2StartMargin = dpToPx(140, this);
+            int textToCheckbox = dpToPx(6, this);
+
+            for (int j = 0; j < courseList1.size(); ++j) {
+
+                CheckBox tmpCheckbox = courseList1.get(j).first;
+                View tmpCourse = courseList1.get(j).second;
+
+                if (j == 0) {
+                    constraintSet.connect(tmpCheckbox.getId(), ConstraintSet.TOP, underline.getId(), ConstraintSet.BOTTOM, 0);
+                } else {
+                    View preCourse = courseList1.get(j - 1).second;
+                    constraintSet.connect(tmpCheckbox.getId(), ConstraintSet.TOP, preCourse.getId(), ConstraintSet.BOTTOM, 0);
+                }
+
+                constraintSet.connect(tmpCheckbox.getId(), ConstraintSet.START, container.getId(), ConstraintSet.START, list1StartMargin);
+                constraintSet.connect(tmpCourse.getId(), ConstraintSet.LEFT, tmpCheckbox.getId(), ConstraintSet.RIGHT, 0);
+
+                // different constraints for EditText and TextView
+                if (j >= posList1ForEdit) {
+
+                    constraintSet.connect(tmpCourse.getId(), ConstraintSet.TOP, tmpCheckbox.getId(), ConstraintSet.TOP, 0);
+                    constraintSet.connect(tmpCourse.getId(), ConstraintSet.BOTTOM, tmpCheckbox.getId(), ConstraintSet.BOTTOM, 0);
+                    constraintSet.setVerticalBias(tmpCourse.getId(), (float) 0.5);
+                } else {
+
+                    constraintSet.connect(tmpCourse.getId(), ConstraintSet.TOP, tmpCheckbox.getId(), ConstraintSet.TOP, textToCheckbox);
+                }
+            }
+
+            for (int j = 0; j < courseList2.size(); ++j) {
+
+                CheckBox tmpCheckbox = courseList2.get(j).first;
+                View tmpCourse = courseList2.get(j).second;
+
+                if (j == 0) {
+                    constraintSet.connect(tmpCheckbox.getId(), ConstraintSet.TOP, underline.getId(), ConstraintSet.BOTTOM, 0);
+                } else {
+                    View preCourse = courseList2.get(j - 1).second;
+                    constraintSet.connect(tmpCheckbox.getId(), ConstraintSet.TOP, preCourse.getId(), ConstraintSet.BOTTOM, 0);
+                }
+                constraintSet.connect(tmpCheckbox.getId(), ConstraintSet.START, container.getId(), ConstraintSet.START, list2StartMargin);
+                constraintSet.connect(tmpCourse.getId(), ConstraintSet.LEFT, tmpCheckbox.getId(), ConstraintSet.RIGHT, 0);
+
+                if (j >= posList2ForEdit) {
+
+                    constraintSet.connect(tmpCourse.getId(), ConstraintSet.TOP, tmpCheckbox.getId(), ConstraintSet.TOP, 0);
+                    constraintSet.connect(tmpCourse.getId(), ConstraintSet.BOTTOM, tmpCheckbox.getId(), ConstraintSet.BOTTOM, 0);
+                    constraintSet.setVerticalBias(tmpCourse.getId(), (float) 0.5);
+                } else {
+                    constraintSet.connect(tmpCourse.getId(), ConstraintSet.TOP, tmpCheckbox.getId(), ConstraintSet.TOP, textToCheckbox);
+
+                }
+            }
+            constraintSet.applyTo(courseUnits);
+
+        }
 
 
     }
