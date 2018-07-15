@@ -36,9 +36,6 @@ public class EachCourse {
 
     public Boolean changeIscheck() {
         ischeck = !ischeck;
-        System.out.println("Plan: " + whichPlan);
-        System.out.println("Name: " + name);
-        System.out.println("Check: " + ischeck);
         checklistOpenHelper.updateUserTable_Status(whichPlan, name, ischeck);
         return ischeck;
     }
