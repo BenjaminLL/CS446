@@ -52,7 +52,8 @@ public class EachChecklist {
                     String[] lines = value.split("\\r?\\n");
                     for (String line : lines) {
                         EachCourse eachCourse = new EachCourse(whichPlan, line,
-                                checklistOpenHelper.getIsCheck(whichPlan, line), checklistOpenHelper.getIsOrigin(whichPlan, line));
+                                checklistOpenHelper.getIsCheck(whichPlan, line),
+                                checklistOpenHelper.getIsOrigin(whichPlan, line));
                         course.second.add(eachCourse);
                     }
                 }
@@ -70,7 +71,8 @@ public class EachChecklist {
                     String[] lines = value.split("\\r?\\n");
                     for (String line : lines) {
                         EachCourse eachCourse = new EachCourse(whichPlan, line,
-                                checklistOpenHelper.getIsCheck(whichPlan, line), checklistOpenHelper.getIsOrigin(whichPlan, line));
+                                checklistOpenHelper.getIsCheck(whichPlan, line),
+                                checklistOpenHelper.getIsOrigin(whichPlan, line));
                         course.second.add(eachCourse);
                     }
                 }
@@ -119,14 +121,22 @@ public class EachChecklist {
         courses.add(tempPair);
     }
 
-    public void insertCourses(String name) {
-        String key3 = "Elective Units";
-        String key4 = "Non-math Units";
+    public void insertCourses(String name, String whichUnit) {
         for (Pair<String, ArrayList<EachCourse>> course : courses) {
-            if (course.first.equals(key3)) {
+            if (course.first.equals(whichUnit)) {
                 EachCourse temp = new EachCourse(whichPlan, name, false, false);
                 course.second.add(temp);
+                checklistOpenHelper.insertUserTable_Course(whichPlan, name, whichUnit);
+            }
+        }
+    }
 
+    public void changeIsCheck(String name) {
+        for (Pair<String, ArrayList<EachCourse>> course : courses) {
+            for (EachCourse eachcourse : course.second) {
+                if (eachcourse.getName().equals(name)) {
+                    eachcourse.changeIscheck();
+                }
             }
         }
     }
