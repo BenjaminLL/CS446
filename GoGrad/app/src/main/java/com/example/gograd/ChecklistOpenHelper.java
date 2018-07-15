@@ -150,6 +150,9 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         String courses = "";
         Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE "+COL_C4
                 +"=?",new String[]{Category});
+        if(cursor.getCount() == 0){
+            return null;
+        }
         while (cursor.moveToNext()) {
             String temp = cursor.getString(
                     cursor.getColumnIndexOrThrow(COL_C2));
