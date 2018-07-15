@@ -276,6 +276,16 @@ public class UserChecklistActivity extends AppCompatActivity {
                         ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
 
 
+                /**
+                 * add click listener to checkbox
+                 */
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        System.out.println("hello");
+                    }
+                });
+
                 // get the number of courses should be placed on the first column
                 int firstColumnCount;
 
