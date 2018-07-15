@@ -165,7 +165,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         String courses = "";
         Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE "+COL_C4+" IS NULL OR "+COL_C4
                 +"=?", new String[]{""});
-        boolean exist = (cursor.getCount()>0);
+        boolean exist = (cursor.getCount()==0);
         System.out.println("getIsOriginal success!");
         return exist;
     }
