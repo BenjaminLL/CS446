@@ -63,7 +63,21 @@ public class UserChecklistActivity extends AppCompatActivity {
          * get checklist from user database
          */
         checklist = new EachChecklist(title, this);
+<<<<<<< HEAD
         List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourse();
+        for (int i = 0; i < tmpChecklist.size(); ++i) {
+            String name = tmpChecklist.get(i).first;
+            System.out.println("Cate Name: " + name);
+
+            ArrayList<EachCourse> courses = tmpChecklist.get(i).second;
+            for (int j = 0; j < courses.size(); ++j) {
+                EachCourse tmpCourse = courses.get(j);
+                System.out.println(tmpCourse.getName());
+            }
+        }
+=======
+        List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourses();
+>>>>>>> 89fb5c8bfd79846bed60e036da6eebb92c5d448b
 
         /**
          * fake data
@@ -125,13 +139,13 @@ public class UserChecklistActivity extends AppCompatActivity {
 
         electiveBox = new ArrayList<>();
         electiveBox.add(R.drawable.electivebox3);
-        electiveBox.add(R.drawable.electivebox3);
+        electiveBox.add(R.drawable.electivebox4);
 
         // nonMBox only store the containers that are used for non-Math units
         nonMBox = new ArrayList<>();
-        nonMBox.add(R.drawable.non1box);
         nonMBox.add(R.drawable.non2box);
-        nonMBox.add(R.drawable.electivebox);
+        nonMBox.add(R.drawable.nonbox6);
+        nonMBox.add(R.drawable.nonbox7);
 
         numLimit = new HashMap<>();
         numLimit.put("CS Units", 10);
@@ -169,13 +183,14 @@ public class UserChecklistActivity extends AppCompatActivity {
             //set the image background
             if (name.equals("Non-Math Units")) {
 
-                if (total == 2) {
+                if (total <= 5.0) {
                     container.setImageResource(nonMBox.get(0));
-                } else if (total > 2) {
+                } else if (total <= 6.0) {
                     container.setImageResource(nonMBox.get(1));
                 } else {
                     container.setImageResource(nonMBox.get(2));
                 }
+
             } else if (name.equals("Elective Units")){
 
                 if (total <= 3.0) {
