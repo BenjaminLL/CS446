@@ -63,50 +63,63 @@ public class UserChecklistActivity extends AppCompatActivity {
          * get checklist from user database
          */
         checklist = new EachChecklist(title, this);
-        List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourses();
+
+//        List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourses();
+//        for (int i = 0; i < tmpChecklist.size(); ++i) {
+//            String name = tmpChecklist.get(i).first;
+//            System.out.println("Cate Name: " + name);
+//
+//            ArrayList<EachCourse> courses = tmpChecklist.get(i).second;
+//            for (int j = 0; j < courses.size(); ++j) {
+//                EachCourse tmpCourse = courses.get(j);
+//                System.out.println(tmpCourse.getName());
+//            }
+//        }
+        requiredCourses = checklist.getCourses();
+
 
         /**
          * fake data
          */
-        requiredCourses = new ArrayList<>();
-
-        ArrayList<EachCourse> csunit = new ArrayList<>();
-        ArrayList<EachCourse> mathunit = new ArrayList<>();
-        ArrayList<EachCourse> electiveunit = new ArrayList<>();
-        ArrayList<EachCourse> nonmathunit = new ArrayList<>();
-
-        csunit.add(new EachCourse("17/18BCS", "CS 1[134]5", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 1[34]6", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 240", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 241", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 245", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 246", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 251", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 341", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 350", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 440-489", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 440-489", false, true));
-        csunit.add(new EachCourse("17/18BCS", "CS 440-498 or CS 499T or CS 6xx or CS 7xx or CO 487 or STAT 440", false, true));
-
-
-        mathunit.add(new EachCourse("17/18BCS", "MATH 1[34]5", false, true));
-        mathunit.add(new EachCourse("17/18BCS", "MATH 1[34]6", false, true));
-        mathunit.add(new EachCourse("17/18BCS", "MATH 1[234]7", false, true));
-        mathunit.add(new EachCourse("17/18BCS", "MATH 1[234]8", false, true));
-        mathunit.add(new EachCourse("17/18BCS", "MATH 2[34]9", false, true));
-        mathunit.add(new EachCourse("17/18BCS", "STAT 2[34]0", false, true));
-        mathunit.add(new EachCourse("17/18BCS", "STAT 2[34]1", false, true));
-
-        nonmathunit.add(new EachCourse("17/18BCS", "Communication list I", false, true));
-        nonmathunit.add(new EachCourse("17/18BCS", "Communication list II", false, true));
-
-        requiredCourses.add(new Pair<>("CS Units", csunit));
-        requiredCourses.add(new Pair<>("Math Units", mathunit));
-        requiredCourses.add(new Pair<>("Elective Units", electiveunit));
-        requiredCourses.add(new Pair<>("Non-Math Units", nonmathunit));
+//        requiredCourses = new ArrayList<>();
+//
+//        ArrayList<EachCourse> csunit = new ArrayList<>();
+//        ArrayList<EachCourse> mathunit = new ArrayList<>();
+//        ArrayList<EachCourse> electiveunit = new ArrayList<>();
+//        ArrayList<EachCourse> nonmathunit = new ArrayList<>();
+//
+//        csunit.add(new EachCourse("17/18BCS", "CS 1[134]5", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 1[34]6", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 240", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 241", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 245", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 246", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 251", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 341", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 350", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 440-489", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 440-489", false, true));
+//        csunit.add(new EachCourse("17/18BCS", "CS 440-498 or CS 499T or CS 6xx or CS 7xx or CO 487 or STAT 440", false, true));
+//
+//
+//        mathunit.add(new EachCourse("17/18BCS", "MATH 1[34]5", false, true));
+//        mathunit.add(new EachCourse("17/18BCS", "MATH 1[34]6", false, true));
+//        mathunit.add(new EachCourse("17/18BCS", "MATH 1[234]7", false, true));
+//        mathunit.add(new EachCourse("17/18BCS", "MATH 1[234]8", false, true));
+//        mathunit.add(new EachCourse("17/18BCS", "MATH 2[34]9", false, true));
+//        mathunit.add(new EachCourse("17/18BCS", "STAT 2[34]0", false, true));
+//        mathunit.add(new EachCourse("17/18BCS", "STAT 2[34]1", false, true));
+//
+//        nonmathunit.add(new EachCourse("17/18BCS", "Communication list I", false, true));
+//        nonmathunit.add(new EachCourse("17/18BCS", "Communication list II", false, true));
+//
+//        requiredCourses.add(new Pair<>("CS Units", csunit));
+//        requiredCourses.add(new Pair<>("Math Units", mathunit));
+//        requiredCourses.add(new Pair<>("Elective Units", electiveunit));
+//        requiredCourses.add(new Pair<>("Non-Math Units", nonmathunit));
 
         unitsNumber = new ArrayList<>();
         unitsNumber.add(7.5);
@@ -125,13 +138,13 @@ public class UserChecklistActivity extends AppCompatActivity {
 
         electiveBox = new ArrayList<>();
         electiveBox.add(R.drawable.electivebox3);
-        electiveBox.add(R.drawable.electivebox3);
+        electiveBox.add(R.drawable.electivebox4);
 
         // nonMBox only store the containers that are used for non-Math units
         nonMBox = new ArrayList<>();
-        nonMBox.add(R.drawable.non1box);
         nonMBox.add(R.drawable.non2box);
-        nonMBox.add(R.drawable.electivebox);
+        nonMBox.add(R.drawable.nonbox6);
+        nonMBox.add(R.drawable.nonbox7);
 
         numLimit = new HashMap<>();
         numLimit.put("CS Units", 10);
@@ -169,13 +182,14 @@ public class UserChecklistActivity extends AppCompatActivity {
             //set the image background
             if (name.equals("Non-Math Units")) {
 
-                if (total == 2) {
+                if (total <= 5.0) {
                     container.setImageResource(nonMBox.get(0));
-                } else if (total > 2) {
+                } else if (total <= 6.0) {
                     container.setImageResource(nonMBox.get(1));
                 } else {
                     container.setImageResource(nonMBox.get(2));
                 }
+
             } else if (name.equals("Elective Units")){
 
                 if (total <= 3.0) {
@@ -218,6 +232,7 @@ public class UserChecklistActivity extends AppCompatActivity {
             int count = 0;
             ArrayList<EachCourse> courses = requiredCourses.get(i).second;
             int filled = courses.size();
+            System.out.println("Size: " + filled);
             int totalCourses = (int) (total * 2);
 
             for (int j = 0; j < totalCourses; ++j) {
@@ -260,6 +275,16 @@ public class UserChecklistActivity extends AppCompatActivity {
                 courseUnits.addView(checkBox, new ConstraintLayout.LayoutParams(
                         ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
 
+
+                /**
+                 * add click listener to checkbox
+                 */
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        System.out.println("hello");
+                    }
+                });
 
                 // get the number of courses should be placed on the first column
                 int firstColumnCount;

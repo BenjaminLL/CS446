@@ -50,6 +50,7 @@ public class EachChecklist {
                 if (value != null) {
                     String[] lines = value.split("\\r?\\n");
                     for (String line : lines) {
+                        System.out.println("-------------------not null----------------");
                         EachCourse eachCourse = new EachCourse(whichPlan, line,
                                 checklistOpenHelper.getIsCheck(whichPlan, line), checklistOpenHelper.getIsOrigin(whichPlan, line));
                         course.second.add(eachCourse);
@@ -68,6 +69,7 @@ public class EachChecklist {
                 if (value != null) {
                     String[] lines = value.split("\\r?\\n");
                     for (String line : lines) {
+                        System.out.println("-----------Non-Math------------");
                         EachCourse eachCourse = new EachCourse(whichPlan, line,
                                 checklistOpenHelper.getIsCheck(whichPlan, line), checklistOpenHelper.getIsOrigin(whichPlan, line));
                         course.second.add(eachCourse);
