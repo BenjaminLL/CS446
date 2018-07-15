@@ -63,7 +63,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
 
     public void createUserTable(String id,List<Pair<String, ArrayList<String>>> course, List<Pair<String, ArrayList<String>>> add) {
         SQLiteDatabase db = this.getWritableDatabase();
-//        System.out.println("Enter CreateUserTable function!");
         String CREATE_TABLE_NEW_LIST = "CREATE TABLE [" + id + "] (" +
                 COL_C1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_C2 + TEXT_TYPE + COMMA_SEP +
@@ -94,7 +93,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     }
 
     public boolean getIsCheck(String id, String requires){
-        System.out.println("getIsCheck called !");
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT "+COL_C3+" FROM ["+id+"] WHERE "+COL_C2
                 +"=?",new String[]{requires});
@@ -104,7 +102,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
                     cursor.getColumnIndexOrThrow(COL_C3));
         }
         boolean ret = status==1 ? true:false;
-        System.out.println("getIsCheck called success!");
         return ret;
     }
 
@@ -116,25 +113,19 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         contentValues.put(COL_C3, myInt);
         String[] args = new String[]{requires};
         int i = db.update("["+id+"]", contentValues, COL_C2+" =?", args);
-
-        System.out.println("updateUserTable_Course success!");
-
         return i!= -1;
     }
     //Insert the courses added by user
     //return true if success
     //Set checked status to be unchecked by default
     public boolean insertUserTable_Course(String id, String requires, String Category){
-        System.out.println("insertUserTable_Course called user add their course " + requires);
+        System.out.println("insertUserTable_Course called " + requires);
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_C2,requires);
         contentValues.put(COL_C3, 0);
         contentValues.put(COL_C4, Category);
         long result = db.insert("["+id+"]", null, contentValues);
-
-        System.out.println("insertUserTable_Course success");
-
         return result!= -1;
     }
 
@@ -143,16 +134,13 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String selection = COL_C4+ "=? and "+COL_C2 + "=?";
         int deletedRows = db.delete("["+id+"]", selection, new String[]{Category,requires});
-
         System.out.println("deleteUserTable_Course success");
-
         return deletedRows;
     }
 
     //Usage: getIsOrigin("17/18BCS", "Non-math")
     //Category: "Non-math" or "Elective"
     public String getOriginUnderCategory(String id, String Category){
-        System.out.println("getOriginUnderCategory called!");
         SQLiteDatabase db = getReadableDatabase();
         String courses = "";
         Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE "+COL_C4
@@ -172,17 +160,11 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     //return true if the course is origin
     //else false
     public boolean getIsOrigin(String id, String requires){
-        System.out.println("getIsOrigin called! " + requires);
         SQLiteDatabase db = getReadableDatabase();
         String courses = "";
         Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE ("+COL_C4+" IS NULL OR "+COL_C4
                 +"=?) AND ("+COL_C2+"=?)" , new String[]{"", requires});
         boolean exist = (cursor.getCount()>0);
-        if(exist){
-            System.out.println(requires + " = true");
-        } else {
-            System.out.println(requires + " = false");
-        }
         return exist;
     }
 
