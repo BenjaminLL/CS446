@@ -63,7 +63,7 @@ public class UserChecklistActivity extends AppCompatActivity {
          * get checklist from user database
          */
         checklist = new EachChecklist(title, this);
-        List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourse();
+        List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourses();
 
         /**
          * fake data
