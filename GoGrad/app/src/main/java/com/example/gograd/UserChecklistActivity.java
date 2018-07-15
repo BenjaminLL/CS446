@@ -127,6 +127,11 @@ public class UserChecklistActivity extends AppCompatActivity {
         unitsNumber.add(3.0);
         unitsNumber.add(5.0);
 
+        List<Double> tmpUnits = checklist.getCourseUnits();
+//        for (int i = 0; i < tmpUnits.size(); ++i) {
+//            System.out.println("Units: " + tmpUnits.get(i));
+//        }
+
 
         /**
          * Useful data for display checklist
@@ -282,7 +287,7 @@ public class UserChecklistActivity extends AppCompatActivity {
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        System.out.println("hello");
+//                        checklist.
                     }
                 });
 
