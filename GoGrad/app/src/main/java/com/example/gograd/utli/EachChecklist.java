@@ -25,7 +25,7 @@ public class EachChecklist {
         constraint = new ArrayList<>();
         this.whichPlan = whichPlan;
         this.context = context;
-        ChecklistOpenHelper checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
+        checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
     }
 
     public List<Pair<String, ArrayList<EachCourse>>> getCourse() {

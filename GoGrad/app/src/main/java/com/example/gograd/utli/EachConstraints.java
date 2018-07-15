@@ -25,9 +25,6 @@ public class EachConstraints {
     }
 
     public Boolean changeIscheck() {
-        if (parOrChild) {
-            //if ()
-        }
         ischeck = !ischeck;
         checklistOpenHelper.updateUserTable_Status(whichPlan, name, ischeck);
         return ischeck;
