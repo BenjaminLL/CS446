@@ -70,11 +70,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
                 COL_C3 + INT_TYPE + COMMA_SEP+
                 COL_C4 + TEXT_TYPE + ")";
         db.execSQL(CREATE_TABLE_NEW_LIST);
-//        if(tableExists(db, id)){
-//            System.out.println("TABLE created for "+id);
-//        }else{
-//            System.out.println("TABLE create failure for "+id);
-//        }
         for(int i=0; i<course.size(); i++){
             Pair<String, ArrayList<String>> tempPair = course.get(i);
             ArrayList<String> temp = tempPair.second;
@@ -170,7 +165,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         String courses = "";
         Cursor cursor = db.rawQuery("SELECT "+COL_C2+" FROM ["+id+"] WHERE "+COL_C4+" IS NULL OR "+COL_C4
                 +"=?", new String[]{""});
-        boolean exist = (cursor.getCount()==0);
+        boolean exist = (cursor.getCount()>0);
         System.out.println("getIsOriginal success!");
         return exist;
     }
@@ -268,6 +263,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         return checkDB != null;
     }
     */
+    /*
     boolean tableExists(SQLiteDatabase db, String tableName)
     {
         System.out.println("Enter checked process");
@@ -285,4 +281,5 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         cursor.close();
         return count > 0;
     }
+    */
 }
