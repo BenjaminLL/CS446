@@ -33,6 +33,8 @@ public class UserChecklistActivity extends AppCompatActivity {
     private List<Pair<String, ArrayList<EachCourse>>> requiredCourses;
 //    private List<Pair<String, ArrayList<String>>> additionalConstraints;
 
+    private Map<String, List<Pair<String, CheckBox>>> checkBoxR;
+    private Map<String, List<Pair<EditText, CheckBox>>> checkBoxU;
     private List<Double> unitsNumber;
     private List<Integer> box;
     private List<Integer> electiveBox;
@@ -226,8 +228,8 @@ public class UserChecklistActivity extends AppCompatActivity {
 
 
             int count = 0;
-            ArrayList<EachCourse> courses = requiredCourses.get(i).second;
-            int filled = courses.size();
+            final ArrayList<EachCourse> courses = requiredCourses.get(i).second;
+            final int filled = courses.size();
             System.out.println("Size: " + filled);
             int totalCourses = (int) (total * 2);
 
@@ -240,7 +242,7 @@ public class UserChecklistActivity extends AppCompatActivity {
 
                 // there are two types of course: 1. required course(TextView) 2. elective course(EditView)
                 if (j < filled) {
-
+                    System.out.println(courses.get(j).getIsOrigin());
                     course.setId(View.generateViewId());
                     final String text = courses.get(j).getName();
                     course.setText(text);
@@ -275,12 +277,7 @@ public class UserChecklistActivity extends AppCompatActivity {
                 /**
                  * add click listener to checkbox
                  */
-                checkBox.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-//                        checklist.
-                    }
-                });
+
 
                 // get the number of courses should be placed on the first column
                 int firstColumnCount;
