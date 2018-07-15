@@ -62,6 +62,12 @@ public class UserChecklistActivity extends AppCompatActivity {
         ab.setTitle(title);
 
         /**
+         * initial global variables
+         */
+        checkBoxR = new HashMap<>();
+        checkBoxU = new HashMap<>();
+
+        /**
          * get checklist from user database
          */
         checklist = new EachChecklist(title, this);
@@ -165,6 +171,15 @@ public class UserChecklistActivity extends AppCompatActivity {
             String name = requiredCourses.get(i).first;
             double total = unitsNumber.get(i);
 
+            if (!name.equals("Elective Units")) {
+                checkBoxR.put(name, new ArrayList<Pair<String, CheckBox>>());
+                if (name.equals("Non-Math Units")) {
+                    checkBoxU.put(name, new ArrayList<Pair<EditText, CheckBox>>());
+                }
+            } else {
+                checkBoxU.put(name, new ArrayList<Pair<EditText, CheckBox>>());
+            }
+
             // initial the yellow flag(circle)
             ImageView flag = new ImageView(this);
             flag.setId(View.generateViewId());
@@ -241,8 +256,8 @@ public class UserChecklistActivity extends AppCompatActivity {
                 boolean insertedByUser = false;
 
                 // there are two types of course: 1. required course(TextView) 2. elective course(EditView)
-                if (j < filled) {
-                    System.out.println(courses.get(j).getIsOrigin());
+                if (j < filled && courses.get(j).getIsOrigin()) {
+
                     course.setId(View.generateViewId());
                     final String text = courses.get(j).getName();
                     course.setText(text);
@@ -256,6 +271,10 @@ public class UserChecklistActivity extends AppCompatActivity {
 
                     editText.setId(View.generateViewId());
                     editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                    if (j < filled) {
+                        final String text = courses.get(j).getName();
+                        editText.setText(text);
+                    }
                     int textWidth = dpToPx(80, this);
                     courseUnits.addView(editText, new ConstraintLayout.LayoutParams(
                             textWidth, ConstraintLayout.LayoutParams.WRAP_CONTENT));
@@ -275,8 +294,14 @@ public class UserChecklistActivity extends AppCompatActivity {
 
 
                 /**
-                 * add click listener to checkbox
+                 * pack views --> add listener
                  */
+
+                if (j < filled && courses.get(j).getIsOrigin()) {
+                    checkBoxR.get(name).add(new Pair<>(courses.get(j).getName(), checkBox));
+                } else {
+                    checkBoxU.get(name).add(new Pair<>(editText, checkBox));
+                }
 
 
                 // get the number of courses should be placed on the first column
@@ -428,6 +453,7 @@ public class UserChecklistActivity extends AppCompatActivity {
 
         }
 
+        addListener();
 
     }
 
@@ -435,6 +461,30 @@ public class UserChecklistActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         int px = (int) ((dp * displayMetrics.density) + 0.5);
         return px;
+    }
+
+
+//    private Map<String, List<Pair<String, CheckBox>>> checkBoxR;
+//    private Map<String, List<Pair<EditText, CheckBox>>> checkBoxU;
+    public void addListener() {
+
+        for (Map.Entry<String, List<Pair<String, CheckBox>>> entry: checkBoxR.entrySet()) {
+            final String catName = entry.getKey();
+
+            List<Pair<String, CheckBox>> checkBoxes = entry.getValue();
+
+            for (int i = 0; i < checkBoxes.size(); ++i) {
+                final String courseName = checkBoxes.get(i).first;
+                CheckBox checkBox = checkBoxes.get(i).second;
+
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        checklist.changeIsCheck(courseName, catName);
+                    }
+                });
+            }
+        }
     }
 
 }
