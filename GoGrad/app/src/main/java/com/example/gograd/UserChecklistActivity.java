@@ -15,10 +15,12 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gograd.utli.*;
 
@@ -296,6 +298,7 @@ public class UserChecklistActivity extends AppCompatActivity {
                 /**
                  * pack views --> add listener
                  */
+                System.out.println(courses.get(j).getIsOrigin());
 
                 if (j < filled && courses.get(j).getIsOrigin()) {
                     checkBoxR.get(name).add(new Pair<>(courses.get(j).getName(), checkBox));
@@ -468,9 +471,10 @@ public class UserChecklistActivity extends AppCompatActivity {
 //    private Map<String, List<Pair<EditText, CheckBox>>> checkBoxU;
     public void addListener() {
 
+        // the first for loop will add onClicklistners to the checkboxes that point to TextView
         for (Map.Entry<String, List<Pair<String, CheckBox>>> entry: checkBoxR.entrySet()) {
-            final String catName = entry.getKey();
 
+            final String catName = entry.getKey();
             List<Pair<String, CheckBox>> checkBoxes = entry.getValue();
 
             for (int i = 0; i < checkBoxes.size(); ++i) {
@@ -480,10 +484,56 @@ public class UserChecklistActivity extends AppCompatActivity {
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        checklist.changeIsCheck(courseName, catName);
+                        checklist.changeCourseIsCheck(courseName, catName);
                     }
                 });
             }
+        }
+
+        // the first for loop will add onClicklistners to the checkboxes that point to EditText
+        for (Map.Entry<String, List<Pair<EditText, CheckBox>>> entry: checkBoxU.entrySet()) {
+
+            final Context context = this;
+            final String catName = entry.getKey();
+            List<Pair<EditText, CheckBox>> checkBoxes = entry.getValue();
+
+            for (int i = 0; i < checkBoxes.size(); ++i) {
+
+                final EditText course = checkBoxes.get(i).first;
+                final CheckBox checkBox = checkBoxes.get(i).second;
+
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                        String courseName = course.getText().toString();
+                        if (courseName.equals("")) {
+                            checkBox.setChecked(!b);
+                            Toast claim = Toast.makeText(context, "Please enter the course you enrolled", Toast.LENGTH_SHORT);
+                            claim.show();
+                        } else {
+                            checklist.changeCourseIsCheck(courseName, catName);
+                        }
+                    }
+                });
+
+                course.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+
+                        if (!b) {
+                            String newText = course.getText().toString();
+
+                            if (!newText.equals("")) {
+                                checklist.insertCourses(newText, catName);
+//                                System.out.println("hello");
+                            }
+                        }
+                    }
+                });
+
+            }
+
         }
     }
 
