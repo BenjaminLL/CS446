@@ -10,11 +10,19 @@ public class Constraints {
     private EachConstraints parent;
     private ArrayList<EachConstraints> children;
 
-    public Constraints(String whichPlan, String parentName, String childName) {
+    public Constraints(String whichPlan, String parentName, ArrayList<String> childrenName) {
 
-        this.parent = parent;
-        this.children = children;
+        this.parent = new EachConstraints(whichPlan, parentName, false, true);
+        this.children = new ArrayList<>();
+        for (String childName : childrenName) {
+            EachConstraints temp = new EachConstraints(whichPlan, childName, false, false);
+            children.add(temp);
+        }
         relation = new Pair<>(this.parent, this.children);
+    }
+
+    public Pair<EachConstraints, ArrayList<EachConstraints>> getRelation() {
+        return relation;
     }
 
     public EachConstraints getParent() {

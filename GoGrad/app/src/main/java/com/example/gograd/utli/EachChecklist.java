@@ -23,6 +23,7 @@ public class EachChecklist {
 
         courses = new ArrayList<>();
         constraint = new ArrayList<>();
+        courseUnits = new ArrayList<>();
         this.whichPlan = whichPlan;
         this.context = context;
         checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
@@ -51,7 +52,8 @@ public class EachChecklist {
                     String[] lines = value.split("\\r?\\n");
                     for (String line : lines) {
                         EachCourse eachCourse = new EachCourse(whichPlan, line,
-                                checklistOpenHelper.getIsCheck(whichPlan, line), checklistOpenHelper.getIsOrigin(whichPlan, line));
+                                checklistOpenHelper.getIsCheck(whichPlan, line),
+                                checklistOpenHelper.getIsOrigin(whichPlan, line));
                         course.second.add(eachCourse);
                     }
                 }
@@ -69,7 +71,8 @@ public class EachChecklist {
                     String[] lines = value.split("\\r?\\n");
                     for (String line : lines) {
                         EachCourse eachCourse = new EachCourse(whichPlan, line,
-                                checklistOpenHelper.getIsCheck(whichPlan, line), checklistOpenHelper.getIsOrigin(whichPlan, line));
+                                checklistOpenHelper.getIsCheck(whichPlan, line),
+                                checklistOpenHelper.getIsOrigin(whichPlan, line));
                         course.second.add(eachCourse);
                     }
                 }
@@ -118,5 +121,25 @@ public class EachChecklist {
         courses.add(tempPair);
     }
 
+    public void insertCourses(String name, String whichUnit) {
+        for (Pair<String, ArrayList<EachCourse>> course : courses) {
+            if (course.first.equals(whichUnit)) {
+                EachCourse temp = new EachCourse(whichPlan, name, false, false);
+                course.second.add(temp);
+                checklistOpenHelper.insertUserTable_Course(whichPlan, name, whichUnit);
+            }
+        }
+    }
 
+    public void changeIsCheck(String name, String whichUnit) {
+        for (Pair<String, ArrayList<EachCourse>> course : courses) {
+            if (course.first.equals(whichUnit)) {
+                for (EachCourse eachcourse : course.second) {
+                    if (eachcourse.getName().equals(name)) {
+                        eachcourse.changeIscheck();
+                    }
+                }
+            }
+        }
+    }
 }
