@@ -501,6 +501,7 @@ public class UserChecklistActivity extends AppCompatActivity {
 
                 final EditText course = checkBoxes.get(i).first;
                 final CheckBox checkBox = checkBoxes.get(i).second;
+                final String name = course.getText().toString();
 
                 checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -524,8 +525,11 @@ public class UserChecklistActivity extends AppCompatActivity {
                         if (!b) {
                             String newText = course.getText().toString();
 
-                            if (!newText.equals("")) {
+                            if (!newText.equals("") && !newText.equals(name)) {
+                                checklist.deleteCourses(name, catName);
                                 checklist.insertCourses(newText, catName);
+                            } else if (newText.equals("") && !newText.equals(name)) {
+                                checklist.deleteCourses(name, catName);
                             }
                         }
                     }
