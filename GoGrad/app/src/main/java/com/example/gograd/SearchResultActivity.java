@@ -27,6 +27,8 @@ import com.example.gograd.utli.*;
 
 public class SearchResultActivity extends AppCompatActivity {
 
+    final public static String COURSE_NAME = "null";
+
     private List<Pair<String, ArrayList<String>>> requiredCourses;
     private List<Pair<String, ArrayList<String>>> additionalConstraints;
     private List<Double> unitsNumber;
@@ -553,6 +555,8 @@ public class SearchResultActivity extends AppCompatActivity {
 
     public void showDescription(String text) {
         Intent description = new Intent(this, DescriptionActivity.class);
+
+        description.putExtra(COURSE_NAME, text);
         startActivity(description);
     }
 

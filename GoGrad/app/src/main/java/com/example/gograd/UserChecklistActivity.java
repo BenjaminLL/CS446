@@ -456,7 +456,84 @@ public class UserChecklistActivity extends AppCompatActivity {
 
         }
 
+        // add listeners for required courses
         addListener();
+
+
+        /**
+         * display additional constraints
+         */
+        ConstraintLayout addConstraintBox = new ConstraintLayout(this);
+        addConstraintBox.setId(View.generateViewId());
+        linearLayout.addView(addConstraintBox, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+        // initial the yellow flag(circle)
+        ImageView flag = new ImageView(this);
+        flag.setId(View.generateViewId());
+        flag.setImageResource(R.drawable.oval);
+        int flagWidth = dpToPx(26, this);
+        int flagHeight = dpToPx(26, this);
+        addConstraintBox.addView(flag, new ConstraintLayout.LayoutParams(flagWidth, flagHeight));
+
+        // initial the box container
+        ImageView container = new ImageView(this);
+        container.setId(View.generateViewId());
+        //set the image background
+        container.setImageResource(R.drawable.adcons1);
+        container.setVisibility(View.INVISIBLE);
+        addConstraintBox.addView(container, new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+
+
+        // initial the title and underline
+        TextView title = new TextView(this);
+        title.setId(View.generateViewId());
+        title.setText("Additional Constraints");
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(16.12f);
+        addConstraintBox.addView(title, new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+        ImageView underline = new ImageView(this);
+        underline.setId(View.generateViewId());
+        underline.setImageResource(R.drawable.horbar);
+        addConstraintBox.addView(underline, new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(addConstraintBox);
+
+        // flag
+        int tmpStartMargin = dpToPx(22, this);
+        int tmpTopMargin = dpToPx(24, this);
+        constraintSet.connect(flag.getId(), ConstraintSet.START, addConstraintBox.getId(), ConstraintSet.START, tmpStartMargin);
+        constraintSet.connect(flag.getId(), ConstraintSet.TOP, addConstraintBox.getId(), ConstraintSet.TOP, tmpTopMargin);
+
+        // container
+        int tmpEndMargin = dpToPx(16, this);
+        tmpStartMargin = dpToPx(32, this);
+        constraintSet.connect(container.getId(), ConstraintSet.END, addConstraintBox.getId(), ConstraintSet.END, tmpEndMargin);
+        constraintSet.connect(container.getId(), ConstraintSet.START, addConstraintBox.getId(), ConstraintSet.START, tmpStartMargin);
+        constraintSet.connect(container.getId(), ConstraintSet.TOP, flag.getId(), ConstraintSet.BOTTOM, 0);
+        constraintSet.setHorizontalBias(container.getId(), (float) 0.5);
+
+        // title
+        tmpTopMargin = dpToPx(18, this);
+        tmpStartMargin = dpToPx(18, this);
+        constraintSet.connect(title.getId(), ConstraintSet.START, container.getId(), ConstraintSet.START, tmpStartMargin);
+        constraintSet.connect(title.getId(), ConstraintSet.TOP, container.getId(), ConstraintSet.TOP, tmpTopMargin);
+
+        // underline
+        tmpStartMargin = dpToPx(14, this);
+        tmpEndMargin = dpToPx(14, this);
+        constraintSet.connect(underline.getId(), ConstraintSet.START, container.getId(), ConstraintSet.START, tmpStartMargin);
+        constraintSet.connect(underline.getId(), ConstraintSet.END, container.getId(), ConstraintSet.END, tmpEndMargin);
+        constraintSet.connect(underline.getId(), ConstraintSet.TOP, title.getId(), ConstraintSet.BOTTOM, 0);
+
+        constraintSet.applyTo(addConstraintBox);
+
 
     }
 
@@ -467,8 +544,7 @@ public class UserChecklistActivity extends AppCompatActivity {
     }
 
 
-//    private Map<String, List<Pair<String, CheckBox>>> checkBoxR;
-//    private Map<String, List<Pair<EditText, CheckBox>>> checkBoxU;
+
     public void addListener() {
 
         // the first for loop will add onClicklistners to the checkboxes that point to TextView
@@ -502,6 +578,7 @@ public class UserChecklistActivity extends AppCompatActivity {
                 final EditText course = checkBoxes.get(i).first;
                 final CheckBox checkBox = checkBoxes.get(i).second;
                 final String name = course.getText().toString();
+                final boolean ischecked = checkBox.isChecked();
 
                 checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -528,6 +605,10 @@ public class UserChecklistActivity extends AppCompatActivity {
                             if (!newText.equals("") && !newText.equals(name)) {
                                 checklist.deleteCourses(name, catName);
                                 checklist.insertCourses(newText, catName);
+
+                                if (!name.equals("") && ischecked) {
+                                    checklist.changeCourseIsCheck(newText, catName);
+                                }
                             } else if (newText.equals("") && !newText.equals(name)) {
                                 checklist.deleteCourses(name, catName);
                             }

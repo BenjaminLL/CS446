@@ -9,8 +9,10 @@ public class Constraints {
     private Pair<EachConstraintsParent, ArrayList<EachConstraintsChild>> relation;
 
     public Constraints(String whichPlan, String parentName, boolean isChecked, int limitation, int current, ArrayList<Pair<String, Boolean>> children) {
+
         EachConstraintsParent eachConstraintsParent = new EachConstraintsParent(whichPlan, parentName, isChecked, limitation, current);
         ArrayList<EachConstraintsChild> eachConstraintsChildren = new ArrayList<>();
+
         for (Pair<String, Boolean> nameCheck : children) {
             EachConstraintsChild eachConstraintsChild = new EachConstraintsChild(whichPlan, nameCheck.first, nameCheck.second);
             eachConstraintsParent.addObserver(eachConstraintsChild);
