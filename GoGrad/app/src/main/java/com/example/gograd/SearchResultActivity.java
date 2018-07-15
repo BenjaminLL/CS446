@@ -106,7 +106,6 @@ public class SearchResultActivity extends AppCompatActivity {
          * display
          */
         // root view
-        ConstraintLayout rootView = findViewById(R.id.userPage);
         LinearLayout linearLayout = findViewById(R.id.results);
 
 
