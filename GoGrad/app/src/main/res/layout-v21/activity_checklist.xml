@@ -792,7 +792,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text=""
+                    android:text="CSCS 334"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     app:layout_constraintBottom_toBottomOf="@id/nonmath3"
                     app:layout_constraintStart_toEndOf="@id/nonmath3"
@@ -888,7 +888,7 @@
 
                 <EditText
                     android:id="@+id/nonmathtext7"
-                    android:layout_width="80dp"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
@@ -986,7 +986,7 @@
 
                 <TextView
                     android:id="@+id/textView10"
-                    android:layout_width="110dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:onClick="showDescription"
                     android:text="Communication List I"
