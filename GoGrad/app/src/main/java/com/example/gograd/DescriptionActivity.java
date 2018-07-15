@@ -24,23 +24,12 @@ public class DescriptionActivity extends AppCompatActivity {
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
 
-//        Intent intent = getIntent();
-//        String courseName = intent.getStringExtra(ChecklistActivity.COURSE_NAME);
-//
-//        System.out.println(courseName);
-//        TextView content = (TextView) findViewById(R.id.textView9);
-//
-//        if (courseName.equals("Communication\nList I")) {
-//            content.setText(
-//                    "At least 60% in one of: \nEMLS 101R, EMLS 102R, EMLS/ENGL 129R, ENGL 109, SPCOM 100, SPCOM 223");
-//        } else if(courseName.equals("Communication\nList II")) {
-//            content.setText(
-//                    " One of: \nEMLS 103R, EMLS 104R, EMLS 110R, ENGL 101B, ENGL 108D, ENGL 119, ENGL 209, " +
-//                            "ENGL 210E, ENGL 210F, ENGL 251A, ENGL 378/MTHEL 300, SPCOM 225, SPCOM 227, SPCOM 228, " +
-//                            "or an additional course from the first list");
-//        }
-//
-//        ab.setTitle(courseName);
+        Intent intent = getIntent();
+        String courseName = intent.getStringExtra(SearchResultActivity.COURSE_NAME);
+
+
+
+        ab.setTitle(courseName);
     }
 
     @Override
