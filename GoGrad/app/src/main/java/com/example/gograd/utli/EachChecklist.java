@@ -131,11 +131,13 @@ public class EachChecklist {
         }
     }
 
-    public void changeIsCheck(String name) {
+    public void changeIsCheck(String name, String whichUnit) {
         for (Pair<String, ArrayList<EachCourse>> course : courses) {
-            for (EachCourse eachcourse : course.second) {
-                if (eachcourse.getName().equals(name)) {
-                    eachcourse.changeIscheck();
+            if (course.first.equals(whichUnit)) {
+                for (EachCourse eachcourse : course.second) {
+                    if (eachcourse.getName().equals(name)) {
+                        eachcourse.changeIscheck();
+                    }
                 }
             }
         }
