@@ -5,6 +5,8 @@ import android.util.Pair;
 
 import com.example.gograd.ChecklistOpenHelper;
 import com.example.gograd.DatabaseAccess;
+import com.example.gograd.utli.constraints.Constraints;
+import com.example.gograd.utli.constraints.EachConstraints;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,25 +14,19 @@ import java.util.List;
 public class EachChecklist {
 
     private List<Pair<String, ArrayList<EachCourse>>> courses;
-    private List<Pair<EachConstraints, ArrayList<EachConstraints>>> constraint;
     private List<Double> courseUnits;
+    private List<Constraints> constraintsList;
     private String whichPlan;
-    private Context context;
     private ChecklistOpenHelper checklistOpenHelper;
 
-
     public EachChecklist(String whichPlan, Context context) {
-
         courses = new ArrayList<>();
-        constraint = new ArrayList<>();
         courseUnits = new ArrayList<>();
+        constraintsList = new ArrayList<>();
         this.whichPlan = whichPlan;
-        this.context = context;
         checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
-    }
 
-    public List<Pair<String, ArrayList<EachCourse>>> getCourses() {
-
+        /* courses initializer */
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
 
@@ -64,7 +60,8 @@ public class EachChecklist {
 
         String key4 = "Non-Math Units";
         String value4 = databaseAccess.getNonMath(whichPlan);
-        splitCourses(key4, value4);for (Pair<String, ArrayList<EachCourse>> course : courses) {
+        splitCourses(key4, value4);
+        for (Pair<String, ArrayList<EachCourse>> course : courses) {
             if (course.first.equals(key3)) {
                 String value = checklistOpenHelper.getOriginUnderCategory(whichPlan, key4);
                 if (value != null) {
@@ -79,14 +76,9 @@ public class EachChecklist {
 
             }
         }
+        /* end courses initializer */
 
-        return courses;
-    }
-
-    public List<Double> getCourseUnits() {
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
-        databaseAccess.open();
-
+        /* course unit initializer */
         Double unit1 = databaseAccess.getTotalCS(whichPlan);
         courseUnits.add(unit1);
 
@@ -98,9 +90,25 @@ public class EachChecklist {
 
         Double unit4 = databaseAccess.getTotalNonMath(whichPlan);
         courseUnits.add(unit4);
+        /* end course unit initializer */
+
+        /* constraints initializer */
+
 
         databaseAccess.close();
+        /* end constraints initializer */
+    }
+
+    public List<Pair<String, ArrayList<EachCourse>>> getCourses() {
+        return courses;
+    }
+
+    public List<Double> getCourseUnits() {
         return courseUnits;
+    }
+
+    public List<Constraints> getConstraintsList() {
+        return constraintsList;
     }
 
     private void splitCourses(String key, String value) {
@@ -131,14 +139,25 @@ public class EachChecklist {
         }
     }
 
-    public void changeIsCheck(String name, String whichUnit) {
+    public void changeCourseIsCheck(String name, String whichUnit) {
         for (Pair<String, ArrayList<EachCourse>> course : courses) {
             if (course.first.equals(whichUnit)) {
                 for (EachCourse eachcourse : course.second) {
                     if (eachcourse.getName().equals(name)) {
                         eachcourse.changeIscheck();
+                        return;
                     }
                 }
+            }
+        }
+    }
+
+    public void changeConstraintsIsCheck(String name) {
+        for (Constraints constraints : constraintsList) {
+            EachConstraints eachConstraints = constraints.findConstraint(name);
+            if (eachConstraints != null) {
+                eachConstraints.setIsChecked((!eachConstraints.getIsChecked()));
+                return;
             }
         }
     }
