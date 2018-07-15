@@ -13,6 +13,7 @@ public class EachChecklist {
 
     private List<Pair<String, ArrayList<EachCourse>>> course;
     private List<Pair<EachConstraints, ArrayList<EachConstraints>>> constraint;
+    private List<Double> courseUnits;
     private String whichPlan;
     private Context context;
     private ChecklistOpenHelper checklistOpenHelper;
@@ -53,8 +54,24 @@ public class EachChecklist {
         return course;
     }
 
-    public List<Pair<EachConstraints, ArrayList<EachConstraints>>> getConstraint() {
-        return constraint;
+    public List<Double> getCourseUnits() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+
+        Double unit1 = databaseAccess.getTotalCS(whichPlan);
+        courseUnits.add(unit1);
+
+        Double unit2 = databaseAccess.getTotalMath(whichPlan);
+        courseUnits.add(unit2);
+
+        Double unit3 = databaseAccess.getTotalElective(whichPlan);
+        courseUnits.add(unit3);
+
+        Double unit4 = databaseAccess.getTotalNonMath(whichPlan);
+        courseUnits.add(unit4);
+
+        databaseAccess.close();
+        return courseUnits;
     }
 
     private void splitCourses(String key, String value) {
