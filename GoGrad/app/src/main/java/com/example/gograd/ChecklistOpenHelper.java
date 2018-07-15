@@ -137,6 +137,18 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
 
         return result!= -1;
     }
+
+    public int deleteUserTable_Course(String id, String requires, String Category){
+        System.out.println("deleteUserTable_Course called user add their course " + requires);
+        SQLiteDatabase db = getWritableDatabase();
+        String selection = COL_C4+ "=? and "+COL_C2 + "=?";
+        int deletedRows = db.delete("["+id+"]", selection, new String[]{Category,requires});
+
+        System.out.println("deleteUserTable_Course success");
+
+        return deletedRows;
+    }
+
     //Usage: getIsOrigin("17/18BCS", "Non-math")
     //Category: "Non-math" or "Elective"
     public String getOriginUnderCategory(String id, String Category){
