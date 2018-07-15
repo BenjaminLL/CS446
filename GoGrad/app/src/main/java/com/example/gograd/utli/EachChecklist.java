@@ -118,5 +118,8 @@ public class EachChecklist {
         courses.add(tempPair);
     }
 
-
+    public void insertCourses() {
+        String key3 = "Elective Units";
+        String key4 = "Non-math Units";
+    }
 }
