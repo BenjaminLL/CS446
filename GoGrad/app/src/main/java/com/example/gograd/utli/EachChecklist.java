@@ -49,7 +49,8 @@ public class EachChecklist {
                     for (String line : lines) {
                         EachCourse eachCourse = new EachCourse(whichPlan, line,
                                 checklistOpenHelper.getIsCheck(whichPlan, line),
-                                checklistOpenHelper.getIsOrigin(whichPlan, line));
+                                checklistOpenHelper.getIsOrigin(whichPlan, line),
+                                checklistOpenHelper);
                         course.second.add(eachCourse);
                     }
                 }
@@ -69,7 +70,8 @@ public class EachChecklist {
                     for (String line : lines) {
                         EachCourse eachCourse = new EachCourse(whichPlan, line,
                                 checklistOpenHelper.getIsCheck(whichPlan, line),
-                                checklistOpenHelper.getIsOrigin(whichPlan, line));
+                                checklistOpenHelper.getIsOrigin(whichPlan, line),
+                                checklistOpenHelper);
                         course.second.add(eachCourse);
                     }
                 }
@@ -122,7 +124,9 @@ public class EachChecklist {
         String[] lines = value.split("\\r?\\n");
         for (String line : lines) {
             EachCourse eachCourse = new EachCourse(whichPlan, line,
-                    checklistOpenHelper.getIsCheck(whichPlan, line), checklistOpenHelper.getIsOrigin(whichPlan, line));
+                    checklistOpenHelper.getIsCheck(whichPlan, line),
+                    checklistOpenHelper.getIsOrigin(whichPlan, line),
+                    checklistOpenHelper);
             tempArr.add(eachCourse);
         }
         Pair<String, ArrayList<EachCourse>> tempPair = new Pair<>(key, tempArr);
@@ -132,7 +136,7 @@ public class EachChecklist {
     public void insertCourses(String name, String whichUnit) {
         for (Pair<String, ArrayList<EachCourse>> course : courses) {
             if (course.first.equals(whichUnit)) {
-                EachCourse temp = new EachCourse(whichPlan, name, false, false);
+                EachCourse temp = new EachCourse(whichPlan, name, false, false, checklistOpenHelper);
                 course.second.add(temp);
                 checklistOpenHelper.insertUserTable_Course(whichPlan, name, whichUnit);
             }
