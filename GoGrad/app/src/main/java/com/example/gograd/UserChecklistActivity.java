@@ -121,16 +121,7 @@ public class UserChecklistActivity extends AppCompatActivity {
 //        requiredCourses.add(new Pair<>("Elective Units", electiveunit));
 //        requiredCourses.add(new Pair<>("Non-Math Units", nonmathunit));
 
-        unitsNumber = new ArrayList<>();
-        unitsNumber.add(7.5);
-        unitsNumber.add(3.5);
-        unitsNumber.add(3.0);
-        unitsNumber.add(5.0);
-
-        List<Double> tmpUnits = checklist.getCourseUnits();
-//        for (int i = 0; i < tmpUnits.size(); ++i) {
-//            System.out.println("Units: " + tmpUnits.get(i));
-//        }
+        unitsNumber = checklist.getCourseUnits();
 
 
         /**
