@@ -23,6 +23,7 @@ public class EachChecklist {
 
         courses = new ArrayList<>();
         constraint = new ArrayList<>();
+        courseUnits = new ArrayList<>();
         this.whichPlan = whichPlan;
         this.context = context;
         checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
@@ -118,8 +119,15 @@ public class EachChecklist {
         courses.add(tempPair);
     }
 
-    public void insertCourses() {
+    public void insertCourses(String name) {
         String key3 = "Elective Units";
         String key4 = "Non-math Units";
+        for (Pair<String, ArrayList<EachCourse>> course : courses) {
+            if (course.first.equals(key3)) {
+                EachCourse temp = new EachCourse(whichPlan, name, false, false);
+                course.second.add(temp);
+
+            }
+        }
     }
 }
