@@ -13,7 +13,6 @@ import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -714,12 +713,6 @@ public class UserChecklistActivity extends AppCompatActivity {
 
         description.putExtra(COURSE_NAME, text);
         startActivity(description);
-    }
-
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.result_menu, menu);
-        return true;
     }
 
 }

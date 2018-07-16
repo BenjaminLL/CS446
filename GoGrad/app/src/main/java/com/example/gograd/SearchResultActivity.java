@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -552,5 +553,10 @@ public class SearchResultActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.result_menu, menu);
+        return true;
     }
 }
