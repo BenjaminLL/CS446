@@ -1,5 +1,7 @@
 package com.example.gograd.utli.constraints;
 
+import com.example.gograd.ChecklistOpenHelper;
+
 import java.util.Observable;
 
 public class EachConstraintsParent extends EachConstraints {
@@ -8,8 +10,9 @@ public class EachConstraintsParent extends EachConstraints {
 
     private int current;
 
-    public EachConstraintsParent(String whichPlan, String name, Boolean isChecked, int limitation, int current) {
-        super(whichPlan, name, isChecked);
+    public EachConstraintsParent(String whichPlan, String name, Boolean isChecked,
+                                 int limitation, int current, ChecklistOpenHelper checklistOpenHelper) {
+        super(whichPlan, name, isChecked, checklistOpenHelper);
         this.limitation = limitation;
         this.current = current;
         limitationCheck();
@@ -21,8 +24,7 @@ public class EachConstraintsParent extends EachConstraints {
             boolean flag = (boolean) arg;
             if (flag) {
                 current++;
-            }
-            else {
+            } else {
                 current--;
             }
             limitationCheck();
@@ -30,12 +32,7 @@ public class EachConstraintsParent extends EachConstraints {
     }
 
     private void limitationCheck() {
-        if (current >= limitation) {
-            isChecked = true;
-        }
-        else {
-            isChecked = false;
-        }
+        isChecked = current >= limitation;
         updateTable();
     }
 
