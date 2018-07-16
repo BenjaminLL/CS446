@@ -52,6 +52,7 @@ public class CourseDescriptions {
     public CourseDescriptions(Context c, String q){
         query = q.trim();
         context = c;
+        ListOfDescriptions = new ArrayList<>();
     }
 
     public ArrayList<Content> getListOfDescriptions(){

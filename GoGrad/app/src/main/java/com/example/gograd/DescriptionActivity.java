@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.gograd.utli.*;
@@ -67,8 +68,14 @@ public class DescriptionActivity extends AppCompatActivity {
         /**
          * display the course description
          */
-        ConstraintLayout rootView = findViewById(R.id.description);
-        Toolbar toolbar = findViewById(R.id.my_toolbar);
+        LinearLayout linearLayout = findViewById(R.id.list);
+        ConstraintLayout rootView = new ConstraintLayout(this);
+        rootView.setId(View.generateViewId());
+        linearLayout.addView(rootView, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+        boolean first = true;
+        TextView preBottom = new TextView(this);
 
 
         for (int i = 0; i < courses.size(); ++i) {
@@ -94,7 +101,7 @@ public class DescriptionActivity extends AppCompatActivity {
             title.setText(name + " (" + fulltitle + ")");
             title.setTextColor(Color.BLACK);
             title.setTextSize(16.12f);
-            rootView.addView(title, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
+            rootView.addView(title, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT));
 
             TextView description = new TextView(this);
@@ -133,17 +140,27 @@ public class DescriptionActivity extends AppCompatActivity {
             int topMargin = dpToPx(24, this);
             int leftMargin = dpToPx(16, this);
             constraintSet.connect(flag.getId(), ConstraintSet.START, rootView.getId(), ConstraintSet.START, leftMargin);
-            constraintSet.connect(flag.getId(), ConstraintSet.TOP, toolbar.getId(), ConstraintSet.BOTTOM, topMargin);
+            if (first) {
+                constraintSet.connect(flag.getId(), ConstraintSet.TOP, rootView.getId(), ConstraintSet.TOP, topMargin);
+            } else {
+                constraintSet.connect(flag.getId(), ConstraintSet.TOP, preBottom.getId(), ConstraintSet.BOTTOM, topMargin);
+            }
 
             // title
+            int rightMargin = dpToPx(16, this);
             topMargin = dpToPx(22, this);
             leftMargin = dpToPx(8, this);
             constraintSet.connect(title.getId(), ConstraintSet.LEFT, flag.getId(), ConstraintSet.RIGHT, leftMargin);
-            constraintSet.connect(title.getId(), ConstraintSet.TOP, toolbar.getId(), ConstraintSet.BOTTOM, topMargin);
+            constraintSet.connect(title.getId(), ConstraintSet.RIGHT, rootView.getId(), ConstraintSet.RIGHT, rightMargin);
+            if (first) {
+                constraintSet.connect(title.getId(), ConstraintSet.TOP, rootView.getId(), ConstraintSet.TOP, topMargin);
+            } else {
+                constraintSet.connect(title.getId(), ConstraintSet.TOP, preBottom.getId(), ConstraintSet.BOTTOM, topMargin);
+            }
 
             // description
+            rightMargin = dpToPx(24, this);
             topMargin = dpToPx(8, this);
-            int rightMargin = dpToPx(24, this);
             constraintSet.connect(description.getId(), ConstraintSet.LEFT, title.getId(), ConstraintSet.LEFT, 0);
             constraintSet.connect(description.getId(), ConstraintSet.RIGHT, rootView.getId(), ConstraintSet.RIGHT, rightMargin);
             constraintSet.connect(description.getId(), ConstraintSet.TOP, title.getId(), ConstraintSet.BOTTOM, topMargin);
@@ -158,6 +175,10 @@ public class DescriptionActivity extends AppCompatActivity {
             constraintSet.connect(coReqest.getId(), ConstraintSet.RIGHT, rootView.getId(), ConstraintSet.RIGHT, rightMargin);
             constraintSet.connect(coReqest.getId(), ConstraintSet.TOP, preRequest.getId(), ConstraintSet.BOTTOM, topMargin);
 
+            if (first) {
+                first = false;
+            }
+            preBottom = coReqest;
             constraintSet.applyTo(rootView);
         }
 
