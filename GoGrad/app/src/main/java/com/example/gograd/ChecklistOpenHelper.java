@@ -82,8 +82,12 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         for(int j=0; j<add.size(); j++){
             Pair<String, ArrayList<String>> tempPair = add.get(j);
             ArrayList<String> temp = tempPair.second;
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COL_C2, tempPair.first);
+            contentValues.put(COL_C3, 0);
+            db.insert("[" + id + "]", null, contentValues);
             for(int k=0; k<temp.size();k++){
-                ContentValues contentValues = new ContentValues();
+                contentValues = new ContentValues();
                 contentValues.put(COL_C2, temp.get(k));
                 contentValues.put(COL_C3, 0);
                 db.insert("[" + id + "]", null, contentValues);
