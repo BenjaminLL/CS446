@@ -93,7 +93,7 @@ public class CourseDescriptions {
     public Content getCont(String RawString){
         System.out.println("getCont "+ RawString);
         List<String> segments = Arrays.asList(RawString.split("\t"));
-        for(int i=0; i<segments.size();i++){
+        for(int i=0; i<5;i++){
             System.out.println(segments.get(i));
         }
         String s1,s2,s3,s4,s5;
