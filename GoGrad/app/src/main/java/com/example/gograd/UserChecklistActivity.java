@@ -34,6 +34,8 @@ import java.util.Map;
 
 public class UserChecklistActivity extends AppCompatActivity {
 
+    final public static String COURSE_NAME = "null";
+
     private EachChecklist checklist;
     private List<Constraints> constraints;
     private List<Pair<String, ArrayList<EachCourse>>> requiredCourses;
@@ -79,52 +81,6 @@ public class UserChecklistActivity extends AppCompatActivity {
         checklist = new EachChecklist(title, this);
         requiredCourses = checklist.getCourses();
         constraints = checklist.getConstraints();
-
-
-
-        /**
-         * fake data
-         */
-//        requiredCourses = new ArrayList<>();
-//
-//        ArrayList<EachCourse> csunit = new ArrayList<>();
-//        ArrayList<EachCourse> mathunit = new ArrayList<>();
-//        ArrayList<EachCourse> electiveunit = new ArrayList<>();
-//        ArrayList<EachCourse> nonmathunit = new ArrayList<>();
-//
-//        csunit.add(new EachCourse("17/18BCS", "CS 1[134]5", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 1[34]6", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 240", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 241", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 245", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 246", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 251", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 341", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 350", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 340-398; 440-489", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 440-489", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 440-489", false, true));
-//        csunit.add(new EachCourse("17/18BCS", "CS 440-498 or CS 499T or CS 6xx or CS 7xx or CO 487 or STAT 440", false, true));
-//
-//
-//        mathunit.add(new EachCourse("17/18BCS", "MATH 1[34]5", false, true));
-//        mathunit.add(new EachCourse("17/18BCS", "MATH 1[34]6", false, true));
-//        mathunit.add(new EachCourse("17/18BCS", "MATH 1[234]7", false, true));
-//        mathunit.add(new EachCourse("17/18BCS", "MATH 1[234]8", false, true));
-//        mathunit.add(new EachCourse("17/18BCS", "MATH 2[34]9", false, true));
-//        mathunit.add(new EachCourse("17/18BCS", "STAT 2[34]0", false, true));
-//        mathunit.add(new EachCourse("17/18BCS", "STAT 2[34]1", false, true));
-//
-//        nonmathunit.add(new EachCourse("17/18BCS", "Communication list I", false, true));
-//        nonmathunit.add(new EachCourse("17/18BCS", "Communication list II", false, true));
-//
-//        requiredCourses.add(new Pair<>("CS Units", csunit));
-//        requiredCourses.add(new Pair<>("Math Units", mathunit));
-//        requiredCourses.add(new Pair<>("Elective Units", electiveunit));
-//        requiredCourses.add(new Pair<>("Non-Math Units", nonmathunit));
-
         unitsNumber = checklist.getCourseUnits();
 
 
@@ -263,6 +219,15 @@ public class UserChecklistActivity extends AppCompatActivity {
                     int textWidth = dpToPx(100, this);
                     courseUnits.addView(course, new ConstraintLayout.LayoutParams(
                             textWidth, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+                    //set the click listener(show course description)
+                    course.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String message = text;
+                            showDescription(message);
+                        }
+                    });
                 } else {
 
                     editText.setId(View.generateViewId());
@@ -708,6 +673,21 @@ public class UserChecklistActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+
+    public void showDescription(String text) {
+
+        if (text.contains("-")) {
+            Toast claim = Toast.makeText(this, "No Description", Toast.LENGTH_SHORT);
+            claim.show();
+            return;
+        }
+
+        Intent description = new Intent(this, DescriptionActivity.class);
+
+        description.putExtra(COURSE_NAME, text);
+        startActivity(description);
     }
 
 }
