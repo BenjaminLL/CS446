@@ -57,7 +57,6 @@ public class SplitString {
         /* courses units initializer end*/
 
         /* constraints initializer */
-        System.out.println(databaseAccess.getConstraints(whichPlan));
         splitConstraints(databaseAccess.getConstraints(whichPlan));
         /* constraints initializer end*/
 

@@ -26,10 +26,10 @@ public class EachChecklist {
         this.whichPlan = whichPlan;
         checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
 
-        /* courses initializer */
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
-
+        
+        /* courses initializer */
         String key1 = "CS Units";
         String value1 = databaseAccess.getCSUnits(whichPlan);
         splitCourses(key1, value1);
@@ -95,10 +95,10 @@ public class EachChecklist {
         /* end course unit initializer */
 
         /* constraints initializer */
-
+        splitConstraints(databaseAccess.getConstraints(whichPlan));
+        /* end constraints initializer */
 
         databaseAccess.close();
-        /* end constraints initializer */
     }
 
     public List<Pair<String, ArrayList<EachCourse>>> getCourses() {
