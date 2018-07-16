@@ -56,7 +56,6 @@ public class CourseDescriptions {
     }
 
     public ArrayList<Content> getListOfDescriptions(){
-        System.out.println("getListOfDescriptions called");
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
         List<String> segmentsBracket = Arrays.asList(query.split("[\\[\\]]"));
