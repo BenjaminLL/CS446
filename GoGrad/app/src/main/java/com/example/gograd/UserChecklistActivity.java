@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gograd.utli.*;
+import com.example.gograd.utli.constraints.EachConstraints;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import java.util.Map;
 public class UserChecklistActivity extends AppCompatActivity {
 
     private EachChecklist checklist;
+    private EachConstraints constraints;
     private List<Pair<String, ArrayList<EachCourse>>> requiredCourses;
 //    private List<Pair<String, ArrayList<String>>> additionalConstraints;
 
@@ -534,6 +536,149 @@ public class UserChecklistActivity extends AppCompatActivity {
 
         constraintSet.applyTo(addConstraintBox);
 
+        /**
+         * fake data
+         */
+       List<Pair<String, ArrayList<String>>> additionalConstraints;
+       additionalConstraints = new ArrayList<>();
+
+        ArrayList<String> data1 = new ArrayList<>();
+        data1.add("CS 452, CS 454, CS 456, CS 457");
+        data1.add("One of CS 343, 349, 442, 444, 445, 446, 447, 450, 452, 454, 456, 457, 458");
+        ArrayList<String> data2 = new ArrayList<>();
+        data2.add("One of CS 343, 349, 442, 444, 445, 446, 447, 450, 452, 454, 456, 457, 458");
+        data2.add("One of CS 348, 448, 449, 473, 476, 482, 483, 484, 485, 486, 488");
+        data2.add("One of CS 360, 365, 370, 371, 462, 466, 467, 475, 487");
+
+        ArrayList<String> bottomS = new ArrayList<>();
+        bottomS.add("Seven (regular) or eight (co-op) terms enrolled in at least three courses totaling 1.5 units");
+        bottomS.add("No more than 2.0 units of failed courses");
+        bottomS.add("No more than 5.0 units of unusable course attempts (failures and repeats of passed courses)");
+        bottomS.add("CS major average of 60% or higher");
+        bottomS.add("Cumulative average of 60% or higher");
+        bottomS.add("Co-op requirements met, if applicable, including PD 1, PD 11, PD 10, and a minimum of two other PD courses.");
+        additionalConstraints.add(new Pair<>("Two of:", data1));
+        additionalConstraints.add(new Pair<>("Two of:", data2));
+        additionalConstraints.add(new Pair<>("Bottom", bottomS));
+
+        /**
+         * add contents
+         */
+        int level = 0;
+        TextView preText = new TextView(this);
+
+        for (int i = 0; i < additionalConstraints.size(); ++i) {
+
+            String cat = additionalConstraints.get(i).first;
+
+            List<Pair<ImageView, TextView>> levelOneText = new ArrayList<>();
+            List<Pair<ImageView, TextView>> levelTwoText = new ArrayList<>();
+            List<List<Pair<ImageView, TextView>>>  contents = new ArrayList<>();
+            contents.add(levelOneText);
+            contents.add(levelTwoText);
+
+            if (!cat.equals("bottom")) {
+                // Bullet Point
+                ImageView bulletPoint = new ImageView(this);
+                bulletPoint.setId(View.generateViewId());
+                bulletPoint.setImageResource(R.drawable.oval);
+                int ovalSize = dpToPx(10, this);
+                addConstraintBox.addView(bulletPoint, new ConstraintLayout.LayoutParams(ovalSize, ovalSize));
+
+                // TextView
+                TextView info = new TextView(this);
+                info.setId(View.generateViewId());
+                info.setText(cat);
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                info.setTextColor(Color.BLACK);
+                info.setGravity(Gravity.CENTER_VERTICAL);
+                int textWidth = dpToPx(200, this);
+                addConstraintBox.addView(info, new ConstraintLayout.LayoutParams(
+                        textWidth, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+                contents.get(level).add(new Pair<>(bulletPoint, info));
+                ++level;
+
+            }
+
+            ArrayList<String> tmpContents = additionalConstraints.get(i).second;
+
+            for (int j = 0; j < tmpContents.size(); ++j) {
+
+                // Bullet Point
+                ImageView bulletPoint = new ImageView(this);
+                bulletPoint.setId(View.generateViewId());
+                bulletPoint.setImageResource(R.drawable.oval);
+                int ovalSize = dpToPx(10, this);
+                addConstraintBox.addView(bulletPoint, new ConstraintLayout.LayoutParams(ovalSize, ovalSize));
+
+                // TextView
+                TextView info = new TextView(this);
+                info.setId(View.generateViewId());
+                info.setText(tmpContents.get(j));
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                info.setTextColor(Color.BLACK);
+                info.setGravity(Gravity.CENTER_VERTICAL);
+                int textWidth = dpToPx(200, this);
+                addConstraintBox.addView(info, new ConstraintLayout.LayoutParams(
+                        textWidth, ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+                // added
+                contents.get(level).add(new Pair<>(bulletPoint, info));
+            }
+
+            ConstraintSet ContentConstraintSet = new ConstraintSet();
+            ContentConstraintSet.clone(addConstraintBox);
+
+
+            for (int k = 0; k <= level; ++k) {
+
+                List<Pair<ImageView, TextView>> levelText = contents.get(k);
+                List<Integer> startMargin = new ArrayList<>();
+                startMargin.add(dpToPx(17, this));
+                startMargin.add(dpToPx(50, this));
+
+                for (int j = 0; j < levelText.size(); ++j) {
+                    ImageView tmpBl = levelText.get(j).first;
+                    TextView tmpCon = levelText.get(j).second;
+
+                    int bulletToTextH = dpToPx(8, this);
+                    int bulletToTextV = dpToPx(7, this);
+                    int margin = dpToPx(5, this);
+
+                    // bullet Point
+                    ContentConstraintSet.connect(tmpBl.getId(), ConstraintSet.START, container.getId(), ConstraintSet.START, startMargin.get(k));
+                    ContentConstraintSet.connect(tmpBl.getId(), ConstraintSet.TOP, tmpCon.getId(), ConstraintSet.TOP, bulletToTextV);
+
+                    // text
+                    ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.START, tmpBl.getId(), ConstraintSet.END, bulletToTextH);
+                    if (j == 0) {
+                        if (i == 0 && k == 0) {
+                            ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.TOP, underline.getId(), ConstraintSet.BOTTOM, margin);
+                        } else {
+                            ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.TOP, preText.getId(), ConstraintSet.BOTTOM, margin);
+                        }
+                    } else {
+                        TextView preCon = levelText.get(j - 1).second;
+                        ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.TOP, preCon.getId(), ConstraintSet.BOTTOM, margin);
+                    }
+
+                    if (i == additionalConstraints.size() - 1 && k == level && j == levelText.size() - 1) {
+
+                        ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.BOTTOM, addConstraintBox.getId(), ConstraintSet.BOTTOM, 100);
+                    }
+
+                    if (j == levelText.size() - 1) {
+                        preText = tmpCon;
+                    }
+                }
+            }
+
+            level = 0;
+
+            ContentConstraintSet.applyTo(addConstraintBox);
+
+        }
 
     }
 

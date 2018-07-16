@@ -68,6 +68,7 @@ public class DatabaseAccess {
     //Method to query and return results
     //Data from table CourseDescription
     public String getAllDescription(String name){
+        System.out.println("getAllDescription called!");
         String description = name + "\t";
         String[] params = new String[]{name};
         Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
@@ -77,20 +78,17 @@ public class DatabaseAccess {
             if(temp == null){
                 temp = "null";
             }
-            description += temp;
-            description += "\t";
+            description += temp+"\t";
             temp = c.getString(c.getColumnIndexOrThrow(COL_4));
             if(temp == null){
                 temp = "null";
             }
-            description += temp;
-            description += "\t";
+            description += temp+"\t";
             temp = c.getString(c.getColumnIndexOrThrow(COL_5));
             if(temp == null){
                 temp = "null";
             }
-            description += temp;
-            description += "\t";
+            description += temp + "\t";
             temp = c.getString(c.getColumnIndexOrThrow(COL_7));
             if(temp == null){
                 temp = "null";
