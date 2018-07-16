@@ -485,9 +485,11 @@ public class SearchResultActivity extends AppCompatActivity {
                         ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.TOP, preCon.getId(), ConstraintSet.BOTTOM, margin);
                     }
 
-                    if (i == additionalConstraints.size() - 1 && k == level && j == levelText.size() - 1) {
+                    if (i == additionalConstraints.size() - 1 && j == levelText.size() - 1) {
 
-                        ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.BOTTOM, addConstraintBox.getId(), ConstraintSet.BOTTOM, 100);
+                        if (tmpContents.size() == 0 || k == level) {
+                            ContentConstraintSet.connect(tmpCon.getId(), ConstraintSet.BOTTOM, addConstraintBox.getId(), ConstraintSet.BOTTOM, 100);
+                        }
                     }
 
                     if (j == levelText.size() - 1) {
