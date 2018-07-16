@@ -50,17 +50,43 @@ public class CourseDescriptions {
     }
 
     public CourseDescriptions(Context c, String q){
-        query = q;
+        query = q.trim();
         context = c;
     }
 
     public ArrayList<Content> getListOfDescriptions(){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
-        if (true){ //TODO::
-            String description = databaseAccess.getAllDescription(query);
-            Content temp = getCont(description);
+        List<String> segmentsBracket = Arrays.asList(query.split("[\\[\\]]"));
+        List<String> segmentsOR = Arrays.asList(query.split(" or "));
+        String description;
+        Content temp;
+        if(segmentsBracket.size()==1 && segmentsOR.size()==1){
+            if(query.substring(0,6) == "(Rec: "){
+                query = query.substring(6);
+                query = query.substring(-1);
+            }
+            description = databaseAccess.getAllDescription(query);
+            temp = getCont(description);
             ListOfDescriptions.add(temp);
+        }else if(segmentsBracket.size()==1){
+            for(int i=0; i<segmentsOR.size(); i++){
+                description = databaseAccess.getAllDescription(query);
+                temp = getCont(description);
+                ListOfDescriptions.add(temp);
+            }
+        }else{
+            String head = segmentsBracket.get(0).substring(0,3);
+            String Classes = segmentsBracket.get(1);
+            int numClasses = Classes.length();
+            for(int i=0; i<numClasses; i++){
+                String queryClass = segmentsBracket.get(0);
+                queryClass+=Classes.charAt(i);
+                queryClass+=segmentsBracket.get(2);
+                description = databaseAccess.getAllDescription(queryClass);
+                temp = getCont(description);
+                ListOfDescriptions.add(temp);
+            }
         }
         databaseAccess.close();
         return ListOfDescriptions;
