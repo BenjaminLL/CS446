@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SearchResultActivity">
 
-    <!--<item android:id="@+id/action_search"-->
-        <!--android:title="Search"-->
-        <!--android:icon="@mipmap/ic_search"-->
-        <!--app:showAsAction="always"/>-->
+    <item android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/home"
+        app:showAsAction="always"/>
 
 </menu>
