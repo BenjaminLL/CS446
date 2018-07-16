@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class DescriptionActivity extends AppCompatActivity {
 
-    private ArrayList<CourseDescriptions.Content> courses;
+    private CourseDescriptions courseDescriptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +47,20 @@ public class DescriptionActivity extends AppCompatActivity {
         /**
          * fake data
          */
-        courses = new ArrayList<>();
-        CourseDescriptions.Content course1 = new CourseDescriptions.Content("CS 135", "COMPUTER SCIENCE",
-                "CS 135 is for students who would prefer a more conceptual treatment of " +
-                        "introductory computer science in a simple language that is educationally effective but not commercially relevant. " +
-                        "While the course is designed to be taken by those with no prior programming experience, " +
-                        "students with prior experience will also find it relevant, due to its unusual focus. " +
-                        "It is suitable for both CS majors and non-majors.",
-                "CS 115, 121, 122, 123, 125, 131, 132, 133, 134, 137, 138, 145,  CHE 121, CIVE 121, ECE 150, GENE 121, PHYS 139, SYDE 121",
-                "CS 136");
+//        courses = new ArrayList<>();
+//        CourseDescriptions.Content course1 = new CourseDescriptions.Content("CS 135", "COMPUTER SCIENCE",
+//                "CS 135 is for students who would prefer a more conceptual treatment of " +
+//                        "introductory computer science in a simple language that is educationally effective but not commercially relevant. " +
+//                        "While the course is designed to be taken by those with no prior programming experience, " +
+//                        "students with prior experience will also find it relevant, due to its unusual focus. " +
+//                        "It is suitable for both CS majors and non-majors.",
+//                "CS 115, 121, 122, 123, 125, 131, 132, 133, 134, 137, 138, 145,  CHE 121, CIVE 121, ECE 150, GENE 121, PHYS 139, SYDE 121",
+//                "CS 136");
+//
+//        courses.add(course1);
 
-        courses.add(course1);
+        courseDescriptions = new CourseDescriptions(this, courseName);
+        ArrayList<CourseDescriptions.Content> courses = courseDescriptions.getListOfDescriptions();
 
 
 
