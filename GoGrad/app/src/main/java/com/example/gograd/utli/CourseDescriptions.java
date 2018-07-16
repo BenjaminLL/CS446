@@ -55,25 +55,24 @@ public class CourseDescriptions {
     }
 
     public ArrayList<Content> getListOfDescriptions(){
+        System.out.println("getListOfDescriptions called");
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
         List<String> segmentsBracket = Arrays.asList(query.split("[\\[\\]]"));
         List<String> segmentsOR = Arrays.asList(query.split(" or "));
-        String description;
-        Content temp;
         if(segmentsBracket.size()==1 && segmentsOR.size()==1){
             if(query.substring(0,6) == "(Rec: "){
                 query = query.substring(6);
                 query = query.substring(-1);
             }
-            description = databaseAccess.getAllDescription(query);
-            temp = getCont(description);
-            ListOfDescriptions.add(temp);
+            System.out.println(query);
+            String description = databaseAccess.getAllDescription(query);
+            System.out.println(description);
+            ListOfDescriptions.add(getCont(description));
         }else if(segmentsBracket.size()==1){
             for(int i=0; i<segmentsOR.size(); i++){
-                description = databaseAccess.getAllDescription(query);
-                temp = getCont(description);
-                ListOfDescriptions.add(temp);
+                String description = databaseAccess.getAllDescription(query);
+                ListOfDescriptions.add(getCont(description));
             }
         }else{
             String head = segmentsBracket.get(0).substring(0,3);
@@ -83,9 +82,8 @@ public class CourseDescriptions {
                 String queryClass = segmentsBracket.get(0);
                 queryClass+=Classes.charAt(i);
                 queryClass+=segmentsBracket.get(2);
-                description = databaseAccess.getAllDescription(queryClass);
-                temp = getCont(description);
-                ListOfDescriptions.add(temp);
+                String description = databaseAccess.getAllDescription(queryClass);
+                ListOfDescriptions.add(getCont(description));
             }
         }
         databaseAccess.close();
@@ -93,6 +91,7 @@ public class CourseDescriptions {
     }
 
     public Content getCont(String RawString){
+        System.out.println("getCont "+ RawString);
         List<String> segments = Arrays.asList(RawString.split("\t"));
         String s1,s2,s3,s4,s5;
         s1 = segments.get(0);
