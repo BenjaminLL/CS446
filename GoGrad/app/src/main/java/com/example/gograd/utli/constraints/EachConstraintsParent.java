@@ -15,7 +15,7 @@ public class EachConstraintsParent extends EachConstraints {
         super(whichPlan, name, isChecked, checklistOpenHelper);
         this.limitation = limitation;
         this.current = current;
-        limitationCheck();
+        // shan diao le
     }
 
     @Override
