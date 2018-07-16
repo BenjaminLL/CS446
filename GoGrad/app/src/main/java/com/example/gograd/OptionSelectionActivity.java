@@ -74,7 +74,7 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
         optionSelector.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog(bcsOptions);
+                openDialog(bcsOptions, "Option");
             }
         });
 
@@ -86,13 +86,13 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
 
                 if (optionChosen.equals("") || optionChosen.equals("AI")) {
 
-                    openDialog(bcsAI);
+                    openDialog(bcsAI, "Year");
                 } else if (optionChosen.equals("CFA") || optionChosen.equals("HCI")) {
 
-                    openDialog(bcsCFA_HCI);
+                    openDialog(bcsCFA_HCI, "Year");
                 } else {
 
-                    openDialog(bcsOthers);
+                    openDialog(bcsOthers, "Year");
                 }
 
             }
@@ -157,11 +157,12 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
     }
 
 
-    public void openDialog(String[] options) {
+    public void openDialog(String[] options, String title) {
 
         // set passed arguments
         Bundle bundle = new Bundle();
         bundle.putStringArray("values", options);
+        bundle.putString("dialog_title", title);
 
         ProgramDialog programDialog = new ProgramDialog();
         programDialog.setArguments(bundle);

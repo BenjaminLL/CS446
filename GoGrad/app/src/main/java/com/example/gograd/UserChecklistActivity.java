@@ -48,6 +48,7 @@ public class UserChecklistActivity extends AppCompatActivity {
     private List<Integer> electiveBox;
     private List<Integer> nonMBox;
     private Map<String, Integer> numLimit;
+    private List<CheckBox> constraintsData;
 
     private String title;
 
@@ -74,6 +75,7 @@ public class UserChecklistActivity extends AppCompatActivity {
          */
         checkBoxR = new HashMap<>();
         checkBoxU = new HashMap<>();
+        constraintsData = new ArrayList<>();
 
         /**
          * get checklist from user database
@@ -541,6 +543,8 @@ public class UserChecklistActivity extends AppCompatActivity {
                 if (j == 0) {
                     ++level;
                 }
+
+                constraintsData.add(checkBox);
             }
 
 
@@ -591,7 +595,10 @@ public class UserChecklistActivity extends AppCompatActivity {
 
         }
 
+        addListenerToConstraints();
+
     }
+
 
     public int dpToPx(int dp, Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -677,10 +684,22 @@ public class UserChecklistActivity extends AppCompatActivity {
         }
     }
 
+    private void addListenerToConstraints() {
+
+        for (final CheckBox checkBox: constraintsData) {
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checklist.changeConstraintsIsCheck(checkBox.getText().toString());
+                }
+            });
+        }
+    }
+
 
     public void showDescription(String text) {
 
-        if (text.contains("-")) {
+        if (text.contains("-") || text.contains("XX")) {
             Toast claim = Toast.makeText(this, "No Description", Toast.LENGTH_SHORT);
             claim.show();
             return;

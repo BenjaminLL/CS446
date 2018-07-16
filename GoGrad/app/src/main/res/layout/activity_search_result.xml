@@ -13,7 +13,14 @@
         android:background="@color/toolBar"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        <android.support.design.widget.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </android.support.v7.widget.Toolbar>
 
 
     <ImageView

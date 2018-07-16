@@ -532,7 +532,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
     public void showDescription(String text) {
 
-        if (text.contains("-")) {
+        if (text.contains("-") || text.contains("XX")) {
             Toast claim = Toast.makeText(this, "No Description", Toast.LENGTH_SHORT);
             claim.show();
             return;

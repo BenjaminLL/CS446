@@ -24,12 +24,13 @@ public class ProgramDialog extends AppCompatDialogFragment {
 
         // get the passed arguments
         final String[] values = this.getArguments().getStringArray("values");
+        String title = this.getArguments().getString("dialog_title");
 
         // get components
         picker = view.findViewById(R.id.picker);
 
         builder.setView(view);
-        builder.setTitle("Option");
+        builder.setTitle(title);
         builder.setNegativeButton("cancle", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
