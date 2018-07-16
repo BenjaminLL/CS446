@@ -1,22 +1,19 @@
 package com.example.gograd.utli;
 
+import com.example.gograd.ChecklistOpenHelper;
+
 import java.util.ArrayList;
 
 public class SuggestCoursesModel {
 
     private ArrayList<String> suggestCourses;
-    //database
     private String whichPlan;
 
-    public SuggestCoursesModel(String whichPlan) {
+    public SuggestCoursesModel(String whichPlan, ChecklistOpenHelper checklistOpenHelper) {
 
         suggestCourses = new ArrayList<>();
         this.whichPlan = whichPlan;
-    }
 
-    public ArrayList<String> getSuggestCourses() {
-
-        ArrayList<String> temp;
         for (int row = 1; row < 10 ; row++) {
             /*
             if (row.ischeck == true) {
@@ -42,6 +39,9 @@ public class SuggestCoursesModel {
             }
             */
         }
+    }
+
+    public ArrayList<String> getSuggestCourses() {
         return getSuggestCourses();
     }
 

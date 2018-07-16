@@ -16,6 +16,7 @@ public class EachChecklist {
     private List<Pair<String, ArrayList<EachCourse>>> courses;
     private List<Double> courseUnits;
     private List<Constraints> constraints;
+    private List<String> suggestCourses;
     private String whichPlan;
     private ChecklistOpenHelper checklistOpenHelper;
 
@@ -23,12 +24,13 @@ public class EachChecklist {
         courses = new ArrayList<>();
         courseUnits = new ArrayList<>();
         constraints = new ArrayList<>();
+        suggestCourses = new ArrayList<>();
         this.whichPlan = whichPlan;
         checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
-        
+
         /* courses initializer */
         String key1 = "CS Units";
         String value1 = databaseAccess.getCSUnits(whichPlan);
@@ -98,6 +100,10 @@ public class EachChecklist {
         splitConstraints(databaseAccess.getConstraints(whichPlan));
         /* end constraints initializer */
 
+        /* suggest courses initializer */
+
+        /* end suggest courses initializer */
+
         databaseAccess.close();
     }
 
@@ -111,6 +117,10 @@ public class EachChecklist {
 
     public List<Constraints> getConstraints() {
         return constraints;
+    }
+
+    public List<String> getSuggestCourses() {
+        return suggestCourses;
     }
 
     private void splitCourses(String key, String value) {
@@ -201,6 +211,7 @@ public class EachChecklist {
                     current = 0;
                     flag = false;
                     tempList.clear();
+                    
                 } else {
                     Pair<String, Boolean> tempPair = new Pair<>(line.substring(2), checklistOpenHelper.getIsCheck(whichPlan, line.substring(2)));
                     tempList.add(tempPair);
