@@ -59,12 +59,13 @@ public class CourseDescriptions {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
         List<String> segmentsBracket = Arrays.asList(query.split("[\\[\\]]"));
-        List<String> segmentsOR = Arrays.asList(query.split(" or "));
+        List<String> segmentsOR = Arrays.asList(query.split("\\sor\\s"));
         if(segmentsBracket.size()==1 && segmentsOR.size()==1){
             if(query.substring(0,6) == "(Rec: "){
                 query = query.substring(6);
                 query = query.substring(-1);
             }
+            System.out.println("query = "+query);
             String description = databaseAccess.getAllDescription(query);
             ListOfDescriptions.add(getCont(description));
         }else if(segmentsBracket.size()==1){
