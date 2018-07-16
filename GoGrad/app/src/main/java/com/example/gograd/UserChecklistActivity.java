@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gograd.utli.*;
+import com.example.gograd.utli.constraints.EachConstraints;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import java.util.Map;
 public class UserChecklistActivity extends AppCompatActivity {
 
     private EachChecklist checklist;
+    private EachConstraints constraints;
     private List<Pair<String, ArrayList<EachCourse>>> requiredCourses;
 //    private List<Pair<String, ArrayList<String>>> additionalConstraints;
 
@@ -533,6 +535,10 @@ public class UserChecklistActivity extends AppCompatActivity {
         constraintSet.connect(underline.getId(), ConstraintSet.TOP, title.getId(), ConstraintSet.BOTTOM, 0);
 
         constraintSet.applyTo(addConstraintBox);
+
+        /**
+         * 
+         */
 
 
     }
