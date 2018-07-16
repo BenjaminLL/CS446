@@ -65,8 +65,8 @@ public class CourseDescriptions {
                 query = query.trim();
                 query = query.substring(6);
                 query = query.substring(-1);
+                System.out.println("query = "+query);
             }
-            System.out.println("query = "+query);
             String description = databaseAccess.getAllDescription(query);
             ListOfDescriptions.add(getCont(description));
         }else if(segmentsBracket.size()==1){
