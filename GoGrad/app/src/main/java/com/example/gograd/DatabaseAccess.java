@@ -78,20 +78,17 @@ public class DatabaseAccess {
             if(temp == null){
                 temp = "null";
             }
-            description += temp;
-            description += "\t";
+            description += temp+"\t";
             temp = c.getString(c.getColumnIndexOrThrow(COL_4));
             if(temp == null){
                 temp = "null";
             }
-            description += temp;
-            description += "\t";
+            description += temp+"\t";
             temp = c.getString(c.getColumnIndexOrThrow(COL_5));
             if(temp == null){
                 temp = "null";
             }
-            description += temp;
-            description += "\t";
+            description += temp + "\t";
             temp = c.getString(c.getColumnIndexOrThrow(COL_7));
             if(temp == null){
                 temp = "null";

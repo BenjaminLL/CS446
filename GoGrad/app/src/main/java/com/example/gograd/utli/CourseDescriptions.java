@@ -21,11 +21,11 @@ public class CourseDescriptions {
         private String Coreq;
 
         public Content(String n, String t, String d, String p, String c){
-            CourseName = n;
-            Title = t;
-            Description = d;
-            Prereq = p;
-            Coreq = c;
+            this.CourseName = n;
+            this.Title = t;
+            this.Description = d;
+            this.Prereq = p;
+            this.Coreq = c;
         }
 
         public String getCourseName() {
@@ -93,6 +93,9 @@ public class CourseDescriptions {
     public Content getCont(String RawString){
         System.out.println("getCont "+ RawString);
         List<String> segments = Arrays.asList(RawString.split("\t"));
+        for(int i=0; i<segments.size();i++){
+            System.out.println(segments.get(i));
+        }
         String s1,s2,s3,s4,s5;
         s1 = segments.get(0);
         s2 = segments.get(1);
