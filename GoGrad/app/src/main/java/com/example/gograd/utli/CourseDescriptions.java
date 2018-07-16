@@ -65,9 +65,7 @@ public class CourseDescriptions {
                 query = query.substring(6);
                 query = query.substring(-1);
             }
-            System.out.println(query);
             String description = databaseAccess.getAllDescription(query);
-            System.out.println(description);
             ListOfDescriptions.add(getCont(description));
         }else if(segmentsBracket.size()==1){
             for(int i=0; i<segmentsOR.size(); i++){
@@ -91,11 +89,7 @@ public class CourseDescriptions {
     }
 
     public Content getCont(String RawString){
-        System.out.println("getCont "+ RawString);
         List<String> segments = Arrays.asList(RawString.split("\t"));
-        for(int i=0; i<5;i++){
-            System.out.println(segments.get(i));
-        }
         String s1,s2,s3,s4,s5;
         s1 = segments.get(0);
         s2 = segments.get(1);
