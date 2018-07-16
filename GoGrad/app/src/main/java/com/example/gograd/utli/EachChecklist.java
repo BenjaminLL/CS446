@@ -167,7 +167,7 @@ public class EachChecklist {
                 if (line.substring(0, 1).equals("!") && !line.substring(1, 2).equals("!")) {
                     ArrayList<Pair<String, Boolean>> blank = new ArrayList<>();
                     Boolean pischeck = checklistOpenHelper.getIsCheck(whichPlan, line.substring(1));
-                    Constraints tempCons = new Constraints(whichPlan, line, pischeck, 0, 0, blank, checklistOpenHelper);
+                    Constraints tempCons = new Constraints(whichPlan, line.substring(1), pischeck, 0, 0, blank, checklistOpenHelper);
                     constraints.add(tempCons);
                     tempList.clear();
                 } else {

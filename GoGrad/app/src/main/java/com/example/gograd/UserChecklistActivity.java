@@ -23,7 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gograd.utli.*;
+import com.example.gograd.utli.constraints.Constraints;
 import com.example.gograd.utli.constraints.EachConstraints;
+import com.example.gograd.utli.constraints.EachConstraintsChild;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +35,7 @@ import java.util.Map;
 public class UserChecklistActivity extends AppCompatActivity {
 
     private EachChecklist checklist;
-    private EachConstraints constraints;
+    private List<Constraints> constraints;
     private List<Pair<String, ArrayList<EachCourse>>> requiredCourses;
 //    private List<Pair<String, ArrayList<String>>> additionalConstraints;
 
@@ -75,19 +77,22 @@ public class UserChecklistActivity extends AppCompatActivity {
          * get checklist from user database
          */
         checklist = new EachChecklist(title, this);
-
-//        List<Pair<String, ArrayList<EachCourse>>> tmpChecklist = checklist.getCourses();
-//        for (int i = 0; i < tmpChecklist.size(); ++i) {
-//            String name = tmpChecklist.get(i).first;
-//            System.out.println("Cate Name: " + name);
-//
-//            ArrayList<EachCourse> courses = tmpChecklist.get(i).second;
-//            for (int j = 0; j < courses.size(); ++j) {
-//                EachCourse tmpCourse = courses.get(j);
-//                System.out.println(tmpCourse.getName());
-//            }
-//        }
         requiredCourses = checklist.getCourses();
+        constraints = checklist.getConstraints();
+
+        for (int i = 0; i < constraints.size(); ++i) {
+
+            Constraints tmpConstraint = constraints.get(i);
+
+            String parent = tmpConstraint.getRelation().first.getName();
+            System.out.println(parent);
+            ArrayList<EachConstraintsChild> children = tmpConstraint.getRelation().second;
+
+            for (EachConstraintsChild child: children) {
+
+                System.out.println(child.getName());
+            }
+        }
 
 
         /**
@@ -564,6 +569,7 @@ public class UserChecklistActivity extends AppCompatActivity {
         /**
          * add contents
          */
+
 
 
     }
