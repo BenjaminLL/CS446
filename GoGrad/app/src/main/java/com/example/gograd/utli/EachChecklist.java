@@ -186,8 +186,8 @@ public class EachChecklist {
                     if (checklistOpenHelper.getIsCheck(whichPlan, line.substring(1))) {
                         current++;
                     }
+                    child++;
                     if (flag) {
-                        child++;
                         limitation = child;
                     }
                     Boolean pischeck = checklistOpenHelper.getIsCheck(whichPlan, temp);
