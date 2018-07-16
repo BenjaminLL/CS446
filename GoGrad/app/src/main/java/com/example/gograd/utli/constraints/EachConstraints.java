@@ -1,4 +1,5 @@
 package com.example.gograd.utli.constraints;
+
 import com.example.gograd.ChecklistOpenHelper;
 
 import java.util.Observable;
@@ -6,15 +7,16 @@ import java.util.Observer;
 
 public abstract class EachConstraints extends Observable implements Observer {
 
+    protected Boolean isChecked;
     private String whichPlan;
     private String name;
-    protected Boolean isChecked;
     private ChecklistOpenHelper checklistOpenHelper;
 
-    public EachConstraints(String whichPlan, String name, Boolean isChecked) {
+    public EachConstraints(String whichPlan, String name, Boolean isChecked, ChecklistOpenHelper checklistOpenHelper) {
         this.whichPlan = whichPlan;
         this.name = name;
         this.isChecked = isChecked;
+        this.checklistOpenHelper = checklistOpenHelper;
     }
 
     public String getName() {
