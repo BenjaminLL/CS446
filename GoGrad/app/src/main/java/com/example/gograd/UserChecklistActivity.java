@@ -573,9 +573,11 @@ public class UserChecklistActivity extends AppCompatActivity {
                         ContentConstraintSet.connect(tmpCheck.getId(), ConstraintSet.TOP, preCon.getId(), ConstraintSet.BOTTOM, margin);
                     }
 
-                    if (i == constraints.size() - 1 && k == level && j == levelText.size() - 1) {
+                    if (i == constraints.size() - 1 && j == levelText.size() - 1) {
 
-                        ContentConstraintSet.connect(tmpCheck.getId(), ConstraintSet.BOTTOM, addConstraintBox.getId(), ConstraintSet.BOTTOM, 100);
+                        if (children.size() == 0 || k == level) {
+                            ContentConstraintSet.connect(tmpCheck.getId(), ConstraintSet.BOTTOM, addConstraintBox.getId(), ConstraintSet.BOTTOM, 100);
+                        }
                     }
 
                     if (j == levelText.size() - 1) {
