@@ -527,9 +527,13 @@ public class UserChecklistActivity extends AppCompatActivity {
                 checkBox.setTextColor(Color.BLACK);
                 checkBox.setGravity(Gravity.CENTER_VERTICAL);
                 if (j == 0) {
+                    boolean checked = tmpConstraint.getRelation().first.getIsChecked();
+                    checkBox.setChecked(checked);
                     checkBox.setText(parent);
                     textWidth = dpToPx(280, this);
                 } else {
+                    boolean checked = children.get(j - 1).getIsChecked();
+                    checkBox.setChecked(checked);
                     checkBox.setText(children.get(j - 1).getName());
                     textWidth = dpToPx(250, this);
                 }
