@@ -187,7 +187,7 @@ public class EachChecklist {
             } else {
                 if (line.substring(0, 1).equals("!") && !line.substring(1, 2).equals("!")) {
 
-                    Pair<String, Boolean> tempPair = new Pair<>(line.substring(1), checklistOpenHelper.getIsCheck(whichPlan, line.substring(2)));
+                    Pair<String, Boolean> tempPair = new Pair<>(line.substring(1), checklistOpenHelper.getIsCheck(whichPlan, line.substring(1)));
                     tempList.add(tempPair);
                     ArrayList<Pair<String, Boolean>> newArray = new ArrayList<>();
                     for (int i = 0; i < tempList.size(); i++) {
