@@ -61,7 +61,7 @@ public class CourseDescriptions {
         List<String> segmentsBracket = Arrays.asList(query.split("[\\[\\]]"));
         List<String> segmentsOR = Arrays.asList(query.split("\\sor\\s"));
         if(segmentsBracket.size()==1 && segmentsOR.size()==1){
-            if(query.substring(0,6) == "(Rec: "){
+            if(query.substring(0,6).equals("(Rec: ")){
                 query = query.trim();
                 query = query.substring(6);
                 query = query.substring(-1);
