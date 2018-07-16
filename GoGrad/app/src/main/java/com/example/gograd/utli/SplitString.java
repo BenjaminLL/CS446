@@ -14,22 +14,14 @@ public class SplitString {
     private List<Pair<String, ArrayList<String>>> course;
     private List<Pair<String, ArrayList<String>>> constraints;
     private List<Double> courseUnits;
-    //database
-    private String whichPlan;
-    private Context context;
 
     public SplitString(String whichPlan, Context context) {
 
         course = new ArrayList<>();
         constraints = new ArrayList<>();
         courseUnits = new ArrayList<>();
-        this.whichPlan = whichPlan;
-        this.context = context;
-    }
 
-    //call get units four times
-    public List<Pair<String, ArrayList<String>>> getCourse() {
-
+        /* courses initializer */
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
 
@@ -48,26 +40,9 @@ public class SplitString {
         String key4 = "Non-Math Units";
         String value4 = databaseAccess.getNonMath(whichPlan);
         splitCourses(key4, value4);
+        /* courses initializer end*/
 
-        databaseAccess.close();
-        return course;
-    }
-
-    //call additional constrains
-    public List<Pair<String, ArrayList<String>>> getConstraints() {
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
-        databaseAccess.open();
-        System.out.println(databaseAccess.getConstraints(whichPlan));
-        splitConstraints(databaseAccess.getConstraints(whichPlan));
-        databaseAccess.close();
-        return constraints;
-    }
-
-    // call units
-    public List<Double> getCourseUnits() {
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
-        databaseAccess.open();
-
+        /* courses units initializer */
         Double unit1 = databaseAccess.getTotalCS(whichPlan);
         courseUnits.add(unit1);
 
@@ -79,8 +54,28 @@ public class SplitString {
 
         Double unit4 = databaseAccess.getTotalNonMath(whichPlan);
         courseUnits.add(unit4);
+        /* courses units initializer end*/
+
+        /* constraints initializer */
+        System.out.println(databaseAccess.getConstraints(whichPlan));
+        splitConstraints(databaseAccess.getConstraints(whichPlan));
+        /* constraints initializer end*/
 
         databaseAccess.close();
+    }
+
+    //call get units four times
+    public List<Pair<String, ArrayList<String>>> getCourse() {
+        return course;
+    }
+
+    //call additional constrains
+    public List<Pair<String, ArrayList<String>>> getConstraints() {
+        return constraints;
+    }
+
+    // call units
+    public List<Double> getCourseUnits() {
         return courseUnits;
     }
 
@@ -98,7 +93,7 @@ public class SplitString {
         course.add(tempPair);
     }
 
-    public void splitConstraints(String s) {
+    private void splitConstraints(String s) {
 
         String[] lines = s.split("\\r?\\n");
         int layer = 1;
