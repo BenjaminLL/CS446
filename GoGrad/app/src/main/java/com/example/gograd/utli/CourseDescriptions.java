@@ -13,7 +13,7 @@ public class CourseDescriptions {
     private Context context;
     private String query;
 
-    public class Content{
+    public static class Content{
         private String CourseName;
         private String Title;
         private String Description;
