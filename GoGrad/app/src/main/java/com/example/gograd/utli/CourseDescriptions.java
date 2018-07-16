@@ -63,7 +63,7 @@ public class CourseDescriptions {
         if(segmentsBracket.size()==1 && segmentsOR.size()==1){
             if(query.substring(0,6) == "(Rec: "){
                 query = query.substring(6);
-                query = query.substring(-1);
+                query = query.substring(-2);
             }
             System.out.println("query = "+query);
             String description = databaseAccess.getAllDescription(query);
