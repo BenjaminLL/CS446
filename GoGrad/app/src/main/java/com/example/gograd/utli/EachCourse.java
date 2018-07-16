@@ -10,12 +10,12 @@ public class EachCourse {
     private Boolean isOrigin;
     private ChecklistOpenHelper checklistOpenHelper;
 
-    public EachCourse(String whichPlan, String name, Boolean ischeck, Boolean isOrigin, ChecklistOpenHelper cloh) {
+    public EachCourse(String whichPlan, String name, Boolean ischeck, Boolean isOrigin, ChecklistOpenHelper checklistOpenHelper) {
         this.whichPlan = whichPlan;
         this.name = name;
         this.ischeck = ischeck;
         this.isOrigin = isOrigin;
-        this.checklistOpenHelper = cloh;
+        this.checklistOpenHelper = checklistOpenHelper;
     }
 
     public String getName() {
