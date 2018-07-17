@@ -54,6 +54,18 @@ public class SearchResultActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        goHome();
+                        break;
+                }
+                return true;
+            }
+        });
+
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
@@ -64,6 +76,7 @@ public class SearchResultActivity extends AppCompatActivity {
         fullProgramName = programInfo.getString("PROGRAM");
         title = programInfo.getString("TITLE");
 
+        ab.setTitle(title);
         /**
          * change the add button status
          */
@@ -76,7 +89,6 @@ public class SearchResultActivity extends AppCompatActivity {
             addButton.setImageResource(R.drawable.unlike);
         }
 
-        ab.setTitle(title);
 
         translator = new SplitString(fullProgramName, this);
         requiredCourses = translator.getCourse();
@@ -558,5 +570,10 @@ public class SearchResultActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.result_menu, menu);
         return true;
+    }
+
+    public void goHome() {
+        Intent backToHome = new Intent(this, UserPageActivity.class);
+        startActivity(backToHome);
     }
 }
