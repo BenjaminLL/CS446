@@ -106,7 +106,7 @@ public class UserChecklistActivity extends AppCompatActivity {
          */
         // box stores the locations of all containers
         box = new ArrayList<>();
-        box.add(R.drawable.csbox);
+        box.add(R.drawable.csboxche);
         box.add(R.drawable.mathbox);
 
         electiveBox = new ArrayList<>();
@@ -273,9 +273,8 @@ public class UserChecklistActivity extends AppCompatActivity {
                 /**
                  * pack views --> add listener
                  */
-//                System.out.println(courses.get(j).getIsOrigin());
-
                 if (j < filled && courses.get(j).getIsOrigin()) {
+
                     checkBoxR.get(name).add(new Pair<>(courses.get(j).getName(), checkBox));
                 } else {
                     checkBoxU.get(name).add(new Pair<>(editText, checkBox));
@@ -619,6 +618,10 @@ public class UserChecklistActivity extends AppCompatActivity {
 
     private void deleteChecklist() {
 
+        modifyPlan.deleteChecklist();
+        finish();
+        Intent goHome = new Intent(this, UserPageActivity.class);
+        startActivity(goHome);
     }
 
 
