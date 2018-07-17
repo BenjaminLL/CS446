@@ -165,6 +165,9 @@ public class EachChecklist {
             if (layer == 1) {
 
                 if (line.substring(0, 1).equals("!") && !line.substring(1, 2).equals("!")) {
+
+                    //System.out.println(line.substring(1) + " : " + checklistOpenHelper.getIsCheck(whichPlan, line.substring(1)));
+
                     ArrayList<Pair<String, Boolean>> blank = new ArrayList<>();
                     Boolean pischeck = checklistOpenHelper.getIsCheck(whichPlan, line.substring(1));
                     Constraints tempCons = new Constraints(whichPlan, line.substring(1), pischeck, 0, 0, blank, checklistOpenHelper);
@@ -267,6 +270,7 @@ public class EachChecklist {
         for (Constraints constraints : constraints) {
             EachConstraints eachConstraints = constraints.findConstraint(name);
             if (eachConstraints != null) {
+                //System.out.println(eachConstraints.getName() + " : " + eachConstraints.getIsChecked());
                 eachConstraints.setIsChecked((!eachConstraints.getIsChecked()));
                 return;
             }
