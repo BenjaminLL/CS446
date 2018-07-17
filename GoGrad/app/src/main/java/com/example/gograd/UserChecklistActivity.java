@@ -273,7 +273,8 @@ public class UserChecklistActivity extends AppCompatActivity {
                 /**
                  * pack views --> add listener
                  */
-//                System.out.println(courses.get(j).getIsOrigin());
+                System.out.println(name);
+                System.out.println(courses.get(j).getIsOrigin());
 
                 if (j < filled && courses.get(j).getIsOrigin()) {
                     checkBoxR.get(name).add(new Pair<>(courses.get(j).getName(), checkBox));
@@ -619,6 +620,10 @@ public class UserChecklistActivity extends AppCompatActivity {
 
     private void deleteChecklist() {
 
+        modifyPlan.deleteChecklist();
+        finish();
+        Intent goHome = new Intent(this, UserPageActivity.class);
+        startActivity(goHome);
     }
 
 
