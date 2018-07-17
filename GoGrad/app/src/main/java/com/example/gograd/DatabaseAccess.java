@@ -242,7 +242,7 @@ public class DatabaseAccess {
     Suggest TABLE!
     */
 
-    public int getNeedCheck(String name){
+    public boolean getNeedCheck(String name){
         int temp = 0;
         String[] params = new String[]{name};
         Cursor c = db.rawQuery("select * from "+Suggest_TABLE+" where "+COL_S2+" = ?",
@@ -250,8 +250,9 @@ public class DatabaseAccess {
         while(c.moveToNext()){
             temp = c.getInt(c.getColumnIndexOrThrow(COL_S3));
         }
+        boolean ret = temp==1 ? true : false;
         c.close();
-        return temp;
+        return ret;
     }
 
     //get all the "OR" requirement
