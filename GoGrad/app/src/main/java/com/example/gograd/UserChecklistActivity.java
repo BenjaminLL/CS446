@@ -720,6 +720,7 @@ public class UserChecklistActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     ArrayList<String> effectedCons = checklist.changeConstraintsIsCheck(checkBox.getText().toString());
+                    effectedCons.remove(0);
                     changeState(effectedCons, checkBox.isChecked());
                 }
             });
@@ -736,10 +737,9 @@ public class UserChecklistActivity extends AppCompatActivity {
             if (pos == size) break;
 
             String name = checkBox.getText().toString();
-            System.out.println(state);
-            System.out.println("---------------------------------------");
-            System.out.println("we need: " + effectedCons.get(pos));
-            System.out.println("what we have: " + name);
+//            System.out.println("---------------------------------------");
+//            System.out.println("we need: " + effectedCons.get(pos));
+//            System.out.println("what we have: " + name);
             if (name.equals(effectedCons.get(pos))) {
                 checkBox.setChecked(state);
                 ++pos;
