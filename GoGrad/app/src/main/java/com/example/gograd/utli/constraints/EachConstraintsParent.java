@@ -30,10 +30,10 @@ public class EachConstraintsParent extends EachConstraints {
                     isUpdated = true;
                 }
             } else {
+                current--;
                 if (current < limitation && isChecked) {
                     isUpdated = true;
                 }
-                current--;
             }
 
             limitationCheck();
