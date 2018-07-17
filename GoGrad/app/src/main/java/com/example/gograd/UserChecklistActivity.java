@@ -106,7 +106,7 @@ public class UserChecklistActivity extends AppCompatActivity {
          */
         // box stores the locations of all containers
         box = new ArrayList<>();
-        box.add(R.drawable.csbox);
+        box.add(R.drawable.csboxche);
         box.add(R.drawable.mathbox);
 
         electiveBox = new ArrayList<>();
