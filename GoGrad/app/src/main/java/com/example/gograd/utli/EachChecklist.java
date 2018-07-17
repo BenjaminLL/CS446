@@ -276,9 +276,7 @@ public class EachChecklist {
                 eachConstraints.setIsChecked((!eachConstraints.getIsChecked()));
                 if (constraints.getParOrChild()) {
                     if (!eachConstraints.getIsChecked()) {
-                        System.out.println(constraints.getRelation().first.getCurrent());
                         constraints.getRelation().first.setCurrent(0);
-                        System.out.println(constraints.getRelation().first.getCurrent());
                     }
                     else {
                         constraints.getRelation().first.setCurrent(constraints.getRelation().second.size());
@@ -300,11 +298,11 @@ public class EachChecklist {
                 }
             }
         }
-
+        /*
         for (String s : retval) {
             System.out.println(s);
         }
-
+        */
         return retval;
     }
 }
