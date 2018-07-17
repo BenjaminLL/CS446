@@ -49,7 +49,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE);
-        Toast.makeText(checklistContext, "Create ChecklistDB success!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
