@@ -692,7 +692,9 @@ public class UserChecklistActivity extends AppCompatActivity {
 
                             if (!newText.equals("") && !newText.equals(name)) {
                                 checklist.deleteCourses(name, catName);
+                                System.out.println(catName);
                                 checklist.insertCourses(newText, catName);
+
 
                                 if (!name.equals("") && ischecked) {
                                     checklist.changeCourseIsCheck(newText, catName);
