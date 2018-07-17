@@ -66,7 +66,7 @@ public class EachChecklist {
         String value4 = databaseAccess.getNonMath(whichPlan);
         splitCourses(key4, value4);
         for (Pair<String, ArrayList<EachCourse>> course : courses) {
-            if (course.first.equals(key3)) {
+            if (course.first.equals(key4)) {
                 String value = checklistOpenHelper.getOriginUnderCategory(whichPlan, key4);
                 if (value != null) {
                     String[] lines = value.split("\\r?\\n");

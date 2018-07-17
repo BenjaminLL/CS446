@@ -216,6 +216,8 @@ public class UserChecklistActivity extends AppCompatActivity {
             final int filled = courses.size();
             int totalCourses = (int) (total * 2);
 
+            System.out.println(name + ": " + filled);
+
             for (int j = 0; j < totalCourses; ++j) {
 
                 TextView course = new TextView(this);
@@ -717,10 +719,33 @@ public class UserChecklistActivity extends AppCompatActivity {
             checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    checklist.changeConstraintsIsCheck(checkBox.getText().toString());
+                    ArrayList<String> effectedCons = checklist.changeConstraintsIsCheck(checkBox.getText().toString());
+                    changeState(effectedCons, checkBox.isChecked());
                 }
             });
         }
+    }
+
+    private void changeState(ArrayList<String> effectedCons, boolean state) {
+
+        int pos = 0;
+        int size = effectedCons.size();
+
+        for (final CheckBox checkBox: constraintsData) {
+
+            if (pos == size) break;
+
+            String name = checkBox.getText().toString();
+            System.out.println(state);
+            System.out.println("---------------------------------------");
+            System.out.println("we need: " + effectedCons.get(pos));
+            System.out.println("what we have: " + name);
+            if (name.equals(effectedCons.get(pos))) {
+                checkBox.setChecked(state);
+                ++pos;
+            }
+        }
+
     }
 
 
