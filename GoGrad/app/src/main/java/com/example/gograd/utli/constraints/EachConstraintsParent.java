@@ -15,18 +15,19 @@ public class EachConstraintsParent extends EachConstraints {
         super(whichPlan, name, isChecked, checklistOpenHelper);
         this.limitation = limitation;
         this.current = current;
-        limitationCheck();
     }
 
     @Override
     public void update(Observable o, Object arg) {
+
         if (o instanceof EachConstraintsChild) {
-            boolean flag = (boolean) arg;
+            boolean flag = (Boolean) arg;
             if (flag) {
                 current++;
             } else {
                 current--;
             }
+
             limitationCheck();
         }
     }

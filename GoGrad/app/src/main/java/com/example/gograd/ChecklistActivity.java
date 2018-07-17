@@ -53,13 +53,5 @@ public class ChecklistActivity extends AppCompatActivity {
         startActivity(sCourses);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.checklist_toolbar, menu);
-
-        // Configure the search info and add any event listeners...
-
-        return super.onCreateOptionsMenu(menu);
-    }
 
 }
