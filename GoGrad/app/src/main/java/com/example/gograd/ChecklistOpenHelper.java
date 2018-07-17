@@ -122,7 +122,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     //return true if success
     //Set checked status to be unchecked by default
     public boolean insertUserTable_Course(String id, String requires, String Category){
-        System.out.println("insertUserTable_Course called " + requires);
+        System.out.println("insertUserTable_Course called " + requires + " " + Category);
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_C2,requires);
