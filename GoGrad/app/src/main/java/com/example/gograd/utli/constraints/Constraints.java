@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Constraints {
 
+    private Boolean parOrChild = true;
+
     private Pair<EachConstraintsParent, ArrayList<EachConstraintsChild>> relation;
 
     public Constraints(String whichPlan, String parentName, Boolean isChecked, int limitation, int current,
@@ -30,12 +32,18 @@ public class Constraints {
         return relation;
     }
 
+    public Boolean getParOrChild() {
+        return parOrChild;
+    }
+
     public EachConstraints findConstraint(String name) {
         if (relation.first.getName().equals(name)) {
+            parOrChild = true;
             return relation.first;
         } else {
             for (EachConstraintsChild eachConstraintsChild : relation.second) {
                 if (eachConstraintsChild.getName().equals(name)) {
+                    parOrChild = false;
                     return eachConstraintsChild;
                 }
             }
