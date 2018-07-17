@@ -98,66 +98,6 @@ public class DatabaseAccess {
         return description;
     }
 
-    public String getDescription(String name){
-        String description = "";
-        String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
-                params);
-        while(c.moveToNext()){
-            description = c.getString(c.getColumnIndexOrThrow(COL_4));
-        }
-        c.close();
-        return description;
-    }
-
-    public String getTitle(String name){
-        String title = "";
-        String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
-                params);
-        while(c.moveToNext()){
-            title = c.getString(c.getColumnIndexOrThrow(COL_3));
-        }
-        c.close();
-        return title;
-    }
-
-    public String getPrereqs(String name){
-        String temp = "";
-        String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
-                params);
-        while(c.moveToNext()){
-            temp = c.getString(c.getColumnIndexOrThrow(COL_5));
-        }
-        c.close();
-        return temp;
-    }
-
-    public String getSuccessor(String name){
-        String description = "";
-        String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
-                params);
-        while(c.moveToNext()){
-            description = c.getString(c.getColumnIndexOrThrow(COL_6));
-        }
-        c.close();
-        return description;
-    }
-
-    public String getCoreqs(String name){
-        String description = "";
-        String[] params = new String[]{name};
-        Cursor c = db.rawQuery("select * from "+Course_TABLE+" where "+COL_2+" = ?",
-                params);
-        while(c.moveToNext()){
-            description = c.getString(c.getColumnIndexOrThrow(COL_7));
-        }
-        c.close();
-        return description;
-    }
-
     public int getOpenNonCS(String name){
         int i =-1;
         String[] params = new String[]{name};

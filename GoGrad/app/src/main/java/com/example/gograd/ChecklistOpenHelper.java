@@ -109,7 +109,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     }
 
     public boolean updateUserTable_Status(String id, String requires, boolean status){
-        System.out.println("updateUserTable_Course called update check status " + requires);
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         int myInt = status ? 1 : 0;
@@ -122,7 +121,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     //return true if success
     //Set checked status to be unchecked by default
     public boolean insertUserTable_Course(String id, String requires, String Category){
-        System.out.println("insertUserTable_Course called " + requires + " " + Category);
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_C2,requires);
@@ -133,11 +131,9 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     }
 
     public int deleteUserTable_Course(String id, String requires, String Category){
-        System.out.println("deleteUserTable_Course called user add their course " + requires);
         SQLiteDatabase db = getWritableDatabase();
         String selection = COL_C4+ "=? and "+COL_C2 + "=?";
         int deletedRows = db.delete("["+id+"]", selection, new String[]{Category,requires});
-        System.out.println("deleteUserTable_Course success");
         return deletedRows;
     }
 
@@ -157,7 +153,6 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
             courses += temp + "\n";
         }
         String ret = courses.trim();
-        System.out.println("getOriginUnderCategory success: " + ret);
         return ret;
     }
     //return true if the course is origin
@@ -232,55 +227,8 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         return deletedRows;
     }
 
-    //TEST usage: add default usr check list
-    public void TestDefaultChecklist(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2, "17/18BCS");
-        contentValues.put(COL_3, "17/18BCS");
-        db.insert(TABLE_NAME, null, contentValues);
-        /*
-        ContentValues contentValues2 = new ContentValues();
-        contentValues2.put(COL_2, "09/10BCS");
-        contentValues2.put(COL_3, "MY SECOND CHECKLIST");
-        db.insert(TABLE_NAME, null, contentValues2);
-        */
-    }
-
     public void deleteDatabase(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(DELETE_TABLE);
     }
-    /*
-    public boolean checkDataBase() {
-        SQLiteDatabase checkDB = null;
-        try {
-            checkDB = SQLiteDatabase.openDatabase(DATABASE_NAME, null,
-                    SQLiteDatabase.OPEN_READONLY);
-            checkDB.close();
-        } catch (SQLiteException e) {
-            System.out.println("ERROR: checklist.db open error!");
-        }
-        return checkDB != null;
-    }
-    */
-    /*
-    boolean tableExists(SQLiteDatabase db, String tableName)
-    {
-        System.out.println("Enter checked process");
-        if (tableName == null || db == null || !db.isOpen())
-        {
-            return false;
-        }
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM sqlite_master WHERE type = ? AND name = ?", new String[] {"table", tableName});
-        if (!cursor.moveToFirst())
-        {
-            cursor.close();
-            return false;
-        }
-        int count = cursor.getInt(0);
-        cursor.close();
-        return count > 0;
-    }
-    */
 }
