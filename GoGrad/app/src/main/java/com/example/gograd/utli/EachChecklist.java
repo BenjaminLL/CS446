@@ -292,9 +292,11 @@ public class EachChecklist {
                 }
             }
         }
+        /*
         for (String s : retval) {
             System.out.println(s);
         }
+        */
         return retval;
     }
 }
