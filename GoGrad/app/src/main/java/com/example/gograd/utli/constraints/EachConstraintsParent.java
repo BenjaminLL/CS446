@@ -49,7 +49,15 @@ public class EachConstraintsParent extends EachConstraints {
         return isUpdated;
     }
 
+    public int getCurrent() {
+        return current;
+    }
+
     public void setUpdated(Boolean updated) {
         isUpdated = updated;
+    }
+
+    public void setCurrent(int current) {
+        this.current = current;
     }
 }
