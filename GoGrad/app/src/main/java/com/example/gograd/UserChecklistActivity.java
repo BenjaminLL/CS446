@@ -13,6 +13,8 @@ import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -24,7 +26,6 @@ import android.widget.Toast;
 
 import com.example.gograd.utli.*;
 import com.example.gograd.utli.constraints.Constraints;
-import com.example.gograd.utli.constraints.EachConstraints;
 import com.example.gograd.utli.constraints.EachConstraintsChild;
 
 import java.util.ArrayList;
@@ -39,7 +40,6 @@ public class UserChecklistActivity extends AppCompatActivity {
     private EachChecklist checklist;
     private List<Constraints> constraints;
     private List<Pair<String, ArrayList<EachCourse>>> requiredCourses;
-//    private List<Pair<String, ArrayList<String>>> additionalConstraints;
 
     private Map<String, List<Pair<String, CheckBox>>> checkBoxR;
     private Map<String, List<Pair<EditText, CheckBox>>> checkBoxU;
@@ -49,6 +49,8 @@ public class UserChecklistActivity extends AppCompatActivity {
     private List<Integer> nonMBox;
     private Map<String, Integer> numLimit;
     private List<CheckBox> constraintsData;
+
+    private ModifyPlan modifyPlan;
 
     private String title;
 
@@ -60,6 +62,18 @@ public class UserChecklistActivity extends AppCompatActivity {
         // Set the toolbar
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.delete:
+                        deleteChecklist();
+                        break;
+                }
+                return true;
+            }
+        });
 
         ActionBar ab = getSupportActionBar();
         // Enable the Up button
@@ -73,6 +87,7 @@ public class UserChecklistActivity extends AppCompatActivity {
         /**
          * initial global variables
          */
+        modifyPlan = new ModifyPlan(title,this);
         checkBoxR = new HashMap<>();
         checkBoxU = new HashMap<>();
         constraintsData = new ArrayList<>();
@@ -199,7 +214,6 @@ public class UserChecklistActivity extends AppCompatActivity {
             int count = 0;
             final ArrayList<EachCourse> courses = requiredCourses.get(i).second;
             final int filled = courses.size();
-            System.out.println("Size: " + filled);
             int totalCourses = (int) (total * 2);
 
             for (int j = 0; j < totalCourses; ++j) {
@@ -603,6 +617,10 @@ public class UserChecklistActivity extends AppCompatActivity {
 
     }
 
+    private void deleteChecklist() {
+
+    }
+
 
     public int dpToPx(int dp, Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -715,4 +733,8 @@ public class UserChecklistActivity extends AppCompatActivity {
         startActivity(description);
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.checklist_menu, menu);
+        return true;
+    }
 }
