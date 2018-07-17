@@ -19,13 +19,15 @@ public class EachConstraintsParent extends EachConstraints {
 
     @Override
     public void update(Observable o, Object arg) {
+
         if (o instanceof EachConstraintsChild) {
-            boolean flag = (boolean) arg;
+            boolean flag = (Boolean) arg;
             if (flag) {
                 current++;
             } else {
                 current--;
             }
+
             limitationCheck();
         }
     }
