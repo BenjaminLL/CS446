@@ -10,6 +10,8 @@ public class EachConstraintsParent extends EachConstraints {
 
     private int current;
 
+    private Boolean isUpdated = false;
+
     public EachConstraintsParent(String whichPlan, String name, Boolean isChecked,
                                  int limitation, int current, ChecklistOpenHelper checklistOpenHelper) {
         super(whichPlan, name, isChecked, checklistOpenHelper);
@@ -24,8 +26,14 @@ public class EachConstraintsParent extends EachConstraints {
             boolean flag = (Boolean) arg;
             if (flag) {
                 current++;
+                if (current >= limitation && !isChecked) {
+                    isUpdated = true;
+                }
             } else {
                 current--;
+                if (current < limitation && isChecked) {
+                    isUpdated = true;
+                }
             }
 
             limitationCheck();
@@ -37,4 +45,11 @@ public class EachConstraintsParent extends EachConstraints {
         updateTable();
     }
 
+    public Boolean getUpdated() {
+        return isUpdated;
+    }
+
+    public void setUpdated(Boolean updated) {
+        isUpdated = updated;
+    }
 }

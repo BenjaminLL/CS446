@@ -7,6 +7,7 @@ import com.example.gograd.ChecklistOpenHelper;
 import com.example.gograd.DatabaseAccess;
 import com.example.gograd.utli.constraints.Constraints;
 import com.example.gograd.utli.constraints.EachConstraints;
+import com.example.gograd.utli.constraints.EachConstraintsChild;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -266,14 +267,36 @@ public class EachChecklist {
         }
     }
 
-    public void changeConstraintsIsCheck(String name) {
+    public ArrayList<String> changeConstraintsIsCheck(String name) {
+        ArrayList<String> retval = new ArrayList<>();
         for (Constraints constraints : constraints) {
             EachConstraints eachConstraints = constraints.findConstraint(name);
             if (eachConstraints != null) {
-                //System.out.println(eachConstraints.getName() + " : " + eachConstraints.getIsChecked());
+                retval.add(eachConstraints.getName());
                 eachConstraints.setIsChecked((!eachConstraints.getIsChecked()));
-                return;
+                if (constraints.getParOrChild()) {
+                    for (EachConstraintsChild ecc : constraints.getRelation().second) {
+                        if (ecc.getUpdated()) {
+                            retval.add(ecc.getName());
+                            ecc.setUpdated(false);
+                        }
+                    }
+                    break;
+                }
+                else {
+                    if (constraints.getRelation().first.getUpdated()) {
+                        retval.add(constraints.getRelation().first.getName());
+                        constraints.getRelation().first.setUpdated(false);
+                        break;
+                    }
+                }
             }
         }
+        /*
+        for (String s : retval) {
+            System.out.println(s);
+        }
+        */
+        return retval;
     }
 }

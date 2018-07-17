@@ -6,6 +6,8 @@ import java.util.Observable;
 
 public class EachConstraintsChild extends EachConstraints {
 
+    private Boolean isUpdated = false;
+
     public EachConstraintsChild(String whichPlan, String name,
                                 Boolean isChecked, ChecklistOpenHelper checklistOpenHelper) {
         super(whichPlan, name, isChecked, checklistOpenHelper);
@@ -14,9 +16,19 @@ public class EachConstraintsChild extends EachConstraints {
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof EachConstraintsParent) {
-            isChecked = (Boolean) arg;
+            if (isChecked != (Boolean) arg) {
+                isChecked = (Boolean) arg;
+                isUpdated = true;
+            }
             updateTable();
         }
     }
 
+    public Boolean getUpdated() {
+        return isUpdated;
+    }
+
+    public void setUpdated(Boolean updated) {
+        isUpdated = updated;
+    }
 }
