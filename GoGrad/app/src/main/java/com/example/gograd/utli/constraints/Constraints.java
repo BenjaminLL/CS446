@@ -10,7 +10,7 @@ public class Constraints {
 
     private Pair<EachConstraintsParent, ArrayList<EachConstraintsChild>> relation;
 
-    public Constraints(String whichPlan, String parentName, boolean isChecked, int limitation, int current,
+    public Constraints(String whichPlan, String parentName, Boolean isChecked, int limitation, int current,
                        ArrayList<Pair<String, Boolean>> children, ChecklistOpenHelper checklistOpenHelper) {
 
         EachConstraintsParent eachConstraintsParent = new EachConstraintsParent(whichPlan, parentName, isChecked, limitation, current, checklistOpenHelper);
@@ -22,6 +22,7 @@ public class Constraints {
             eachConstraintsChild.addObserver(eachConstraintsParent);
             eachConstraintsChildren.add(eachConstraintsChild);
         }
+
         relation = new Pair<>(eachConstraintsParent, eachConstraintsChildren);
     }
 

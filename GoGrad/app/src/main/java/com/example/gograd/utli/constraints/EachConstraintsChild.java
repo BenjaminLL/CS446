@@ -14,7 +14,7 @@ public class EachConstraintsChild extends EachConstraints {
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof EachConstraintsParent) {
-            isChecked = (boolean) arg;
+            isChecked = (Boolean) arg;
             updateTable();
         }
     }

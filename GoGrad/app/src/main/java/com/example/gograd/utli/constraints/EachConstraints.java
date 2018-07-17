@@ -30,7 +30,10 @@ public abstract class EachConstraints extends Observable implements Observer {
     public void setIsChecked(Boolean isChecked) {
         this.isChecked = isChecked;
         updateTable();
-        notifyObservers(isChecked);
+        this.setChanged();
+        notifyObservers(this.isChecked);
+
+
     }
 
     protected void updateTable() {
