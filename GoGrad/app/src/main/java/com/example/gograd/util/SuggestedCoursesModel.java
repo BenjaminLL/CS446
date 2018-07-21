@@ -34,6 +34,7 @@ public class SuggestedCoursesModel {
 
             boolean isValid = databaseAccess.getIsValid(courseName);
 
+//            System.out.println(courseName + ": " + isValid);
             if (isValid) {
 
                 if (!databaseAccess.getNeedCheck(courseName)) {
@@ -44,7 +45,7 @@ public class SuggestedCoursesModel {
                 ArrayList<List<String>> orHave = databaseAccess.getOrHave(courseName);
                 List<String> mustHave = databaseAccess.getMustHave(courseName);
 
-                if (mustHave != null && !checkMustHave(mustHave) || !checkOrHave(orHave)) {
+                if (mustHave != null && !checkMustHave(mustHave) || !checkOrHave(orHave, courseName)) {
                     continue;
                 } else {
                     resultCourses.add(courseName);
@@ -54,8 +55,11 @@ public class SuggestedCoursesModel {
         }
     }
 
-    private boolean checkOrHave(ArrayList<List<String>> orHave) {
+    private boolean checkOrHave(ArrayList<List<String>> orHave, String Name) {
 
+        if (Name.equals("MATH 1[34]6")) {
+            System.out.println(orHave.size());
+        }
         for (int i = 0; i < orHave.size(); ++i) {
             List<String> choices = orHave.get(i);
 
@@ -63,6 +67,10 @@ public class SuggestedCoursesModel {
 
                 String courseName = choices.get(j);
                 boolean checked = checklistOpenHelper.getIsCheck(plan, courseName);
+
+                if (Name.equals("MATH 1[34]6")) {
+                    System.out.println(courseName + ": " +checked);
+                }
 
                 if (checked) break;
                 if (!checked && j == choices.size() - 1) return false;
