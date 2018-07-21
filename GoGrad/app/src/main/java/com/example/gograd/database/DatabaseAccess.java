@@ -242,9 +242,30 @@ public class DatabaseAccess {
     Suggest TABLE!
     */
     public boolean getIsValid(String name){
-        String[] params = new String[]{name};
+        List<String> segmentsBracket = Arrays.asList(name.split("[\\[\\]]"));
+        if(segmentsBracket.size()>1){
+            String Classes = segmentsBracket.get(1);
+            int numClasses = Classes.length();
+
+            for(int i=0; i<numClasses; i++){
+                String queryClass = segmentsBracket.get(0);
+                queryClass+=Classes.charAt(i);
+                queryClass+=segmentsBracket.get(2);
+                if(getIsValidHelper(queryClass)){
+                    return true;
+                }
+            }
+        }else{
+            if(getIsValidHelper(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean getIsValidHelper(String name){
         Cursor c = db.rawQuery("select * from "+Suggest_TABLE+" where "+COL_S2+" = ?",
-                params);
+                new String[]{name});
         if(c.getCount() == 0){
             return false;
         }else{
@@ -255,10 +276,9 @@ public class DatabaseAccess {
     public boolean getNeedCheck(String name){
         List<String> segmentsBracket = Arrays.asList(name.split("[\\[\\]]"));
         if(segmentsBracket.size()>1){
-            //String head = segmentsBracket.get(0).substring(0,3);
             String Classes = segmentsBracket.get(1);
             int numClasses = Classes.length();
-            
+
             for(int i=0; i<numClasses; i++){
                 String queryClass = segmentsBracket.get(0);
                 queryClass+=Classes.charAt(i);
