@@ -1,6 +1,6 @@
-package com.example.gograd.utli.constraints;
+package com.example.gograd.util.constraints;
 
-import com.example.gograd.ChecklistOpenHelper;
+import com.example.gograd.database.ChecklistOpenHelper;
 
 import java.util.Observable;
 import java.util.Observer;

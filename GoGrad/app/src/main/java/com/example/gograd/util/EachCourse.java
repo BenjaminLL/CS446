@@ -1,6 +1,6 @@
-package com.example.gograd.utli;
+package com.example.gograd.util;
 
-import com.example.gograd.ChecklistOpenHelper;
+import com.example.gograd.database.ChecklistOpenHelper;
 
 public class EachCourse {
 

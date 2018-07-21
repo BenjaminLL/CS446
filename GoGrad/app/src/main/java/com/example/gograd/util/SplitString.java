@@ -1,9 +1,9 @@
-package com.example.gograd.utli;
+package com.example.gograd.util;
 
 import android.content.Context;
 import android.util.Pair;
 
-import com.example.gograd.DatabaseAccess;
+import com.example.gograd.database.DatabaseAccess;
 
 import java.util.ArrayList;
 import java.util.Collections;

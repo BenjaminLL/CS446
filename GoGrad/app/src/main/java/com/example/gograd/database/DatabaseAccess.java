@@ -1,4 +1,4 @@
-package com.example.gograd;
+package com.example.gograd.database;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -1,13 +1,13 @@
-package com.example.gograd.utli;
+package com.example.gograd.util;
 
 import android.content.Context;
 import android.util.Pair;
 
-import com.example.gograd.ChecklistOpenHelper;
-import com.example.gograd.DatabaseAccess;
-import com.example.gograd.utli.constraints.Constraints;
-import com.example.gograd.utli.constraints.EachConstraints;
-import com.example.gograd.utli.constraints.EachConstraintsChild;
+import com.example.gograd.database.ChecklistOpenHelper;
+import com.example.gograd.database.DatabaseAccess;
+import com.example.gograd.util.constraints.Constraints;
+import com.example.gograd.util.constraints.EachConstraints;
+import com.example.gograd.util.constraints.EachConstraintsChild;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +102,89 @@ public class EachChecklist {
         /* end constraints initializer */
 
         /* suggest courses initializer */
+
+        /*
+        for (EachCourse eachCourse : courses.get(0).second) {
+            String name = eachCourse.getName();
+            List<String> successors = databaseAccess.getSuccessor(name);
+            for (String successor : successors) {
+                Boolean flag = true; // false cannot add to suggestCourses
+                Boolean innerFlag1 = false;
+                Boolean innerFlag2 = false;
+                Boolean innerFlag3 = false;
+
+                List<String> mustHave = databaseAccess.getMustHave(successor);
+                if (mustHave != null) {
+                    for (String s : mustHave) {
+                        for (int i = 0; i < 2; i++) {
+                            for (EachCourse eachCourse1 : courses.get(i).second) {
+                                if (s.equals(eachCourse1.getName()) && !eachCourse1.getIscheck()) {
+                                    flag = false;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                List<String> orHave1 = databaseAccess.getOrHave(successor).get(0);
+                if (orHave1 != null) {
+                    for (String s : orHave1) {
+                        for (int i = 0; i < 2; i++) {
+                            for (EachCourse eachCourse1 : courses.get(i).second) {
+                                if (s.equals(eachCourse1.getName()) && eachCourse1.getIscheck()) {
+                                    innerFlag1 = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    innerFlag1 = true;
+                }
+
+                List<String> orHave2 = databaseAccess.getOrHave(successor).get(0);
+                if (orHave2 != null) {
+                    for (String s : orHave2) {
+                        for (int i = 0; i < 2; i++) {
+                            for (EachCourse eachCourse1 : courses.get(i).second) {
+                                if (s.equals(eachCourse1.getName()) && eachCourse1.getIscheck()) {
+                                    innerFlag2 = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    innerFlag2 = true;
+                }
+
+                List<String> orHave3 = databaseAccess.getOrHave(successor).get(0);
+                if (orHave3 != null) {
+                    for (String s : orHave3) {
+                        for (int i = 0; i < 2; i++) {
+                            for (EachCourse eachCourse1 : courses.get(i).second) {
+                                if (s.equals(eachCourse1.getName()) && eachCourse1.getIscheck()) {
+                                    innerFlag3 = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    innerFlag3 = true;
+                }
+
+                if (flag && innerFlag1 && innerFlag2 && innerFlag3) {
+                    suggestCourses.add(successor);
+                }
+            }
+        }
+
+        for (String s : suggestCourses) {
+            System.out.println(s);
+        }
+
+        */
 
         /* end suggest courses initializer */
 
@@ -215,7 +298,7 @@ public class EachChecklist {
                     current = 0;
                     flag = false;
                     tempList.clear();
-                    
+
                 } else {
                     Pair<String, Boolean> tempPair = new Pair<>(line.substring(2), checklistOpenHelper.getIsCheck(whichPlan, line.substring(2)));
                     tempList.add(tempPair);
@@ -277,8 +360,7 @@ public class EachChecklist {
                 if (constraints.getParOrChild()) {
                     if (!eachConstraints.getIsChecked()) {
                         constraints.getRelation().first.setCurrent(0);
-                    }
-                    else {
+                    } else {
                         constraints.getRelation().first.setCurrent(constraints.getRelation().second.size());
                     }
                     for (EachConstraintsChild ecc : constraints.getRelation().second) {
@@ -288,8 +370,7 @@ public class EachChecklist {
                         }
                     }
                     break;
-                }
-                else {
+                } else {
                     if (constraints.getRelation().first.getUpdated()) {
                         retval.add(constraints.getRelation().first.getName());
                         constraints.getRelation().first.setUpdated(false);

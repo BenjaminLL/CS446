@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.gograd.utli.*;
+import com.example.gograd.util.*;
 
 import java.util.ArrayList;
 
@@ -109,7 +109,7 @@ public class DescriptionActivity extends AppCompatActivity {
 
             TextView coReqest = new TextView(this);
             coReqest.setId(View.generateViewId());
-            String succText = "<b> Successor: </b>" + anti;
+            String succText = "<b> Corequisite: </b>" + anti;
             coReqest.setText(Html.fromHtml(succText));
             coReqest.setTextColor(Color.BLACK);
             coReqest.setTextSize(14.1f);

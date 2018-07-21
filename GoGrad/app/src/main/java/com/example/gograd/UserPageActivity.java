@@ -5,20 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.example.gograd.database.ChecklistOpenHelper;
 
 import java.util.ArrayList;
 
@@ -68,8 +66,8 @@ public class UserPageActivity extends AppCompatActivity {
             TextView claim = new TextView(this);
             claim.setId(R.id.claim);
             claim.setText("Please add more checklists!");
-            Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Myanmar Sangam MN.ttf");
-            claim.setTypeface(tf);
+//            Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Myanmar Sangam MN.ttf");
+//            claim.setTypeface(tf);
             claim.setTextSize(20);
             rootView.addView(claim, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT));
