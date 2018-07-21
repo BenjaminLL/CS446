@@ -111,24 +111,25 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         boolean ret = status==1 ? true:false;
         return ret;
     }
-/*
+
     public ArrayList<String> getUncheck(String id){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT "+COL_C3+" FROM ["+id+"] WHERE "+COL_C2
-                +"=?",new String[]{requires});
-        int status = 0;
+        Cursor cursor = db.rawQuery("SELECT * FROM ["+id+"] WHERE "+COL_C3
+                +"=?",new String[]{"0"});
+        ArrayList<String> ret = new ArrayList<>();
         if(cursor.getCount() == 0){
-            status = 0;
+            return ret;
         }else{
+            String temp;
             while (cursor.moveToNext()) {
-                status = cursor.getInt(
-                        cursor.getColumnIndexOrThrow(COL_C3));
+                temp = cursor.getString(
+                        cursor.getColumnIndexOrThrow(COL_C2));
+                ret.add(temp);
             }
         }
-        boolean ret = status==1 ? true:false;
         return ret;
     }
- */
+
     public boolean updateUserTable_Status(String id, String requires, boolean status){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
