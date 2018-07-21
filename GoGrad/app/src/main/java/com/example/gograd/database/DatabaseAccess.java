@@ -251,16 +251,16 @@ public class DatabaseAccess {
                 String queryClass = segmentsBracket.get(0);
                 queryClass+=Classes.charAt(i);
                 queryClass+=segmentsBracket.get(2);
-                if(getIsValidHelper(queryClass)){
-                    return true;
+                if(!getIsValidHelper(queryClass)){
+                    return false;
                 }
             }
         }else{
-            if(getIsValidHelper(name)){
-                return true;
+            if(!getIsValidHelper(name)){
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public boolean getIsValidHelper(String name){
