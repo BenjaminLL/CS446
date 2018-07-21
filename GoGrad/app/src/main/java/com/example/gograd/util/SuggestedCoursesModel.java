@@ -8,13 +8,17 @@ import com.example.gograd.database.DatabaseAccess;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuggestedCourses {
+public class SuggestedCoursesModel {
 
     private ChecklistOpenHelper checklistOpenHelper;
     private String plan;
+
     private List<String> resultCourses;
 
-    public SuggestedCourses(String plan, Context context) {
+    public SuggestedCoursesModel(String plan, Context context) {
+
+        this.plan = plan;
+        System.out.println(plan);
 
         checklistOpenHelper = new ChecklistOpenHelper(context, "checklist.db", null, 1);
         resultCourses = new ArrayList<>();
@@ -31,10 +35,16 @@ public class SuggestedCourses {
             boolean isValid = databaseAccess.getIsValid(courseName);
 
             if (isValid) {
+
+                if (!databaseAccess.getNeedCheck(courseName)) {
+                    resultCourses.add(courseName);
+                    continue;
+                }
+
                 ArrayList<List<String>> orHave = databaseAccess.getOrHave(courseName);
                 List<String> mustHave = databaseAccess.getMustHave(courseName);
 
-                if (!checkMustHave(mustHave) || !checkOrHave(orHave)) {
+                if (mustHave != null && !checkMustHave(mustHave) || !checkOrHave(orHave)) {
                     continue;
                 } else {
                     resultCourses.add(courseName);
@@ -71,5 +81,17 @@ public class SuggestedCourses {
         }
 
         return true;
+    }
+
+
+    /**
+     * getter and setter
+     */
+    public List<String> getResultCourses() {
+        return resultCourses;
+    }
+
+    public void setResultCourses(List<String> resultCourses) {
+        this.resultCourses = resultCourses;
     }
 }
