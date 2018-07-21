@@ -115,7 +115,7 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
     public ArrayList<String> getUncheck(String id){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM ["+id+"] WHERE "+COL_C3
-                +"=?",new String[]{"0"});
+                +"=?",new String[]{String.valueOf(0)});
         ArrayList<String> ret = new ArrayList<>();
         if(cursor.getCount() == 0){
             return ret;
