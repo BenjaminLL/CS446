@@ -97,6 +97,35 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
 
     public boolean getIsCheck(String id, String requires){
         SQLiteDatabase db = getReadableDatabase();
+        String last = requires.substring(requires.length()-1);
+        if(requires.substring(0,4)=="CS 1"){
+            if(last == "5"){
+                requires = "CS 1[134]5";
+            }else if(last == "6"){
+                requires = "CS 1[34]6";
+            }
+        }else if(requires.substring(0,6)=="MATH 1"){
+            if(last == "5"){
+                requires = "MATH 1[34]5";
+            }else if(last =="6") {
+                requires = "MATH 1[34]6";
+            }else if(last == "7") {
+                requires = "MATH 1[234]7";
+            }else if(last == "8") {
+                requires = "MATH 1[234]8";
+            }
+        }else if(requires.substring(0,6)=="MATH 2"){
+            if(last == "9"){
+                requires = "MATH 2[34]9";
+            }
+        }else if(requires.substring(0,6)=="STAT 2"){
+            if(last == "0"){
+                requires = "STAT 2[34]0";
+            }else if(last == "1"){
+                requires = "STAT 2[34]1";
+            }
+        }
+
         Cursor cursor = db.rawQuery("SELECT "+COL_C3+" FROM ["+id+"] WHERE "+COL_C2
                 +"=?",new String[]{requires});
         int status = 0;
