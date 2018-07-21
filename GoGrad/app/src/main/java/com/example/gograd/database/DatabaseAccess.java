@@ -253,6 +253,29 @@ public class DatabaseAccess {
     }
 
     public boolean getNeedCheck(String name){
+        List<String> segmentsBracket = Arrays.asList(name.split("[\\[\\]]"));
+        if(segmentsBracket.size()>1){
+            //String head = segmentsBracket.get(0).substring(0,3);
+            String Classes = segmentsBracket.get(1);
+            int numClasses = Classes.length();
+            
+            for(int i=0; i<numClasses; i++){
+                String queryClass = segmentsBracket.get(0);
+                queryClass+=Classes.charAt(i);
+                queryClass+=segmentsBracket.get(2);
+                if(getNeedCheckHelper(queryClass)){
+                    return true;
+                }
+            }
+        }else{
+            if(getNeedCheckHelper(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean getNeedCheckHelper(String name){
         int temp = 0;
         String[] params = new String[]{name};
         Cursor c = db.rawQuery("select * from "+Suggest_TABLE+" where "+COL_S2+" = ?",

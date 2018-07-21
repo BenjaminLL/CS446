@@ -64,13 +64,13 @@ public class CourseDescriptions {
             if(query.substring(0,6).equals("(Rec: ")){
                 query = query.trim();
                 query = query.substring(6, query.length()-1);
-                System.out.println("query = "+query);
+                //System.out.println("query = "+query);
             }
             String description = databaseAccess.getAllDescription(query);
             ListOfDescriptions.add(getCont(description));
         }else if(segmentsBracket.size()==1){
             for(int i=0; i<segmentsOR.size(); i++){
-                System.out.println("segmentOr " + segmentsOR.get(i));
+                //System.out.println("segmentOr " + segmentsOR.get(i));
                 String description = databaseAccess.getAllDescription(segmentsOR.get(i));
                 ListOfDescriptions.add(getCont(description));
             }
