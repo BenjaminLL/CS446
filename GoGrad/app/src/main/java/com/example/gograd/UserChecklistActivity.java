@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -613,6 +614,31 @@ public class UserChecklistActivity extends AppCompatActivity {
             ContentConstraintSet.applyTo(addConstraintBox);
 
         }
+
+        /**
+         * suggested course button
+         */
+        ConstraintLayout buttonConstraintbox = new ConstraintLayout(this);
+        buttonConstraintbox.setId(View.generateViewId());
+        linearLayout.addView(buttonConstraintbox, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT));
+
+        Button sugCourseButton = new Button(this);
+        sugCourseButton.setId(View.generateViewId());
+        sugCourseButton.setText("Suggested Courses");
+        buttonConstraintbox.addView(sugCourseButton, new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.MATCH_CONSTRAINT));
+
+        ConstraintSet buttonConstraints = new ConstraintSet();
+        buttonConstraints.clone(buttonConstraintbox);
+
+//        int tmpEndMargin = dpToPx(16, this);
+//        int tmpStartMargin = dpToPx(32, this);
+        buttonConstraints.connect(sugCourseButton.getId(), ConstraintSet.TOP, buttonConstraintbox.getId(), ConstraintSet.TOP, 0);
+        buttonConstraints.connect(sugCourseButton.getId(), ConstraintSet.LEFT, buttonConstraintbox.getId(), ConstraintSet.LEFT, tmpStartMargin);
+        buttonConstraints.connect(sugCourseButton.getId(), ConstraintSet.RIGHT, buttonConstraintbox.getId(), ConstraintSet.RIGHT, tmpEndMargin);
+
+        buttonConstraints.applyTo(buttonConstraintbox);
 
         addListenerToConstraints();
 
