@@ -83,20 +83,18 @@
         </activity>
 
 
-        <!-- unused pages -->
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".SuggestedCourses"
-            android:parentActivityName=".ChecklistActivity">
+            android:parentActivityName=".UserChecklistActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ChecklistActivity" />
+                android:value=".UserChecklistActivity" />
         </activity>
 
     </application>

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gograd.util.*;
+import com.example.gograd.util.SuggestedCoursesModel;
 import com.example.gograd.util.constraints.Constraints;
 import com.example.gograd.util.constraints.EachConstraintsChild;
 
@@ -54,6 +55,7 @@ public class UserChecklistActivity extends AppCompatActivity {
     private ModifyPlan modifyPlan;
 
     private String title;
+    private View currEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,8 @@ public class UserChecklistActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         title = intent.getStringExtra(UserPageActivity.TITLE);
+        final String programName = title;
+        final Context context = this;
 
         ab.setTitle(title);
 
@@ -600,7 +604,7 @@ public class UserChecklistActivity extends AppCompatActivity {
                     if (i == constraints.size() - 1 && j == levelText.size() - 1) {
 
                         if (children.size() == 0 || k == level) {
-                            ContentConstraintSet.connect(tmpCheck.getId(), ConstraintSet.BOTTOM, addConstraintBox.getId(), ConstraintSet.BOTTOM, 100);
+                            ContentConstraintSet.connect(tmpCheck.getId(), ConstraintSet.BOTTOM, addConstraintBox.getId(), ConstraintSet.BOTTOM, 60);
                         }
                     }
 
@@ -618,6 +622,7 @@ public class UserChecklistActivity extends AppCompatActivity {
         /**
          * suggested course button
          */
+        System.out.println("button start");
         ConstraintLayout buttonConstraintbox = new ConstraintLayout(this);
         buttonConstraintbox.setId(View.generateViewId());
         linearLayout.addView(buttonConstraintbox, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
@@ -626,22 +631,44 @@ public class UserChecklistActivity extends AppCompatActivity {
         Button sugCourseButton = new Button(this);
         sugCourseButton.setId(View.generateViewId());
         sugCourseButton.setText("Suggested Courses");
+        sugCourseButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         buttonConstraintbox.addView(sugCourseButton, new ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.MATCH_CONSTRAINT));
+                ConstraintLayout.LayoutParams.MATCH_CONSTRAINT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
 
         ConstraintSet buttonConstraints = new ConstraintSet();
         buttonConstraints.clone(buttonConstraintbox);
 
-//        int tmpEndMargin = dpToPx(16, this);
-//        int tmpStartMargin = dpToPx(32, this);
+        int buttonStartMargin = dpToPx(50, this);
+        int buttonEndMargin = dpToPx(16, this);
         buttonConstraints.connect(sugCourseButton.getId(), ConstraintSet.TOP, buttonConstraintbox.getId(), ConstraintSet.TOP, 0);
-        buttonConstraints.connect(sugCourseButton.getId(), ConstraintSet.LEFT, buttonConstraintbox.getId(), ConstraintSet.LEFT, tmpStartMargin);
-        buttonConstraints.connect(sugCourseButton.getId(), ConstraintSet.RIGHT, buttonConstraintbox.getId(), ConstraintSet.RIGHT, tmpEndMargin);
+        buttonConstraints.connect(sugCourseButton.getId(), ConstraintSet.BOTTOM, buttonConstraintbox.getId(), ConstraintSet.BOTTOM, 60);
+        buttonConstraints.connect(sugCourseButton.getId(), ConstraintSet.LEFT, buttonConstraintbox.getId(), ConstraintSet.LEFT, buttonStartMargin);
+        buttonConstraints.connect(sugCourseButton.getId(), ConstraintSet.RIGHT, buttonConstraintbox.getId(), ConstraintSet.RIGHT, buttonEndMargin);
 
         buttonConstraints.applyTo(buttonConstraintbox);
 
+        sugCourseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SuggestedCoursesModel model = new SuggestedCoursesModel(programName, context);
+                List<String> result =  model.getResultCourses();
+                for (int c = 0; c < result.size(); ++c) {
+                    System.out.println(result.get(c));
+                }
+                openSuggestedCourses();
+            }
+        });
+
         addListenerToConstraints();
 
+    }
+
+    private void openSuggestedCourses() {
+
+        Intent sugCourses = new Intent(this, SuggestedCourses.class);
+
+        startActivity(sugCourses);
     }
 
     private void deleteChecklist() {
@@ -730,6 +757,8 @@ public class UserChecklistActivity extends AppCompatActivity {
                             } else if (newText.equals("") && !newText.equals(name)) {
                                 checklist.deleteCourses(name, catName);
                             }
+
+                            currEditText = course;
                         }
                     }
                 });
@@ -791,4 +820,6 @@ public class UserChecklistActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.checklist_menu, menu);
         return true;
     }
+
+    
 }
