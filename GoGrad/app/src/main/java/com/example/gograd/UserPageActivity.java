@@ -68,8 +68,8 @@ public class UserPageActivity extends AppCompatActivity {
             TextView claim = new TextView(this);
             claim.setId(R.id.claim);
             claim.setText("Please add more checklists!");
-            Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Myanmar Sangam MN.ttf");
-            claim.setTypeface(tf);
+//            Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Myanmar Sangam MN.ttf");
+//            claim.setTypeface(tf);
             claim.setTextSize(20);
             rootView.addView(claim, new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT));

@@ -90,7 +90,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:checked="false"
+                    android:checked="true"
                     android:text="CS 1[34]5"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     app:layout_constraintStart_toStartOf="@+id/imageView7"

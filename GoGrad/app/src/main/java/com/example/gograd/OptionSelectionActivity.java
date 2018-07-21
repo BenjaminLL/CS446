@@ -107,8 +107,15 @@ public class OptionSelectionActivity extends AppCompatActivity implements Progra
         String academicYear = year.getText().toString();
         String optionName = option.getText().toString();
 
-        if (optionName.equals("") || academicYear.equals("")) {
-            Toast claim = Toast.makeText(this, "Please select an Option and an Academic year",
+        if (optionName.equals("")) {
+            Toast claim = Toast.makeText(this, "Option required",
+                    Toast.LENGTH_SHORT);
+            claim.show();
+            return;
+        }
+
+        if (academicYear.equals("")) {
+            Toast claim = Toast.makeText(this, "Academic year required",
                     Toast.LENGTH_SHORT);
             claim.show();
             return;
