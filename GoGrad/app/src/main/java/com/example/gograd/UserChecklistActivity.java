@@ -24,9 +24,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gograd.utli.*;
-import com.example.gograd.utli.constraints.Constraints;
-import com.example.gograd.utli.constraints.EachConstraintsChild;
+import com.example.gograd.util.*;
+import com.example.gograd.util.constraints.Constraints;
+import com.example.gograd.util.constraints.EachConstraintsChild;
 
 import java.util.ArrayList;
 import java.util.HashMap;

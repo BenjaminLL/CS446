@@ -1,13 +1,13 @@
-package com.example.gograd.utli;
+package com.example.gograd.util;
 
 import android.content.Context;
 import android.util.Pair;
 
-import com.example.gograd.ChecklistOpenHelper;
-import com.example.gograd.DatabaseAccess;
-import com.example.gograd.utli.constraints.Constraints;
-import com.example.gograd.utli.constraints.EachConstraints;
-import com.example.gograd.utli.constraints.EachConstraintsChild;
+import com.example.gograd.database.ChecklistOpenHelper;
+import com.example.gograd.database.DatabaseAccess;
+import com.example.gograd.util.constraints.Constraints;
+import com.example.gograd.util.constraints.EachConstraints;
+import com.example.gograd.util.constraints.EachConstraintsChild;
 
 import java.util.ArrayList;
 import java.util.List;

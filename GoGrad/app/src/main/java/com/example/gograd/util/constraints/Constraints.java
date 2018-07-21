@@ -1,8 +1,8 @@
-package com.example.gograd.utli.constraints;
+package com.example.gograd.util.constraints;
 
 import android.util.Pair;
 
-import com.example.gograd.ChecklistOpenHelper;
+import com.example.gograd.database.ChecklistOpenHelper;
 
 import java.util.ArrayList;
 

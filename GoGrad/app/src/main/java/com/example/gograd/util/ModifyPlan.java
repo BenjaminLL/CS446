@@ -1,9 +1,9 @@
-package com.example.gograd.utli;
+package com.example.gograd.util;
 
 import android.content.Context;
 import android.util.Pair;
 
-import com.example.gograd.ChecklistOpenHelper;
+import com.example.gograd.database.ChecklistOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
