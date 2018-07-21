@@ -111,7 +111,24 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         boolean ret = status==1 ? true:false;
         return ret;
     }
-
+/*
+    public ArrayList<String> getUncheck(String id){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT "+COL_C3+" FROM ["+id+"] WHERE "+COL_C2
+                +"=?",new String[]{requires});
+        int status = 0;
+        if(cursor.getCount() == 0){
+            status = 0;
+        }else{
+            while (cursor.moveToNext()) {
+                status = cursor.getInt(
+                        cursor.getColumnIndexOrThrow(COL_C3));
+            }
+        }
+        boolean ret = status==1 ? true:false;
+        return ret;
+    }
+ */
     public boolean updateUserTable_Status(String id, String requires, boolean status){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();

@@ -241,6 +241,16 @@ public class DatabaseAccess {
     /*
     Suggest TABLE!
     */
+    public boolean getIsValid(String name){
+        String[] params = new String[]{name};
+        Cursor c = db.rawQuery("select * from "+Suggest_TABLE+" where "+COL_S2+" = ?",
+                params);
+        if(c.getCount() == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
     public boolean getNeedCheck(String name){
         int temp = 0;
