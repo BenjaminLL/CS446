@@ -310,6 +310,15 @@ public class DatabaseAccess {
 
     //get all the "OR" requirement
     public ArrayList<List<String>> getOrHave(String name){
+        List<String> segmentsBracket = Arrays.asList(name.split("[\\[\\]]"));
+        if(segmentsBracket.size()>1){
+            String Classes = segmentsBracket.get(1);
+            int numClasses = Classes.length();
+            name = segmentsBracket.get(0);
+            name+="3";
+            name+=segmentsBracket.get(2);
+        }
+        
         String temp;
         String[] params = new String[]{name};
         ArrayList<List<String>> ret = new ArrayList<>();
