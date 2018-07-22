@@ -109,7 +109,7 @@ public class DescriptionActivity extends AppCompatActivity {
 
             TextView coReqest = new TextView(this);
             coReqest.setId(View.generateViewId());
-            String succText = "<b> Corequisite: </b>" + anti;
+            String succText = "<b> Successors: </b>" + anti;
             coReqest.setText(Html.fromHtml(succText));
             coReqest.setTextColor(Color.BLACK);
             coReqest.setTextSize(14.1f);

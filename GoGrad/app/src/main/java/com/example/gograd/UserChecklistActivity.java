@@ -57,6 +57,7 @@ public class UserChecklistActivity extends AppCompatActivity {
     private ModifyPlan modifyPlan;
 
     private String title;
+    LinearLayout linearLayout;
     private View currEditText;
 
     @Override
@@ -134,7 +135,7 @@ public class UserChecklistActivity extends AppCompatActivity {
         /**
          * view contents
          */
-        LinearLayout linearLayout = findViewById(R.id.results);
+        linearLayout = findViewById(R.id.results);
 
         for (int i = 0; i < requiredCourses.size(); ++i) {
 
@@ -783,6 +784,7 @@ public class UserChecklistActivity extends AppCompatActivity {
             }
 
         }
+
     }
 
     private void addListenerToConstraints() {
