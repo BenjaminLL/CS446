@@ -107,7 +107,7 @@ public class DatabaseAccess {
                 temp = "null";
             }
             description += temp + "\t";
-            temp = c.getString(c.getColumnIndexOrThrow(COL_7));
+            temp = c.getString(c.getColumnIndexOrThrow(COL_6));
             if(temp == null){
                 temp = "null";
             }
