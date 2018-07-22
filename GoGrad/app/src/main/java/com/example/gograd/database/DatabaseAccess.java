@@ -295,7 +295,7 @@ public class DatabaseAccess {
                     return true;
                 }
             }
-        }else if(segmentsOR.size()>0){
+        }else if(segmentsOR.size()==2){
             return false;
         } else{
             if(getNeedCheckHelper(name)){

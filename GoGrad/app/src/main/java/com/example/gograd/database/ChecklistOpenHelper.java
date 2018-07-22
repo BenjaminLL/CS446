@@ -108,15 +108,12 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
             requires = "BIOL 150 or BIOL 165";
         }else if(requires.equals("FINE 101")||requires.equals("VCULT 101")){
             requires = "FINE 101 or VCULT 101";
+        }else if(requires.equals("CS 115")||requires.equals("CS 135")||requires.equals("CS 145")){
+            requires = "CS 1[134]5";
+        }else if(requires.equals("CS 136")||requires.equals("CS 146")){
+            requires = "CS 1[34]6";
         }
-
-        if(requires.length() == 6){
-            if(requires.equals("CS 115")||requires.equals("CS 135")||requires.equals("CS 145")){
-                requires = "CS 1[134]5";
-            }else if(requires.equals("CS 136")||requires.equals("CS 146")){
-                requires = "CS 1[34]6";
-            }
-        }else if(requires.length() == 8){
+        if(requires.length() == 8){
             if(requires.substring(0,6).equals("MATH 1")){
                 if(last.equals("5")){
                     requires = "MATH 1[34]5";
