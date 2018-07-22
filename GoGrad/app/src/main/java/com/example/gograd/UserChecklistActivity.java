@@ -15,7 +15,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -671,7 +670,7 @@ public class UserChecklistActivity extends AppCompatActivity {
 
     private void openSuggestedCourses(List<String> result) {
 
-        Intent sugCourses = new Intent(this, SuggestedCourses.class);
+        Intent sugCourses = new Intent(this, SuggestedCoursesActivity.class);
 
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("courses", (ArrayList<String>) result);
