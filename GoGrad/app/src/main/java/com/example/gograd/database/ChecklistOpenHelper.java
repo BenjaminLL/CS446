@@ -99,34 +99,30 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String last = requires.substring(requires.length()-1);
 
-        if(requires.length() == 6){
-            if(requires.substring(0,4)=="CS 1"){
-                if(last == "5"){
-                    requires = "CS 1[134]5";
-                }else if(last == "6"){
-                    requires = "CS 1[34]6";
-                }
-            }
+        if(requires.equals("CS 115")||requires.equals("CS 135")||requires.equals("CS 145")){
+            requires = "CS 1[134]5";
+        }else if(requires.equals("CS 136")||requires.equals("CS 146")){
+            requires = "CS 1[34]6";
         }
         if(requires.length() == 8){
-            if(requires.substring(0,6)=="MATH 1"){
-                if(last == "5"){
+            if(requires.substring(0,6).equals("MATH 1")){
+                if(last.equals("5")){
                     requires = "MATH 1[34]5";
-                }else if(last =="6") {
+                }else if(last.equals("6")) {
                     requires = "MATH 1[34]6";
-                }else if(last == "7") {
+                }else if(last.equals("7")) {
                     requires = "MATH 1[234]7";
-                }else if(last == "8") {
+                }else if(last.equals("8")) {
                     requires = "MATH 1[234]8";
                 }
-            }else if(requires.substring(0,6)=="MATH 2"){
-                if(last == "9"){
+            }else if(requires.substring(0,6).equals("MATH 2")){
+                if(last.equals("9")){
                     requires = "MATH 2[34]9";
                 }
-            }else if(requires.substring(0,6)=="STAT 2"){
-                if(last == "0"){
+            }else if(requires.substring(0,6).equals("STAT 2")){
+                if(last.equals("0")){
                     requires = "STAT 2[34]0";
-                }else if(last == "1"){
+                }else if(last.equals("1")){
                     requires = "STAT 2[34]1";
                 }
             }
