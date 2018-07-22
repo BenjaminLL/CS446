@@ -243,6 +243,7 @@ public class DatabaseAccess {
     */
     public boolean getIsValid(String name){
         List<String> segmentsBracket = Arrays.asList(name.split("[\\[\\]]"));
+        List<String> segmentsOR = Arrays.asList(name.split("\\sor\\s"));
         if(segmentsBracket.size()>1){
             String Classes = segmentsBracket.get(1);
             int numClasses = Classes.length();
@@ -252,6 +253,12 @@ public class DatabaseAccess {
                 queryClass+=Classes.charAt(i);
                 queryClass+=segmentsBracket.get(2);
                 if(!getIsValidHelper(queryClass)){
+                    return false;
+                }
+            }
+        }else if(segmentsOR.size()>1){
+            for(int i=0; i<segmentsOR.size(); i++){
+                if(!getIsValidHelper(segmentsOR.get(i))){
                     return false;
                 }
             }
@@ -275,6 +282,7 @@ public class DatabaseAccess {
 
     public boolean getNeedCheck(String name){
         List<String> segmentsBracket = Arrays.asList(name.split("[\\[\\]]"));
+        List<String> segmentsOR = Arrays.asList(name.split("\\sor\\s"));
         if(segmentsBracket.size()>1){
             String Classes = segmentsBracket.get(1);
             int numClasses = Classes.length();
@@ -287,7 +295,9 @@ public class DatabaseAccess {
                     return true;
                 }
             }
-        }else{
+        }else if(segmentsOR.size()>0){
+            return false;
+        } else{
             if(getNeedCheckHelper(name)){
                 return true;
             }

@@ -11,6 +11,7 @@ import android.util.Pair;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ChecklistOpenHelper extends SQLiteOpenHelper {
@@ -99,12 +100,23 @@ public class ChecklistOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String last = requires.substring(requires.length()-1);
 
-        if(requires.equals("CS 115")||requires.equals("CS 135")||requires.equals("CS 145")){
-            requires = "CS 1[134]5";
-        }else if(requires.equals("CS 136")||requires.equals("CS 146")){
-            requires = "CS 1[34]6";
+        if(requires.equals("GENE 123")||requires.equals("MTE 120")){
+            requires = "GENE 123 or MTE 120";
+        }else if(requires.equals("ECE 224")||requires.equals("MTE 325")){
+            requires = "ECE 224 or MTE 325";
+        }else if(requires.equals("BIOL 150")||requires.equals("BIOL 165")){
+            requires = "BIOL 150 or BIOL 165";
+        }else if(requires.equals("FINE 101")||requires.equals("VCULT 101")){
+            requires = "FINE 101 or VCULT 101";
         }
-        if(requires.length() == 8){
+
+        if(requires.length() == 6){
+            if(requires.equals("CS 115")||requires.equals("CS 135")||requires.equals("CS 145")){
+                requires = "CS 1[134]5";
+            }else if(requires.equals("CS 136")||requires.equals("CS 146")){
+                requires = "CS 1[34]6";
+            }
+        }else if(requires.length() == 8){
             if(requires.substring(0,6).equals("MATH 1")){
                 if(last.equals("5")){
                     requires = "MATH 1[34]5";
