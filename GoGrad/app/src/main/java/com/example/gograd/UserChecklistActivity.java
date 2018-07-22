@@ -15,7 +15,9 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -269,6 +271,8 @@ public class UserChecklistActivity extends AppCompatActivity {
                 // checkbox
                 CheckBox checkBox = new CheckBox(this);
                 checkBox.setId(View.generateViewId());
+                checkBox.setFocusable(true);
+//                checkBox.setFocusableInTouchMode(true);
                 if (j < filled) {
                     final boolean isChecked = courses.get(j).getIscheck();
                     checkBox.setChecked(isChecked);
@@ -706,6 +710,7 @@ public class UserChecklistActivity extends AppCompatActivity {
                         checklist.changeCourseIsCheck(courseName, catName);
                     }
                 });
+
             }
         }
 
@@ -726,6 +731,14 @@ public class UserChecklistActivity extends AppCompatActivity {
                 checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                        if (currEditText != null) {
+                            if (currEditText.hasFocus()) {
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(currEditText.getWindowToken(), 0);
+                                currEditText.clearFocus();
+                            }
+                        }
 
                         String courseName = course.getText().toString();
                         if (courseName.equals("")) {
@@ -757,7 +770,7 @@ public class UserChecklistActivity extends AppCompatActivity {
                             } else if (newText.equals("") && !newText.equals(name)) {
                                 checklist.deleteCourses(name, catName);
                             }
-
+                        } else {
                             currEditText = course;
                         }
                     }
@@ -821,5 +834,5 @@ public class UserChecklistActivity extends AppCompatActivity {
         return true;
     }
 
-    
+
 }
