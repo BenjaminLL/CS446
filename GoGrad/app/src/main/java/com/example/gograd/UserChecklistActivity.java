@@ -657,10 +657,10 @@ public class UserChecklistActivity extends AppCompatActivity {
 
                 SuggestedCoursesModel model = new SuggestedCoursesModel(programName, context);
                 List<String> result =  model.getResultCourses();
-                for (int c = 0; c < result.size(); ++c) {
-                    System.out.println(result.get(c));
-                }
-                openSuggestedCourses();
+//                for (int c = 0; c < result.size(); ++c) {
+//                    System.out.println(result.get(c));
+//                }
+                openSuggestedCourses(result);
             }
         });
 
@@ -668,10 +668,14 @@ public class UserChecklistActivity extends AppCompatActivity {
 
     }
 
-    private void openSuggestedCourses() {
+    private void openSuggestedCourses(List<String> result) {
 
         Intent sugCourses = new Intent(this, SuggestedCourses.class);
 
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("courses", (ArrayList<String>) result);
+
+        sugCourses.putExtra("Course", bundle);
         startActivity(sugCourses);
     }
 
