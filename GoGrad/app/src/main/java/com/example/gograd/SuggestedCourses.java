@@ -45,7 +45,11 @@ public class SuggestedCourses extends AppCompatActivity {
 
         for (int i = 0; i < courseNames.size(); ++i) {
 
-            resultString += courseNames.get(i) + ", ";
+            if (i == 0) {
+                resultString += courseNames.get(i);
+            } else {
+                resultString += ", " + courseNames.get(i);
+            }
         }
 
         if (resultString.equals("")) {
