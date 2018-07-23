@@ -88,7 +88,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".SuggestedCourses"
+            android:name=".SuggestedCoursesActivity"
             android:parentActivityName=".UserChecklistActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
