@@ -30,7 +30,7 @@
      2. Provides course descriptions, including prerequisites and corequisites.
      3. Checking the top level of addition constraints would check the lower level of additional constraints automatically.           (vers-vice)
      4. Provides a delete button at the toolbar to delete current plan and all edited data from user would be removed from             databases.
-  ● Suggested Course (not finished)
+  ● Suggested Course
     
     1. Provides the suggested courses for the next term based on the courses that the user has enrolled. (Satisfying all the          constraints)
     
