@@ -35,6 +35,7 @@ public class SuggestedCoursesModel {
         for (int i = 0; i < unCheckedCourses.size(); ++i) {
 
             String courseName = unCheckedCourses.get(i);
+            System.out.println(courseName);
 
             boolean isValid = databaseAccess.getIsValid(courseName);
 

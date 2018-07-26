@@ -657,9 +657,7 @@ public class UserChecklistActivity extends AppCompatActivity {
 
                 SuggestedCoursesModel model = new SuggestedCoursesModel(programName, context);
                 List<String> result =  model.getResultCourses();
-//                for (int c = 0; c < result.size(); ++c) {
-//                    System.out.println(result.get(c));
-//                }
+
                 openSuggestedCourses(result);
             }
         });
